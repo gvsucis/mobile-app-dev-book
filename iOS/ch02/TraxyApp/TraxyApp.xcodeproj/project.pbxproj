@@ -14,6 +14,7 @@
 		9ECCF2DE1E1E9312004CDD5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ECCF2DC1E1E9312004CDD5C /* LaunchScreen.storyboard */; };
 		9ECCF2E91E1E9312004CDD5C /* TraxyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECCF2E81E1E9312004CDD5C /* TraxyAppTests.swift */; };
 		9ECCF2F41E1E9312004CDD5C /* TraxyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECCF2F31E1E9312004CDD5C /* TraxyAppUITests.swift */; };
+		9EDE87D31E316CEF00C2F900 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE87D51E316CEF00C2F900 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,10 @@
 		9ECCF2EF1E1E9312004CDD5C /* TraxyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraxyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ECCF2F31E1E9312004CDD5C /* TraxyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraxyAppUITests.swift; sourceTree = "<group>"; };
 		9ECCF2F51E1E9312004CDD5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EDE87CF1E31541300C2F900 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		9EDE87D01E31541300C2F900 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9EDE87D41E316CEF00C2F900 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9EDE87D61E316CF800C2F900 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +102,7 @@
 		9ECCF2D21E1E9312004CDD5C /* TraxyApp */ = {
 			isa = PBXGroup;
 			children = (
+				9EDE87D51E316CEF00C2F900 /* Localizable.strings */,
 				9ECCF2D31E1E9312004CDD5C /* AppDelegate.swift */,
 				9ECCF2D51E1E9312004CDD5C /* ViewController.swift */,
 				9ECCF2D71E1E9312004CDD5C /* Main.storyboard */,
@@ -236,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9ECCF2DE1E1E9312004CDD5C /* LaunchScreen.storyboard in Resources */,
+				9EDE87D31E316CEF00C2F900 /* Localizable.strings in Resources */,
 				9ECCF2DB1E1E9312004CDD5C /* Assets.xcassets in Resources */,
 				9ECCF2D91E1E9312004CDD5C /* Main.storyboard in Resources */,
 			);
@@ -303,6 +310,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9ECCF2D81E1E9312004CDD5C /* Base */,
+				9EDE87CF1E31541300C2F900 /* nl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -311,8 +319,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				9ECCF2DD1E1E9312004CDD5C /* Base */,
+				9EDE87D01E31541300C2F900 /* nl */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		9EDE87D51E316CEF00C2F900 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDE87D41E316CEF00C2F900 /* nl */,
+				9EDE87D61E316CF800C2F900 /* en */,
+			);
+			name = Localizable.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -322,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -371,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -512,6 +533,7 @@
 				9ECCF2FA1E1E9312004CDD5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9ECCF2FB1E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyAppTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +542,7 @@
 				9ECCF2FD1E1E9312004CDD5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9ECCF2FE1E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +551,7 @@
 				9ECCF3001E1E9312004CDD5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

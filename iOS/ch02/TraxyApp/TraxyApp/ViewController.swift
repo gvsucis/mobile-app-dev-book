@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             }
         }
         if !pwOk {
-            print("Password cannot be blank")
+            print(NSLocalizedString("Password cannot be blank", comment: ""))
         }
         
         var emailOk = false
@@ -53,17 +53,16 @@ class ViewController: UIViewController {
             emailOk = emailPredicate.evaluate(with: email)
         }
         if !emailOk {
-            print("Invalid email address")
+            print(NSLocalizedString("Invalid email address", comment: ""))
         }
         return emailOk && pwOk
     }
 
     @IBAction func signupButtonPressed(_ sender: UIButton) {
         if self.validateFields() {
-            print("Congratulations!  You entered correct values.")
+            print(NSLocalizedString("Congratulations! You entered correct values.", comment: ""))
         }
     }
-
 }
 
 extension ViewController : UITextFieldDelegate {
@@ -72,7 +71,7 @@ extension ViewController : UITextFieldDelegate {
             self.passwordField.becomeFirstResponder()
         } else {
             if self.validateFields() {
-                print("Congratulations!  You entered correct values.")
+                print(NSLocalizedString("Congratulations! You entered correct values.", comment: ""))
             }
         }
         return true
