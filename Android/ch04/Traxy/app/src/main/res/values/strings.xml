@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Traxy</string>
+    <string name="email_required">Enter email</string>
+    <string name="password_required">Enter password</string>
+    <string name="signin">Sign In</string>
+    <string name="incorrect_email">Email is invalid</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="register">REGISTER</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="logo_description">The Traxy Logo</string>
+    <string name="title_activity_sign_up">Create Account</string>
+    <string name="password_verify">Verify password</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="logout">Logout</string>
+</resources>
