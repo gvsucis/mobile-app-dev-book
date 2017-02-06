@@ -38,12 +38,12 @@ class ViewController: UIViewController {
     func validateFields() -> Bool {
         var pwOk = false
         if let pw = self.passwordField.text {
-            if pw != "" {
+            if pw.lowercased().range(of: "traxy") != nil {
                 pwOk = true
             }
         }
         if !pwOk {
-            print(NSLocalizedString("Password cannot be blank", comment: ""))
+            print(NSLocalizedString("Invalid password", comment: ""))
         }
         
         var emailOk = false

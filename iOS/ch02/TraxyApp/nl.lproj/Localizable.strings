@@ -7,5 +7,5 @@
 */
 
 "Congratulations! You entered correct values." = "Gefeliciteerd! U hebt ingevoerd juiste waarden.";
-"Password cannot be blank" = "Wachtwoord kan niet leeg zijn";
+"Invalid password" = "Ongeldig wachtwoord";
 "Invalid email address" = "Ongeldig email adres";

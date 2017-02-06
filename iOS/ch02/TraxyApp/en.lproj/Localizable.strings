@@ -7,5 +7,5 @@
 */
 
 "Congratulations! You entered correct values." = "Congratulations! You entered correct values.";
-"Password cannot be blank" = "Password cannot be blank";
+"Invalid password" = "Invalid password";
 "Invalid email address" = "Invalid email address";

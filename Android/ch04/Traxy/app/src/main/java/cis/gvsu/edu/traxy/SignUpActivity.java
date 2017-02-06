@@ -60,8 +60,8 @@ public class SignUpActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG).show();
                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 intent.putExtra("email",emailStr);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity (intent);
-                finish();
 
             }
         });
