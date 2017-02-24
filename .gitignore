@@ -35,7 +35,7 @@ playground.xcworkspace
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
 # Packages/
-.build/
+**/.build/
 
 # CocoaPods
 #
@@ -43,7 +43,7 @@ playground.xcworkspace
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
-# Pods/
+**/Pods/
 
 # Carthage
 #
@@ -59,47 +59,47 @@ Carthage/Build
 # For more information about the recommended setup visit:
 # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
 
 # Android
 # Built application files
 /*/build/
 
 # Crashlytics configuations
-com_crashlytics_export_strings.xml
+**/com_crashlytics_export_strings.xml
 
 # Local configuration file (sdk path, etc)
-local.properties
+**/local.properties
 
 # Gradle generated files
-.gradle/
+**/.gradle/
 
 # Signing files
-.signing/
+**/.signing/
 
 # User-specific configurations
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
-*.iml
+**/.idea/libraries/
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+**/.idea/.name
+**/.idea/compiler.xml
+**/.idea/copyright/profiles_settings.xml
+**/.idea/encodings.xml
+**/.idea/misc.xml
+**/.idea/modules.xml
+**/.idea/scopes/scope_settings.xml
+**/.idea/vcs.xml
+**/*.iml
 
 # OS-specific files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+**/.DS_Store
+**/.DS_Store?
+**/._*
+**/.Spotlight-V100
+**/.Trashes
+**/ehthumbs.db
+**/Thumbs.db
 
