@@ -79,28 +79,30 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/password2" />
 
+
     <Button
-        android:text="@string/register"
+        android:text="Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/register"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/signup"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        style="@style/Widget.AppCompat.Button.Borderless"
+        app:layout_constraintLeft_toRightOf="@+id/no_account"
+        app:layout_constraintHorizontal_bias="0.51"
+        />
 
     <TextView
-        android:text="@string/no_account"
+        android:text="Don't have an account?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/no_account"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signup"
+        app:layout_constraintRight_toLeftOf="@+id/signup"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        />
 
 </android.support.constraint.ConstraintLayout>
