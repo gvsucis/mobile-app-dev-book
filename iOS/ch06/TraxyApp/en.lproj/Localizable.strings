@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  TraxyApp
+
+  Created by Jonathan Engelsma on 1/19/17.
+  Copyright © 2017 Jonathan Engelsma. All rights reserved.
+*/
+
+"Congratulations! You entered correct values." = "Congratulations! You entered correct values.";
+"Invalid password" = "Invalid password";
+"Invalid email address" = "Invalid email address";
