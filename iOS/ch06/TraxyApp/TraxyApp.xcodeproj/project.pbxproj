@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9E3D17CC1E786BDE00DB9A96 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D17CB1E786BDE00DB9A96 /* Journal.swift */; };
 		9E3D17CE1E786C3000DB9A96 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D17CD1E786C3000DB9A96 /* JournalModel.swift */; };
+		9E3D17D41E7AE33000DB9A96 /* TraxyMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */; };
 		9EC2C6291E4A3827009BC940 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC2C6281E4A3827009BC940 /* SignUpViewController.swift */; };
 		9EC2C62B1E4A383A009BC940 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC2C62A1E4A383A009BC940 /* MainViewController.swift */; };
 		9EC2C62D1E4A4F04009BC940 /* UIViewController+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC2C62C1E4A4F04009BC940 /* UIViewController+Validation.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		9E3D17CB1E786BDE00DB9A96 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 		9E3D17CD1E786C3000DB9A96 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
+		9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyMainTableViewCell.swift; sourceTree = "<group>"; };
 		9EC2C6281E4A3827009BC940 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		9EC2C62A1E4A383A009BC940 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9EC2C62C1E4A4F04009BC940 /* UIViewController+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Validation.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				9EF72FA71E5CE8AC00803E9C /* TraxyLoginButton.swift */,
 				9EF72FA91E5CE8EC00803E9C /* TraxyLoginLabel.swift */,
 				9EF72FAB1E5CE91700803E9C /* TraxyLoginTextField.swift */,
+				9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				9ECCF2D41E1E9312004CDD5C /* AppDelegate.swift in Sources */,
 				9EC2C62D1E4A4F04009BC940 /* UIViewController+Validation.swift in Sources */,
 				9EF72FA81E5CE8AC00803E9C /* TraxyLoginButton.swift in Sources */,
+				9E3D17D41E7AE33000DB9A96 /* TraxyMainTableViewCell.swift in Sources */,
 				9EC2C62B1E4A383A009BC940 /* MainViewController.swift in Sources */,
 				9EF72FAE1E5CE98000803E9C /* TraxyLoginViewController.swift in Sources */,
 				9EF72FAC1E5CE91700803E9C /* TraxyLoginTextField.swift in Sources */,

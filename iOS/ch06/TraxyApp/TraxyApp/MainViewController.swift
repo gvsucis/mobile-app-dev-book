@@ -82,20 +82,27 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            guard let journal = tableViewData?[indexPath.section].journals[indexPath.row]
-                else {
-                    return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
+        UITableViewCell {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "FancyCell", for:
+                indexPath) as! TraxyMainTableViewCell
+            
+            
+            guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
+                return cell
             }
-            cell.textLabel?.text = journal.name
-            cell.detailTextLabel?.text = journal.location
-            if let defaultImage = UIImage(named: "logo") {
-                cell.imageView?.image = defaultImage
-            }
+            
+            
+            cell.name?.text = journal.name
+            cell.subName?.text = journal.location
+            cell.coverImage?.image = UIImage(named: "landscape")
+            
+            
             return cell
+            
+            
     }
+
     
     
     // MARK: - UITableViewDelegate
@@ -104,6 +111,39 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return self.tableViewData?[section].sectionHeader
     }
 
+    // MARK: - UITableViewDelegate
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
+        CGFloat {
+            return 200.0
+    }
+
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection
+        section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = THEME_COLOR2
+        header.contentView.backgroundColor = THEME_COLOR3
+    }
+    
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView,
+                   forSection section: Int) {
+        
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = THEME_COLOR2
+        header.contentView.backgroundColor = THEME_COLOR3
+        
+        
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
+            return
+        }
+        print("Selected\(journal.name)")
+    }
 
 
     override func didReceiveMemoryWarning() {

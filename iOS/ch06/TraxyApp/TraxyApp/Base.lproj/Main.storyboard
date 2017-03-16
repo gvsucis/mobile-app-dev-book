@@ -237,6 +237,59 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FancyCell" rowHeight="200" id="00X-WI-cuj" customClass="TraxyMainTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="00X-WI-cuj" id="Ckh-a6-B7Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="55r-Dd-8Jq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                                </imageView>
+                                                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XP-Zd-c00">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jov-og-Cvt">
+                                                    <rect key="frame" x="8" y="77.5" width="359" height="44.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJg-wD-ErB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="24"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6A-kx-2bW">
+                                                            <rect key="frame" x="0.0" y="24" width="359" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4XP-Zd-c00" firstAttribute="top" secondItem="Ckh-a6-B7Q" secondAttribute="top" id="EX8-Ou-AbD"/>
+                                                <constraint firstAttribute="bottom" secondItem="55r-Dd-8Jq" secondAttribute="bottom" id="HBn-vP-dtI"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jov-og-Cvt" secondAttribute="trailing" id="HYf-iq-Oxp"/>
+                                                <constraint firstItem="jov-og-Cvt" firstAttribute="centerY" secondItem="Ckh-a6-B7Q" secondAttribute="centerY" id="MVF-q5-cgp"/>
+                                                <constraint firstItem="55r-Dd-8Jq" firstAttribute="leading" secondItem="Ckh-a6-B7Q" secondAttribute="leading" id="NhZ-Hh-uGH"/>
+                                                <constraint firstAttribute="bottom" secondItem="4XP-Zd-c00" secondAttribute="bottom" id="Qdl-DL-tFV"/>
+                                                <constraint firstItem="4XP-Zd-c00" firstAttribute="leading" secondItem="Ckh-a6-B7Q" secondAttribute="leading" id="T0V-b7-cWR"/>
+                                                <constraint firstItem="jov-og-Cvt" firstAttribute="leading" secondItem="Ckh-a6-B7Q" secondAttribute="leadingMargin" id="Wg2-h3-AuF"/>
+                                                <constraint firstAttribute="trailing" secondItem="4XP-Zd-c00" secondAttribute="trailing" id="dvx-qs-FqL"/>
+                                                <constraint firstItem="55r-Dd-8Jq" firstAttribute="top" secondItem="Ckh-a6-B7Q" secondAttribute="top" id="jBx-9p-8Km"/>
+                                                <constraint firstAttribute="trailing" secondItem="55r-Dd-8Jq" secondAttribute="trailing" id="wdx-ww-h21"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="coverImage" destination="55r-Dd-8Jq" id="my3-W8-jU6"/>
+                                            <outlet property="name" destination="nJg-wD-ErB" id="I2E-zg-hMY"/>
+                                            <outlet property="subName" destination="E6A-kx-2bW" id="Yrd-Qe-ajP"/>
+                                            <outlet property="translucentView" destination="4XP-Zd-c00" id="Jbe-cL-lpj"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="oJ2-Oh-9Jh" id="oV1-7l-Aos"/>
@@ -288,6 +341,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="landscape" width="1632" height="1224"/>
         <image name="logo" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
