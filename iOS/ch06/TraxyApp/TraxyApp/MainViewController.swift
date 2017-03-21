@@ -173,12 +173,9 @@ extension Date {
         }()
     }
     
-    
     var short: String {
         return Formatter.short.string(from: self)
     }
-    
-    
 }
 
 

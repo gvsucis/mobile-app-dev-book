@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cis.gvsu.edu.traxy.SignUpActivity"
+    tools:showIn="@layout/activity_sign_up">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        android:text="@string/welcome_to"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        android:layout_marginBottom="8dp" />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/traxy_logo"
+        android:id="@+id/imageView"
+        android:contentDescription="@string/logo_description"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/email"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:hint="@string/email_required"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:hint="@string/password_required"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password2"
+        android:hint="@string/password_verify"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+</android.support.constraint.ConstraintLayout>
