@@ -21,8 +21,12 @@
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimary"
+            android:padding="8dp"
             android:id="@+id/journal_name" />
 
     </android.support.design.widget.AppBarLayout>

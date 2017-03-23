@@ -51,10 +51,11 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
-        Button register = (Button) findViewById(R.id.register);
+        Button register = (Button) findViewById(R.id.signup);
         register.setOnClickListener( v-> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity (intent);
         });
     }
 }
+joe
