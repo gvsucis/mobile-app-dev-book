@@ -103,3 +103,6 @@ Carthage/Build
 **/ehthumbs.db
 **/Thumbs.db
 
+# We don't want private API info in our repo do we? 
+APIKeys.swift
+GoogleService-Info.plist

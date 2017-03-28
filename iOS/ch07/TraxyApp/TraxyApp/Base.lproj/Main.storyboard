@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYz-t7-Aga" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="16" y="20" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0rs-Hk-POj">
+                                <rect key="frame" x="67" y="69" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="5Bc-K5-6Go"/>
+                                    <constraint firstAttribute="height" constant="128" id="h2r-1x-htm"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uN9-Hp-dlh">
+                                <rect key="frame" x="16" y="205" width="343" height="68"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bqb-Lx-VuR" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="v9n-4m-KUv" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="38" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKR-bb-zl5" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="125" y="281" width="125" height="30"/>
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U4p-ye-e1T"/>
+                                    <segue destination="akZ-cF-zVb" kind="show" identifier="segueToMain" id="D7S-FM-Wfd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-Db-fD6" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="125" y="629" width="125" height="30"/>
+                                <state key="normal" title="Register"/>
+                                <connections>
+                                    <segue destination="hVB-8I-pxQ" kind="show" id="v4K-wQ-dkD"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaY-3j-38N" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="16" y="600" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="uN9-Hp-dlh" secondAttribute="trailing" id="09m-B6-Ypr"/>
+                            <constraint firstItem="wKR-bb-zl5" firstAttribute="top" secondItem="v9n-4m-KUv" secondAttribute="bottom" constant="7.5" id="6Ai-hC-YvB"/>
+                            <constraint firstItem="TaY-3j-38N" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="AaB-QW-zKt"/>
+                            <constraint firstItem="uN9-Hp-dlh" firstAttribute="top" secondItem="0rs-Hk-POj" secondAttribute="bottom" constant="8" symbolic="YES" id="D4U-sW-tuB"/>
+                            <constraint firstItem="wKR-bb-zl5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EPh-dd-nCl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kYz-t7-Aga" secondAttribute="trailing" id="H8K-qL-gez"/>
+                            <constraint firstItem="TaY-3j-38N" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ikg-rJ-NuO"/>
+                            <constraint firstItem="0rs-Hk-POj" firstAttribute="top" secondItem="kYz-t7-Aga" secondAttribute="bottom" constant="28" id="Isl-sX-rnC"/>
+                            <constraint firstItem="rTP-Db-fD6" firstAttribute="top" secondItem="TaY-3j-38N" secondAttribute="bottom" constant="8" symbolic="YES" id="J25-LQ-WnD"/>
+                            <constraint firstItem="rTP-Db-fD6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1:3" id="Mgy-8a-z1V"/>
+                            <constraint firstItem="wKR-bb-zl5" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1:3" id="ih3-jl-AbH"/>
+                            <constraint firstItem="uN9-Hp-dlh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lZy-8h-8ar"/>
+                            <constraint firstItem="0rs-Hk-POj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mDi-Ld-smK"/>
+                            <constraint firstItem="rTP-Db-fD6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="myz-sM-RzW"/>
+                            <constraint firstItem="kYz-t7-Aga" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nQr-Rx-Mqg"/>
+                            <constraint firstItem="kYz-t7-Aga" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="smd-XZ-OXf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rTP-Db-fD6" secondAttribute="bottom" constant="8" symbolic="YES" id="tXj-F5-YBA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailField" destination="bqb-Lx-VuR" id="IO5-eu-V2s"/>
+                        <outlet property="passwordField" destination="v9n-4m-KUv" id="ysc-9i-7Af"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="21.600000000000001" y="36.431784107946029"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="y0K-CL-mFj">
+            <objects>
+                <viewController id="hVB-8I-pxQ" customClass="SignUpViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ePz-B5-se5"/>
+                        <viewControllerLayoutGuide type="bottom" id="B63-1k-Cfc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6uG-Ok-T6x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUw-G4-JeL" customClass="TraxyLoginLabel" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="16" y="28" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="dWA-Sq-b9m">
+                                <rect key="frame" x="67" y="57" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="A0z-WX-5Ii"/>
+                                    <constraint firstAttribute="width" constant="240" id="zHz-wr-x0z"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MhH-8v-j6p">
+                                <rect key="frame" x="16" y="193" width="343" height="106"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HDG-ja-r5c" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uvq-sz-5gA" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="38" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verify password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fFs-8K-650" customClass="TraxyLoginTextField" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="76" width="343" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HwK-76-cpu" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="16" y="311" width="125" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="hVB-8I-pxQ" eventType="touchUpInside" id="iSY-Qo-a1U"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oR0-iM-KfM" customClass="TraxyLoginButton" customModule="TraxyApp" customModuleProvider="target">
+                                <rect key="frame" x="234" y="311" width="125" height="30"/>
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signupButtonPressed:" destination="hVB-8I-pxQ" eventType="touchUpInside" id="SGB-RK-0UX"/>
+                                    <segue destination="akZ-cF-zVb" kind="show" identifier="segueToMainFromSignUp" id="sna-vQ-KtJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HwK-76-cpu" firstAttribute="top" secondItem="fFs-8K-650" secondAttribute="bottom" constant="11.5" id="3QF-A9-s7R"/>
+                            <constraint firstItem="dWA-Sq-b9m" firstAttribute="top" secondItem="pUw-G4-JeL" secondAttribute="bottom" constant="8" symbolic="YES" id="475-MV-Fji"/>
+                            <constraint firstItem="HwK-76-cpu" firstAttribute="width" secondItem="6uG-Ok-T6x" secondAttribute="width" multiplier="1:3" id="4A8-Xb-hSZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pUw-G4-JeL" secondAttribute="trailing" id="7uX-bD-AZl"/>
+                            <constraint firstItem="MhH-8v-j6p" firstAttribute="top" secondItem="dWA-Sq-b9m" secondAttribute="bottom" constant="8" symbolic="YES" id="L7v-b8-KQ5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oR0-iM-KfM" secondAttribute="trailing" id="O8P-RJ-a2q"/>
+                            <constraint firstItem="oR0-iM-KfM" firstAttribute="top" secondItem="fFs-8K-650" secondAttribute="bottom" constant="11.5" id="ZcQ-Tz-n52"/>
+                            <constraint firstItem="pUw-G4-JeL" firstAttribute="leading" secondItem="6uG-Ok-T6x" secondAttribute="leadingMargin" id="fPr-wl-RRc"/>
+                            <constraint firstItem="dWA-Sq-b9m" firstAttribute="centerX" secondItem="6uG-Ok-T6x" secondAttribute="centerX" id="jzm-57-qoB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MhH-8v-j6p" secondAttribute="trailing" id="m6H-yG-Dk3"/>
+                            <constraint firstItem="MhH-8v-j6p" firstAttribute="leading" secondItem="6uG-Ok-T6x" secondAttribute="leadingMargin" id="rID-eV-iZH"/>
+                            <constraint firstItem="pUw-G4-JeL" firstAttribute="top" secondItem="ePz-B5-se5" secondAttribute="bottom" constant="8" symbolic="YES" id="uR2-iX-f7n"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="HwK-76-cpu" secondAttribute="leading" id="x60-ji-QIJ"/>
+                            <constraint firstItem="oR0-iM-KfM" firstAttribute="width" secondItem="6uG-Ok-T6x" secondAttribute="width" multiplier="1:3" id="z2C-Io-L96"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailField" destination="HDG-ja-r5c" id="rxg-IZ-rAJ"/>
+                        <outlet property="passwordField" destination="uvq-sz-5gA" id="8Lc-U8-hCH"/>
+                        <outlet property="verifyPasswordField" destination="fFs-8K-650" id="8W0-ql-yMK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8QD-FB-DQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="21.600000000000001" y="732.68365817091455"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="a63-El-94p">
+            <objects>
+                <viewController id="oJ2-Oh-9Jh" customClass="MainViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Es-81-9MQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="jB1-hY-wVh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ul3-BX-4hb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SJb-ib-RaV">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="kWs-bY-v1u" detailTextLabel="ubJ-Ar-itb" style="IBUITableViewCellStyleSubtitle" id="ySg-05-ScP">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ySg-05-ScP" id="fDE-pS-Oys">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kWs-bY-v1u">
+                                                    <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ubJ-Ar-itb">
+                                                    <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FancyCell" rowHeight="200" id="00X-WI-cuj" customClass="TraxyMainTableViewCell" customModule="TraxyApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="00X-WI-cuj" id="Ckh-a6-B7Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landscape" translatesAutoresizingMaskIntoConstraints="NO" id="55r-Dd-8Jq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                                </imageView>
+                                                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XP-Zd-c00">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jov-og-Cvt">
+                                                    <rect key="frame" x="8" y="77" width="359" height="45"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJg-wD-ErB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="24"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6A-kx-2bW">
+                                                            <rect key="frame" x="0.0" y="24" width="359" height="21"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4XP-Zd-c00" firstAttribute="top" secondItem="Ckh-a6-B7Q" secondAttribute="top" id="EX8-Ou-AbD"/>
+                                                <constraint firstAttribute="bottom" secondItem="55r-Dd-8Jq" secondAttribute="bottom" id="HBn-vP-dtI"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jov-og-Cvt" secondAttribute="trailing" id="HYf-iq-Oxp"/>
+                                                <constraint firstItem="jov-og-Cvt" firstAttribute="centerY" secondItem="Ckh-a6-B7Q" secondAttribute="centerY" id="MVF-q5-cgp"/>
+                                                <constraint firstItem="55r-Dd-8Jq" firstAttribute="leading" secondItem="Ckh-a6-B7Q" secondAttribute="leading" id="NhZ-Hh-uGH"/>
+                                                <constraint firstAttribute="bottom" secondItem="4XP-Zd-c00" secondAttribute="bottom" id="Qdl-DL-tFV"/>
+                                                <constraint firstItem="4XP-Zd-c00" firstAttribute="leading" secondItem="Ckh-a6-B7Q" secondAttribute="leading" id="T0V-b7-cWR"/>
+                                                <constraint firstItem="jov-og-Cvt" firstAttribute="leading" secondItem="Ckh-a6-B7Q" secondAttribute="leadingMargin" id="Wg2-h3-AuF"/>
+                                                <constraint firstAttribute="trailing" secondItem="4XP-Zd-c00" secondAttribute="trailing" id="dvx-qs-FqL"/>
+                                                <constraint firstItem="55r-Dd-8Jq" firstAttribute="top" secondItem="Ckh-a6-B7Q" secondAttribute="top" id="jBx-9p-8Km"/>
+                                                <constraint firstAttribute="trailing" secondItem="55r-Dd-8Jq" secondAttribute="trailing" id="wdx-ww-h21"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="coverImage" destination="55r-Dd-8Jq" id="my3-W8-jU6"/>
+                                            <outlet property="name" destination="nJg-wD-ErB" id="I2E-zg-hMY"/>
+                                            <outlet property="subName" destination="E6A-kx-2bW" id="Yrd-Qe-ajP"/>
+                                            <outlet property="translucentView" destination="4XP-Zd-c00" id="Jbe-cL-lpj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="oJ2-Oh-9Jh" id="oV1-7l-Aos"/>
+                                    <outlet property="delegate" destination="oJ2-Oh-9Jh" id="5ZJ-uw-3J4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SJb-ib-RaV" firstAttribute="top" secondItem="6Es-81-9MQ" secondAttribute="bottom" id="BKB-fO-O18"/>
+                            <constraint firstItem="jB1-hY-wVh" firstAttribute="top" secondItem="SJb-ib-RaV" secondAttribute="bottom" id="KnU-gu-HCj"/>
+                            <constraint firstAttribute="trailing" secondItem="SJb-ib-RaV" secondAttribute="trailing" id="NNK-qg-ECz"/>
+                            <constraint firstItem="SJb-ib-RaV" firstAttribute="leading" secondItem="Ul3-BX-4hb" secondAttribute="leading" id="YHa-KO-98A"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="EDg-b3-Yb5">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="U5i-Zc-X59">
+                            <connections>
+                                <segue destination="D38-K2-M3l" kind="unwind" unwindAction="logoutWithSegue:" id="Oqc-TI-psM"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vK9-Vj-dMg">
+                            <connections>
+                                <segue destination="vP4-Au-4V4" kind="show" identifier="addJournalSegue" id="1GZ-Ga-b4e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="SJb-ib-RaV" id="FQj-OQ-QYF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lmc-DM-akN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="D38-K2-M3l" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1880.8" y="35.532233883058474"/>
+        </scene>
+        <!--Add Journal View Controller-->
+        <scene sceneID="abX-he-oyA">
+            <objects>
+                <viewController id="vP4-Au-4V4" customClass="AddJournalViewController" customModule="TraxyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B77-4b-ZId"/>
+                        <viewControllerLayoutGuide type="bottom" id="yoe-t0-KLH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p7z-dX-t4x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Lr-GK-mfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2818" y="28"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="M6C-TN-Fg2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="akZ-cF-zVb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kyg-3L-2Uk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oJ2-Oh-9Jh" kind="relationship" relationship="rootViewController" id="oTY-9X-2Rk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v5G-NC-Lqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="941.60000000000002" y="35.532233883058474"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="landscape" width="1632" height="1224"/>
+        <image name="logo" width="150" height="150"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="sna-vQ-KtJ"/>
+    </inferredMetricsTieBreakers>
+</document>
