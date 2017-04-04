@@ -1,0 +1,840 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5460219300ADBEB77EB16C3B /* Pods_TraxyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003361E87A3CDF4BD8A0FAD9 /* Pods_TraxyAppTests.framework */; };
+		7D6D852DD27C072D0ACEB719 /* Pods_TraxyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98226D2A92E0D4BD1B3A5DD2 /* Pods_TraxyApp.framework */; };
+		9E229D571E8AB3F000DE7490 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E229D561E8AB3F000DE7490 /* APIKeys.swift */; };
+		9E229D591E8AB73100DE7490 /* AddJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E229D581E8AB73100DE7490 /* AddJournalViewController.swift */; };
+		9E3D17CC1E786BDE00DB9A96 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D17CB1E786BDE00DB9A96 /* Journal.swift */; };
+		9E3D17CE1E786C3000DB9A96 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D17CD1E786C3000DB9A96 /* JournalModel.swift */; };
+		9E3D17D41E7AE33000DB9A96 /* TraxyMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */; };
+		9E8D1AD81E92D81A005B3A31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */; };
+		9E8D1ADA1E92EE91005B3A31 /* Date+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */; };
+		9EC2C6291E4A3827009BC940 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC2C6281E4A3827009BC940 /* SignUpViewController.swift */; };
+		9EC2C62B1E4A383A009BC940 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC2C62A1E4A383A009BC940 /* MainViewController.swift */; };
+		9EC2C62D1E4A4F04009BC940 /* UIViewController+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC2C62C1E4A4F04009BC940 /* UIViewController+Validation.swift */; };
+		9ECCF2D41E1E9312004CDD5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECCF2D31E1E9312004CDD5C /* AppDelegate.swift */; };
+		9ECCF2D61E1E9312004CDD5C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECCF2D51E1E9312004CDD5C /* LoginViewController.swift */; };
+		9ECCF2D91E1E9312004CDD5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ECCF2D71E1E9312004CDD5C /* Main.storyboard */; };
+		9ECCF2DB1E1E9312004CDD5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ECCF2DA1E1E9312004CDD5C /* Assets.xcassets */; };
+		9ECCF2DE1E1E9312004CDD5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ECCF2DC1E1E9312004CDD5C /* LaunchScreen.storyboard */; };
+		9ECCF2E91E1E9312004CDD5C /* TraxyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECCF2E81E1E9312004CDD5C /* TraxyAppTests.swift */; };
+		9ECCF2F41E1E9312004CDD5C /* TraxyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECCF2F31E1E9312004CDD5C /* TraxyAppUITests.swift */; };
+		9EDE87D31E316CEF00C2F900 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE87D51E316CEF00C2F900 /* Localizable.strings */; };
+		9EF72FA81E5CE8AC00803E9C /* TraxyLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF72FA71E5CE8AC00803E9C /* TraxyLoginButton.swift */; };
+		9EF72FAA1E5CE8EC00803E9C /* TraxyLoginLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF72FA91E5CE8EC00803E9C /* TraxyLoginLabel.swift */; };
+		9EF72FAC1E5CE91700803E9C /* TraxyLoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF72FAB1E5CE91700803E9C /* TraxyLoginTextField.swift */; };
+		9EF72FAE1E5CE98000803E9C /* TraxyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF72FAD1E5CE98000803E9C /* TraxyLoginViewController.swift */; };
+		DB953A126B50725B37706802 /* Pods_TraxyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D63C1FDF180B33552CEA916 /* Pods_TraxyAppUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9ECCF2E51E1E9312004CDD5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9ECCF2C81E1E9312004CDD5C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9ECCF2CF1E1E9312004CDD5C;
+			remoteInfo = TraxyApp;
+		};
+		9ECCF2F01E1E9312004CDD5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9ECCF2C81E1E9312004CDD5C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9ECCF2CF1E1E9312004CDD5C;
+			remoteInfo = TraxyApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		003361E87A3CDF4BD8A0FAD9 /* Pods_TraxyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraxyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B910890E0CF42C94140461E /* Pods-TraxyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp.debug.xcconfig"; sourceTree = "<group>"; };
+		47F0F4CEB5B028B2077CB8EF /* Pods-TraxyAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6D63C1FDF180B33552CEA916 /* Pods_TraxyAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraxyAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9661CDA12DDAFB3FE0124F55 /* Pods-TraxyAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		98226D2A92E0D4BD1B3A5DD2 /* Pods_TraxyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraxyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E229D561E8AB3F000DE7490 /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		9E229D581E8AB73100DE7490 /* AddJournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJournalViewController.swift; sourceTree = "<group>"; };
+		9E3D17CB1E786BDE00DB9A96 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		9E3D17CD1E786C3000DB9A96 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
+		9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyMainTableViewCell.swift; sourceTree = "<group>"; };
+		9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ISO8601.swift"; sourceTree = "<group>"; };
+		9EC2C6281E4A3827009BC940 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		9EC2C62A1E4A383A009BC940 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		9EC2C62C1E4A4F04009BC940 /* UIViewController+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Validation.swift"; sourceTree = "<group>"; };
+		9ECCF2D01E1E9312004CDD5C /* TraxyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraxyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ECCF2D31E1E9312004CDD5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9ECCF2D51E1E9312004CDD5C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9ECCF2D81E1E9312004CDD5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9ECCF2DA1E1E9312004CDD5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9ECCF2DD1E1E9312004CDD5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9ECCF2DF1E1E9312004CDD5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ECCF2E41E1E9312004CDD5C /* TraxyAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraxyAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ECCF2E81E1E9312004CDD5C /* TraxyAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraxyAppTests.swift; sourceTree = "<group>"; };
+		9ECCF2EA1E1E9312004CDD5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ECCF2EF1E1E9312004CDD5C /* TraxyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraxyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ECCF2F31E1E9312004CDD5C /* TraxyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraxyAppUITests.swift; sourceTree = "<group>"; };
+		9ECCF2F51E1E9312004CDD5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EDE87CF1E31541300C2F900 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		9EDE87D01E31541300C2F900 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9EDE87D41E316CEF00C2F900 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9EDE87D61E316CF800C2F900 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9EF72FA71E5CE8AC00803E9C /* TraxyLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginButton.swift; sourceTree = "<group>"; };
+		9EF72FA91E5CE8EC00803E9C /* TraxyLoginLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginLabel.swift; sourceTree = "<group>"; };
+		9EF72FAB1E5CE91700803E9C /* TraxyLoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginTextField.swift; sourceTree = "<group>"; };
+		9EF72FAD1E5CE98000803E9C /* TraxyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyLoginViewController.swift; sourceTree = "<group>"; };
+		AE1200102315498716B65305 /* Pods-TraxyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp.release.xcconfig"; sourceTree = "<group>"; };
+		CED0123B06B6FE71462C57E2 /* Pods-TraxyAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		FB65DCC627D8AE0C533F574A /* Pods-TraxyAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraxyAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9ECCF2CD1E1E9312004CDD5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D6D852DD27C072D0ACEB719 /* Pods_TraxyApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECCF2E11E1E9312004CDD5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5460219300ADBEB77EB16C3B /* Pods_TraxyAppTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECCF2EC1E1E9312004CDD5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB953A126B50725B37706802 /* Pods_TraxyAppUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		57361C51B56044362B04AA2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				98226D2A92E0D4BD1B3A5DD2 /* Pods_TraxyApp.framework */,
+				003361E87A3CDF4BD8A0FAD9 /* Pods_TraxyAppTests.framework */,
+				6D63C1FDF180B33552CEA916 /* Pods_TraxyAppUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E3D17C71E786A7700DB9A96 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9EC2C6281E4A3827009BC940 /* SignUpViewController.swift */,
+				9ECCF2D51E1E9312004CDD5C /* LoginViewController.swift */,
+				9EC2C62A1E4A383A009BC940 /* MainViewController.swift */,
+				9EF72FAD1E5CE98000803E9C /* TraxyLoginViewController.swift */,
+				9E229D581E8AB73100DE7490 /* AddJournalViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9E3D17C81E786AB700DB9A96 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9ECCF2D71E1E9312004CDD5C /* Main.storyboard */,
+				9ECCF2DA1E1E9312004CDD5C /* Assets.xcassets */,
+				9ECCF2DC1E1E9312004CDD5C /* LaunchScreen.storyboard */,
+				9EF72FA71E5CE8AC00803E9C /* TraxyLoginButton.swift */,
+				9EF72FA91E5CE8EC00803E9C /* TraxyLoginLabel.swift */,
+				9EF72FAB1E5CE91700803E9C /* TraxyLoginTextField.swift */,
+				9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9E3D17C91E786AC800DB9A96 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9E3D17CB1E786BDE00DB9A96 /* Journal.swift */,
+				9E3D17CD1E786C3000DB9A96 /* JournalModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		9E3D17CA1E786B0B00DB9A96 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9EC2C62C1E4A4F04009BC940 /* UIViewController+Validation.swift */,
+				9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		9ECCF2C71E1E9312004CDD5C = {
+			isa = PBXGroup;
+			children = (
+				9ECCF2D21E1E9312004CDD5C /* TraxyApp */,
+				9ECCF2E71E1E9312004CDD5C /* TraxyAppTests */,
+				9ECCF2F21E1E9312004CDD5C /* TraxyAppUITests */,
+				9ECCF2D11E1E9312004CDD5C /* Products */,
+				C2AB02EE3BD7D840CCA19B8A /* Pods */,
+				57361C51B56044362B04AA2D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9ECCF2D11E1E9312004CDD5C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9ECCF2D01E1E9312004CDD5C /* TraxyApp.app */,
+				9ECCF2E41E1E9312004CDD5C /* TraxyAppTests.xctest */,
+				9ECCF2EF1E1E9312004CDD5C /* TraxyAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9ECCF2D21E1E9312004CDD5C /* TraxyApp */ = {
+			isa = PBXGroup;
+			children = (
+				9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */,
+				9E3D17CA1E786B0B00DB9A96 /* Utils */,
+				9E3D17C91E786AC800DB9A96 /* Models */,
+				9E3D17C81E786AB700DB9A96 /* Views */,
+				9E3D17C71E786A7700DB9A96 /* Controllers */,
+				9EDE87D51E316CEF00C2F900 /* Localizable.strings */,
+				9ECCF2D31E1E9312004CDD5C /* AppDelegate.swift */,
+				9ECCF2DF1E1E9312004CDD5C /* Info.plist */,
+				9E229D561E8AB3F000DE7490 /* APIKeys.swift */,
+			);
+			path = TraxyApp;
+			sourceTree = "<group>";
+		};
+		9ECCF2E71E1E9312004CDD5C /* TraxyAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				9ECCF2E81E1E9312004CDD5C /* TraxyAppTests.swift */,
+				9ECCF2EA1E1E9312004CDD5C /* Info.plist */,
+			);
+			path = TraxyAppTests;
+			sourceTree = "<group>";
+		};
+		9ECCF2F21E1E9312004CDD5C /* TraxyAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9ECCF2F31E1E9312004CDD5C /* TraxyAppUITests.swift */,
+				9ECCF2F51E1E9312004CDD5C /* Info.plist */,
+			);
+			path = TraxyAppUITests;
+			sourceTree = "<group>";
+		};
+		C2AB02EE3BD7D840CCA19B8A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1B910890E0CF42C94140461E /* Pods-TraxyApp.debug.xcconfig */,
+				AE1200102315498716B65305 /* Pods-TraxyApp.release.xcconfig */,
+				47F0F4CEB5B028B2077CB8EF /* Pods-TraxyAppTests.debug.xcconfig */,
+				CED0123B06B6FE71462C57E2 /* Pods-TraxyAppTests.release.xcconfig */,
+				9661CDA12DDAFB3FE0124F55 /* Pods-TraxyAppUITests.debug.xcconfig */,
+				FB65DCC627D8AE0C533F574A /* Pods-TraxyAppUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9ECCF2CF1E1E9312004CDD5C /* TraxyApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9ECCF2F81E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyApp" */;
+			buildPhases = (
+				D4C23C4C425543041C5FCE59 /* [CP] Check Pods Manifest.lock */,
+				9ECCF2CC1E1E9312004CDD5C /* Sources */,
+				9ECCF2CD1E1E9312004CDD5C /* Frameworks */,
+				9ECCF2CE1E1E9312004CDD5C /* Resources */,
+				66D5EDA16A3DEBC396B9C367 /* [CP] Embed Pods Frameworks */,
+				F91A87238C8291943F60C481 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TraxyApp;
+			productName = TraxyApp;
+			productReference = 9ECCF2D01E1E9312004CDD5C /* TraxyApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9ECCF2E31E1E9312004CDD5C /* TraxyAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9ECCF2FB1E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyAppTests" */;
+			buildPhases = (
+				14C234BBEA3131E0F2CA835F /* [CP] Check Pods Manifest.lock */,
+				9ECCF2E01E1E9312004CDD5C /* Sources */,
+				9ECCF2E11E1E9312004CDD5C /* Frameworks */,
+				9ECCF2E21E1E9312004CDD5C /* Resources */,
+				B46EDD4677B1E705EDFB5CCE /* [CP] Embed Pods Frameworks */,
+				E68EA0B78F4C52A58DA2C8C7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9ECCF2E61E1E9312004CDD5C /* PBXTargetDependency */,
+			);
+			name = TraxyAppTests;
+			productName = TraxyAppTests;
+			productReference = 9ECCF2E41E1E9312004CDD5C /* TraxyAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9ECCF2EE1E1E9312004CDD5C /* TraxyAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9ECCF2FE1E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyAppUITests" */;
+			buildPhases = (
+				BC9AC3E288E0F1424D7616E7 /* [CP] Check Pods Manifest.lock */,
+				9ECCF2EB1E1E9312004CDD5C /* Sources */,
+				9ECCF2EC1E1E9312004CDD5C /* Frameworks */,
+				9ECCF2ED1E1E9312004CDD5C /* Resources */,
+				B8EE3CC2F1514E0D4CC987A8 /* [CP] Embed Pods Frameworks */,
+				C283C5A65AF0CF5E3F87F380 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9ECCF2F11E1E9312004CDD5C /* PBXTargetDependency */,
+			);
+			name = TraxyAppUITests;
+			productName = TraxyAppUITests;
+			productReference = 9ECCF2EF1E1E9312004CDD5C /* TraxyAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9ECCF2C81E1E9312004CDD5C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Jonathan Engelsma";
+				TargetAttributes = {
+					9ECCF2CF1E1E9312004CDD5C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = E8L8N4A5R2;
+						ProvisioningStyle = Automatic;
+					};
+					9ECCF2E31E1E9312004CDD5C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = E8L8N4A5R2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9ECCF2CF1E1E9312004CDD5C;
+					};
+					9ECCF2EE1E1E9312004CDD5C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = E8L8N4A5R2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9ECCF2CF1E1E9312004CDD5C;
+					};
+				};
+			};
+			buildConfigurationList = 9ECCF2CB1E1E9312004CDD5C /* Build configuration list for PBXProject "TraxyApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9ECCF2C71E1E9312004CDD5C;
+			productRefGroup = 9ECCF2D11E1E9312004CDD5C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9ECCF2CF1E1E9312004CDD5C /* TraxyApp */,
+				9ECCF2E31E1E9312004CDD5C /* TraxyAppTests */,
+				9ECCF2EE1E1E9312004CDD5C /* TraxyAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9ECCF2CE1E1E9312004CDD5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9ECCF2DE1E1E9312004CDD5C /* LaunchScreen.storyboard in Resources */,
+				9EDE87D31E316CEF00C2F900 /* Localizable.strings in Resources */,
+				9E8D1AD81E92D81A005B3A31 /* GoogleService-Info.plist in Resources */,
+				9ECCF2DB1E1E9312004CDD5C /* Assets.xcassets in Resources */,
+				9ECCF2D91E1E9312004CDD5C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECCF2E21E1E9312004CDD5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECCF2ED1E1E9312004CDD5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14C234BBEA3131E0F2CA835F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		66D5EDA16A3DEBC396B9C367 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B46EDD4677B1E705EDFB5CCE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8EE3CC2F1514E0D4CC987A8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC9AC3E288E0F1424D7616E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C283C5A65AF0CF5E3F87F380 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4C23C4C425543041C5FCE59 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E68EA0B78F4C52A58DA2C8C7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F91A87238C8291943F60C481 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9ECCF2CC1E1E9312004CDD5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EC2C6291E4A3827009BC940 /* SignUpViewController.swift in Sources */,
+				9E3D17CE1E786C3000DB9A96 /* JournalModel.swift in Sources */,
+				9E229D571E8AB3F000DE7490 /* APIKeys.swift in Sources */,
+				9E3D17CC1E786BDE00DB9A96 /* Journal.swift in Sources */,
+				9E229D591E8AB73100DE7490 /* AddJournalViewController.swift in Sources */,
+				9ECCF2D61E1E9312004CDD5C /* LoginViewController.swift in Sources */,
+				9ECCF2D41E1E9312004CDD5C /* AppDelegate.swift in Sources */,
+				9EC2C62D1E4A4F04009BC940 /* UIViewController+Validation.swift in Sources */,
+				9EF72FA81E5CE8AC00803E9C /* TraxyLoginButton.swift in Sources */,
+				9E3D17D41E7AE33000DB9A96 /* TraxyMainTableViewCell.swift in Sources */,
+				9EC2C62B1E4A383A009BC940 /* MainViewController.swift in Sources */,
+				9EF72FAE1E5CE98000803E9C /* TraxyLoginViewController.swift in Sources */,
+				9EF72FAC1E5CE91700803E9C /* TraxyLoginTextField.swift in Sources */,
+				9E8D1ADA1E92EE91005B3A31 /* Date+ISO8601.swift in Sources */,
+				9EF72FAA1E5CE8EC00803E9C /* TraxyLoginLabel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECCF2E01E1E9312004CDD5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9ECCF2E91E1E9312004CDD5C /* TraxyAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECCF2EB1E1E9312004CDD5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9ECCF2F41E1E9312004CDD5C /* TraxyAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9ECCF2E61E1E9312004CDD5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9ECCF2CF1E1E9312004CDD5C /* TraxyApp */;
+			targetProxy = 9ECCF2E51E1E9312004CDD5C /* PBXContainerItemProxy */;
+		};
+		9ECCF2F11E1E9312004CDD5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9ECCF2CF1E1E9312004CDD5C /* TraxyApp */;
+			targetProxy = 9ECCF2F01E1E9312004CDD5C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9ECCF2D71E1E9312004CDD5C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9ECCF2D81E1E9312004CDD5C /* Base */,
+				9EDE87CF1E31541300C2F900 /* nl */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9ECCF2DC1E1E9312004CDD5C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9ECCF2DD1E1E9312004CDD5C /* Base */,
+				9EDE87D01E31541300C2F900 /* nl */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		9EDE87D51E316CEF00C2F900 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDE87D41E316CEF00C2F900 /* nl */,
+				9EDE87D61E316CF800C2F900 /* en */,
+			);
+			name = Localizable.strings;
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9ECCF2F61E1E9312004CDD5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9ECCF2F71E1E9312004CDD5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9ECCF2F91E1E9312004CDD5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B910890E0CF42C94140461E /* Pods-TraxyApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = E8L8N4A5R2;
+				INFOPLIST_FILE = TraxyApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		9ECCF2FA1E1E9312004CDD5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE1200102315498716B65305 /* Pods-TraxyApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = E8L8N4A5R2;
+				INFOPLIST_FILE = TraxyApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		9ECCF2FC1E1E9312004CDD5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47F0F4CEB5B028B2077CB8EF /* Pods-TraxyAppTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = E8L8N4A5R2;
+				INFOPLIST_FILE = TraxyAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TraxyApp.app/TraxyApp";
+			};
+			name = Debug;
+		};
+		9ECCF2FD1E1E9312004CDD5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CED0123B06B6FE71462C57E2 /* Pods-TraxyAppTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = E8L8N4A5R2;
+				INFOPLIST_FILE = TraxyAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TraxyApp.app/TraxyApp";
+			};
+			name = Release;
+		};
+		9ECCF2FF1E1E9312004CDD5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9661CDA12DDAFB3FE0124F55 /* Pods-TraxyAppUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = E8L8N4A5R2;
+				INFOPLIST_FILE = TraxyAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TraxyApp;
+			};
+			name = Debug;
+		};
+		9ECCF3001E1E9312004CDD5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB65DCC627D8AE0C533F574A /* Pods-TraxyAppUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = E8L8N4A5R2;
+				INFOPLIST_FILE = TraxyAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TraxyApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9ECCF2CB1E1E9312004CDD5C /* Build configuration list for PBXProject "TraxyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9ECCF2F61E1E9312004CDD5C /* Debug */,
+				9ECCF2F71E1E9312004CDD5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9ECCF2F81E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9ECCF2F91E1E9312004CDD5C /* Debug */,
+				9ECCF2FA1E1E9312004CDD5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9ECCF2FB1E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9ECCF2FC1E1E9312004CDD5C /* Debug */,
+				9ECCF2FD1E1E9312004CDD5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9ECCF2FE1E1E9312004CDD5C /* Build configuration list for PBXNativeTarget "TraxyAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9ECCF2FF1E1E9312004CDD5C /* Debug */,
+				9ECCF3001E1E9312004CDD5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9ECCF2C81E1E9312004CDD5C /* Project object */;
+}

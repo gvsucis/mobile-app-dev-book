@@ -145,9 +145,9 @@ class AddJournalViewController: FormViewController {
             self.journal?.startDate = startDateRow.value! as Date
             self.journal?.endDate = endDateRow.value! as Date
             self.delegate?.save(journal: self.journal!)
-            _ = self.navigationController?.popViewController(animated: true)
-        }
+            _ = self.navigationController?.popViewController(animated: true)        }
     }
+    
 }
 
 extension AddJournalViewController: GMSAutocompleteViewControllerDelegate {

@@ -16,6 +16,7 @@ struct Journal {
     var lat : Double?
     var lng : Double?
     var placeId : String?
+    
     init(key: String?, name: String?, location: String?, startDate: Date?,
          endDate : Date?, lat: Double?, lng: Double?, placeId : String?)
     {
@@ -33,6 +34,10 @@ struct Journal {
     {
         self.init(key: nil, name: name, location: location, startDate: startDate,
                   endDate: endDate, lat: lat, lng: lng, placeId: placeId)
+    }
+    
+    init() {
+        self.init(key: nil, name: nil, location: nil, startDate: nil, endDate: nil, lat: nil, lng: nil, placeId: nil)
     }
     
     

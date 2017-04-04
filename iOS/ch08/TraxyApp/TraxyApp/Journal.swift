@@ -39,5 +39,4 @@ struct Journal {
         self.init(key: nil, name: nil, location: nil, startDate: nil, endDate: nil, lat: nil, lng: nil, placeId: nil)
     }
     
-    
 }

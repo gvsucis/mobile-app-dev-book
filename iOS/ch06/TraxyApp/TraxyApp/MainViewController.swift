@@ -43,9 +43,11 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let today = (Date().short.dateFromShort)!
         for j in journals {
-            if today <=  j.endDate! && today >= j.startDate! {
+            let endDate = (j.endDate?.short.dateFromShort)!
+            let startDate = (j.startDate?.short.dateFromShort)!
+            if today <=  endDate && today >= startDate {
                 currentSection.append(j)
-            } else if today < j.startDate! {
+            } else if today < startDate {
                 futureSection.append(j)
             } else {
                 pastSection.append(j)

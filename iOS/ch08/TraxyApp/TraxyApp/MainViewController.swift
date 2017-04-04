@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate
  {
@@ -15,6 +17,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     var journals : [Journal]?
+    
+    fileprivate var ref : FIRDatabaseReference?
+    fileprivate var userId : String? = ""
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
         didSet {
@@ -30,6 +35,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let model = JournalModel()
         self.journals = model.getJournals()
         self.sortIntoSections(journals: self.journals!)
+        
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if let user = user {
+                self.userId = user.uid
+                self.ref = FIRDatabase.database().reference()
+                self.registerForFireBaseUpdates()
+            }
+        }
     }
     
     
@@ -40,7 +53,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var currentSection  = [Journal]()
         var futureSection = [Journal]()
         var pastSection = [Journal]()
-        
         
         let today = (Date().short.dateFromShort)!
         for j in journals {
@@ -55,7 +67,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
         
-        
         var tmpData: [(sectionHeader: String, journals: [Journal])] = []
         if currentSection.count > 0 {
             tmpData.append((sectionHeader: "CURRENT", journals: currentSection))
@@ -67,9 +78,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tmpData.append((sectionHeader: "PAST", journals: pastSection))
         }
         
-        
         self.tableViewData = tmpData
-        
         
     }
 
@@ -166,35 +175,49 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - AddJournalDelegate
     func save(journal: Journal) {
-        self.journals?.append(journal)
-        self.sortIntoSections(journals: self.journals!)
+        let newChild = self.ref?.child(self.userId!).childByAutoId()
+        newChild?.setValue(self.toDictionary(vals: journal))
+    }
+    
+    func toDictionary(vals: Journal) -> NSDictionary {
+        return [
+            "name": vals.name! as NSString,
+            "address": vals.location! as NSString,
+            "startDate" : NSString(string: (vals.startDate?.iso8601)!) ,
+            "endDate": NSString(string: (vals.endDate?.iso8601)!),
+            "lat" : NSNumber(value: vals.lat!),
+            "lng" : NSNumber(value: vals.lng!),
+            "placeId" : vals.placeId! as NSString
+        ]
+    }
+    
+    fileprivate func registerForFireBaseUpdates()
+    {
+        self.ref!.child(self.userId!).observe(.value, with: { snapshot in
+            if let postDict = snapshot.value as? [String : AnyObject] {
+                var tmpItems = [Journal]()
+                for (_,val) in postDict.enumerated() {
+                    let entry = val.1 as! Dictionary<String,AnyObject>
+                    let key = val.0
+                    let name : String? = entry["name"] as! String?
+                    let location : String?  = entry["address"] as! String?
+                    let startDateStr  = entry["startDate"] as! String?
+                    let endDateStr = entry["endDate"] as! String?
+                    let lat = entry["lat"] as! Double?
+                    let lng = entry["lng"] as! Double?
+                    let placeId = entry["placeId"] as! String?
+                    tmpItems.append(Journal(key: key, name: name, location: location, startDate:
+                        startDateStr?.dateFromISO8601, endDate: endDateStr?.dateFromISO8601,
+                                                       lat: lat, lng: lng, placeId: placeId))
+                }
+                self.journals = tmpItems
+                self.sortIntoSections(journals: self.journals!)
+            }
+        })
+        
     }
 
 
 }
 
-extension Date {
-    struct Formatter {
-        static let short: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM-dd-yyyy"
-            return formatter
-        }()
-    }
-    
-    var short: String {
-        return Formatter.short.string(from: self)
-    }
-}
-
-
-extension String {
-    
-    
-    var dateFromShort: Date? {
-        return Date.Formatter.short.date(from: self)
-    }
-    
-    
-}
 
