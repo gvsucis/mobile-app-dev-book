@@ -1,13 +1,13 @@
 package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +23,10 @@ import butterknife.OnClick;
 
 public class JournalViewActivity extends AppCompatActivity {
 
+    private final static int CAPTURE_PHOTO_REQUEST = 678;
+
     @BindView(R.id.journal_name) TextView title;
+    @BindView(R.id.my_photo) ImageView photoView;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     private String tripKey;
@@ -36,15 +39,12 @@ public class JournalViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-//        Intent i = this.getIntent();
-//        String name = i.getStringExtra("TRIP_NAME");
-//        title.setText(name);
-
         Intent incoming = getIntent();
         if (incoming.hasExtra("TRIP")) {
             Parcelable par = incoming.getParcelableExtra("TRIP");
             Trip t = Parcels.unwrap(par);
-            tripKey = t.get_key();
+            tripKey = t.getKey();
+            title.setText(t.getName());
             FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
@@ -53,11 +53,25 @@ public class JournalViewActivity extends AppCompatActivity {
         }
 
     }
-//
-//    @OnClick(R.id.fab)
-//    public void fab_tapped()
-//    {
-//        Snackbar.make(title, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
-//    }
+
+    @OnClick(R.id.fab_add_photo)
+    public void do_add_photo()
+    {
+        Intent capture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (capture.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(capture, CAPTURE_PHOTO_REQUEST);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_PHOTO_REQUEST) {
+            if (resultCode == RESULT_OK && data != null) {
+                Bitmap thumbnail = (Bitmap) data.getParcelableExtra
+                        ("data");
+                photoView.setImageBitmap(thumbnail);
+            }
+        } else
+            super.onActivityResult(requestCode, resultCode, data);
+    }
 }
