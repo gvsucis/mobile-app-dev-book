@@ -96,8 +96,13 @@ public class JournalViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_PHOTO_REQUEST) {
             if (resultCode == RESULT_OK && data != null) {
-                Bitmap thumbnail = (Bitmap) data.getParcelableExtra("data");
-                photoView.setImageBitmap(thumbnail);
+//                Bitmap thumbnail = (Bitmap) data.getParcelableExtra("data");
+//                photoView.setImageBitmap(thumbnail);
+                Intent showPhoto = new Intent(JournalViewActivity.this,
+                        MediaDetailsActivity.class);
+                showPhoto.putExtra("PHOTO_URI", mediaUri);
+                showPhoto.putExtra("FIREBASE_REF", entriesRef.toString());
+                startActivity(showPhoto);
             }
         } else
             super.onActivityResult(requestCode, resultCode, data);

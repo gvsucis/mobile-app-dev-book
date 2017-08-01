@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.gvsu.cis.traxy">
+<manifest package="edu.gvsu.cis.traxy"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--uses-permission
+    <!--
+    uses-permission
     android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-                     android:maxSdkVersion="18"/-->
+                     android:maxSdkVersion="18"/
+    -->
     <application
-        android:name="edu.gvsu.cis.traxy.TraxyApp"
+        android:name=".TraxyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,9 +26,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.gvsu.cis.traxy.SignUpActivity"
+            android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:parentActivityName="edu.gvsu.cis.traxy.LoginActivity"
+            android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
