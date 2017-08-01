@@ -2,6 +2,7 @@ package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -15,7 +16,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.parceler.Parcels;
+
+import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +38,7 @@ public class JournalViewActivity extends AppCompatActivity {
 
     private String tripKey;
     private DatabaseReference entriesRef;
+    private Uri mediaUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +62,30 @@ public class JournalViewActivity extends AppCompatActivity {
 
     }
 
+    private File createFileName(String prefix, String ext) throws
+            IOException {
+        DateTime now = DateTime.now();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern
+                ("yyyyMMdd-HHmmss");
+        File cacheDir = getExternalCacheDir();
+        File media = File.createTempFile(prefix + "-" + fmt.print(now),
+                ext, cacheDir);
+        return media;
+    }
+
     @OnClick(R.id.fab_add_photo)
     public void do_add_photo()
     {
         Intent capture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (capture.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(capture, CAPTURE_PHOTO_REQUEST);
+            try {
+                File photoFile = createFileName("traxypic", ".jpg");
+                mediaUri = Uri.fromFile(photoFile);
+                capture.putExtra(MediaStore.EXTRA_OUTPUT, mediaUri);
+                startActivityForResult(capture, CAPTURE_PHOTO_REQUEST);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -67,8 +93,13 @@ public class JournalViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_PHOTO_REQUEST) {
             if (resultCode == RESULT_OK && data != null) {
-                Bitmap thumbnail = (Bitmap) data.getParcelableExtra
-                        ("data");
+                // Two different techniques for extracting the thumbnail:
+                // (1) fewer lines of code
+//                Bitmap thumbnail = (Bitmap) data.getParcelableExtra
+//                        ("data");
+                // (2) more lines of code
+                Bundle extras = data.getExtras();
+                Bitmap thumbnail = (Bitmap) extras.get("data");
                 photoView.setImageBitmap(thumbnail);
             }
         } else
