@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.parceler.Parcels;
 
 import java.io.File;
+import java.io.FilePermission;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -80,7 +82,8 @@ public class JournalViewActivity extends AppCompatActivity {
         if (capture.resolveActivity(getPackageManager()) != null) {
             try {
                 File photoFile = createFileName("traxypic", ".jpg");
-                mediaUri = Uri.fromFile(photoFile);
+                mediaUri = FileProvider.getUriForFile(this,
+                        getPackageName() + ".provider", photoFile);
                 capture.putExtra(MediaStore.EXTRA_OUTPUT, mediaUri);
                 startActivityForResult(capture, CAPTURE_PHOTO_REQUEST);
             } catch (IOException e) {
@@ -93,13 +96,7 @@ public class JournalViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_PHOTO_REQUEST) {
             if (resultCode == RESULT_OK && data != null) {
-                // Two different techniques for extracting the thumbnail:
-                // (1) fewer lines of code
-//                Bitmap thumbnail = (Bitmap) data.getParcelableExtra
-//                        ("data");
-                // (2) more lines of code
-                Bundle extras = data.getExtras();
-                Bitmap thumbnail = (Bitmap) extras.get("data");
+                Bitmap thumbnail = (Bitmap) data.getParcelableExtra("data");
                 photoView.setImageBitmap(thumbnail);
             }
         } else
