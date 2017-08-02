@@ -23,6 +23,7 @@ import org.parceler.Parcels;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ import butterknife.OnClick;
 public class JournalViewActivity extends AppCompatActivity {
 
     private final static int CAPTURE_PHOTO_REQUEST = 678;
+    private final static int CAPTURE_VIDEO_REQUEST = 679;
 
     @BindView(R.id.journal_name) TextView title;
     @BindView(R.id.journal_entry_photo) ImageView photoView;
@@ -90,18 +92,37 @@ public class JournalViewActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.fab_add_video)
+    public void do_add_video()
+    {
+        Intent capture = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (capture.resolveActivity(getPackageManager()) != null) {
+            try {
+                File videoFile = createFileName("traxyvid", ".mp4");
+                mediaUri = FileProvider.getUriForFile(this,
+                        getPackageName() + ".provider", videoFile);
+                capture.putExtra(MediaStore.EXTRA_OUTPUT, mediaUri);
+                startActivityForResult(capture, CAPTURE_VIDEO_REQUEST);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_PHOTO_REQUEST) {
-            if (resultCode == RESULT_OK && data != null) {
-//                Bitmap thumbnail = (Bitmap) data.getParcelableExtra("data");
-//                photoView.setImageBitmap(thumbnail);
-                Intent showPhoto = new Intent(JournalViewActivity.this,
-                        MediaDetailsActivity.class);
-                showPhoto.putExtra("PHOTO_URI", mediaUri);
-                showPhoto.putExtra("FIREBASE_REF", entriesRef.toString());
-                startActivity(showPhoto);
+        Intent showDetails = new Intent(this, MediaDetailsActivity.class);
+        showDetails.putExtra("FIREBASE_REF", entriesRef.toString());
+        if (resultCode == RESULT_OK && data != null) {
+            switch (requestCode) {
+                case CAPTURE_PHOTO_REQUEST:
+                    showDetails.putExtra("PHOTO_URI", mediaUri);
+                    break;
+                case CAPTURE_VIDEO_REQUEST:
+                    showDetails.putExtra("VIDEO_URI", mediaUri);
+                    break;
             }
+            startActivity(showDetails);
         } else
             super.onActivityResult(requestCode, resultCode, data);
     }

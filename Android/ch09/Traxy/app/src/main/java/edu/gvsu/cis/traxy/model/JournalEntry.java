@@ -7,7 +7,7 @@ package edu.gvsu.cis.traxy.model;
 public class JournalEntry {
     String caption, date;
     double lat, lng;
-    int type;
+    int type; // 1:text, 2:photo, 3:audio, 4:video
     String url, thumbnailUrl;
 
     public String getCaption() {
