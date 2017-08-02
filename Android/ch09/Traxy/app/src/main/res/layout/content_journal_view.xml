@@ -14,7 +14,7 @@
     tools:showIn="@layout/activity_journal_view">
 
     <ImageView
-        android:id="@+id/my_photo"
+        android:id="@+id/journal_entry_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

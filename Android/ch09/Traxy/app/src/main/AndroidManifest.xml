@@ -51,6 +51,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.gvsu.cis.traxy.MainActivity" />
         </activity>
+        <activity android:name=".MediaDetailsActivity"/>
         <provider
             android:authorities="${applicationId}.provider"
             android:name="android.support.v4.content.FileProvider"

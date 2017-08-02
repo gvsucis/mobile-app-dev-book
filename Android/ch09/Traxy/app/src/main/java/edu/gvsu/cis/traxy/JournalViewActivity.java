@@ -1,7 +1,6 @@
 package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -23,7 +22,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.parceler.Parcels;
 
 import java.io.File;
-import java.io.FilePermission;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -35,7 +33,7 @@ public class JournalViewActivity extends AppCompatActivity {
     private final static int CAPTURE_PHOTO_REQUEST = 678;
 
     @BindView(R.id.journal_name) TextView title;
-    @BindView(R.id.my_photo) ImageView photoView;
+    @BindView(R.id.journal_entry_photo) ImageView photoView;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     private String tripKey;
