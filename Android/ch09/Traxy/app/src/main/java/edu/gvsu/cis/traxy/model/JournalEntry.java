@@ -10,6 +10,10 @@ public class JournalEntry {
     int type; // 1:text, 2:photo, 3:audio, 4:video
     String url, thumbnailUrl;
 
+    public JournalEntry() {
+        /* this default constructor is required (albeit it is empty) */
+    }
+
     public String getCaption() {
         return caption;
     }

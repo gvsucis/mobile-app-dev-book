@@ -7,14 +7,21 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -23,11 +30,11 @@ import org.parceler.Parcels;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.gvsu.cis.traxy.model.JournalEntry;
 
 public class JournalViewActivity extends AppCompatActivity {
 
@@ -35,12 +42,14 @@ public class JournalViewActivity extends AppCompatActivity {
     private final static int CAPTURE_VIDEO_REQUEST = 679;
 
     @BindView(R.id.journal_name) TextView title;
-    @BindView(R.id.journal_entry_photo) ImageView photoView;
+    @BindView(R.id.journal_entries) RecyclerView entries;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     private String tripKey;
     private DatabaseReference entriesRef;
     private Uri mediaUri;
+    private FirebaseRecyclerAdapter<JournalEntry, EntryHolder> adapter;
+    private FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +57,8 @@ public class JournalViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_journal_view);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
+        entries.setLayoutManager(new LinearLayoutManager(this));
+        FirebaseImageLoader imgLoader = new FirebaseImageLoader();
         Intent incoming = getIntent();
         if (incoming.hasExtra("TRIP")) {
             Parcelable par = incoming.getParcelableExtra("TRIP");
@@ -60,6 +70,37 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseUser user = auth.getCurrentUser();
             entriesRef = dbRef.getReference(user.getUid())
                     .child(tripKey + "/entries");
+            storage = FirebaseStorage.getInstance();
+            adapter = new FirebaseRecyclerAdapter<JournalEntry, EntryHolder>
+                    (JournalEntry.class, R.layout.journal_entry_item,
+                            EntryHolder.class, entriesRef) {
+                @Override
+                protected void populateViewHolder(EntryHolder viewHolder, JournalEntry model, int position) {
+                    viewHolder.setCaption(model.getCaption());
+                    switch (model.getType()) {
+                        case 2: // photo
+                            viewHolder.topImage.setVisibility(View.VISIBLE);
+                            Glide.with(viewHolder.topImage.getContext())
+                                    .using(imgLoader)
+                                    .load(storage.getReferenceFromUrl(model.getUrl()))
+                                    .into(viewHolder.topImage);
+                            break;
+                        case 4: // video
+                            viewHolder.topImage.setVisibility(View.VISIBLE);
+                            Glide.with(viewHolder.topImage.getContext())
+                                    .using(imgLoader)
+                                    .load(storage.getReferenceFromUrl
+                                            (model.getThumbnailUrl()))
+                                    .into(viewHolder.topImage);
+                            break;
+                        default:
+                            viewHolder.topImage.setVisibility(View.GONE);
+                            break;
+                    }
+                }
+
+            };
+            entries.setAdapter(adapter);
         }
 
     }
