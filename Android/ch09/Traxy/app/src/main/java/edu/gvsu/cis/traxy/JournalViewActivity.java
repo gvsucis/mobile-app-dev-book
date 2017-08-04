@@ -104,6 +104,9 @@ public class JournalViewActivity extends AppCompatActivity {
                         String key = getRef(position).getKey();
                         toMediaEdit(model, key);
                     });
+                    viewHolder.topImage.setOnClickListener( view -> {
+                        toMediaView(model);
+                    });
                 }
 
             };
@@ -129,10 +132,10 @@ public class JournalViewActivity extends AppCompatActivity {
     }
 
     private void toMediaView (JournalEntry model) {
-//        Intent toView = new Intent(this, MediaViewActivity.class);
-//        toView.putExtra ("MEDIA_URL", model.getUrl());
-//        toView.putExtra ("MEDIA_TYPE", model.getType());
-//        startActivity (toView);
+        Intent toView = new Intent(this, MediaViewActivity.class);
+        Parcelable parcel = Parcels.wrap(model);
+        toView.putExtra ("JRNL_ENTRY", parcel);
+        startActivity (toView);
     }
 
     private void toMediaEdit (JournalEntry model, String key) {
