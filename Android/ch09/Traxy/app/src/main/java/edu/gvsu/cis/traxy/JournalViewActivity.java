@@ -74,12 +74,14 @@ public class JournalViewActivity extends AppCompatActivity {
             adapter = new FirebaseRecyclerAdapter<JournalEntry, EntryHolder>
                     (JournalEntry.class, R.layout.journal_entry_item,
                             EntryHolder.class, entriesRef) {
+
                 @Override
                 protected void populateViewHolder(EntryHolder viewHolder, JournalEntry model, int position) {
                     viewHolder.setCaption(model.getCaption());
                     switch (model.getType()) {
                         case 2: // photo
                             viewHolder.topImage.setVisibility(View.VISIBLE);
+                            viewHolder.playIcon.setVisibility(View.GONE);
                             Glide.with(viewHolder.topImage.getContext())
                                     .using(imgLoader)
                                     .load(storage.getReferenceFromUrl(model.getUrl()))
@@ -87,6 +89,7 @@ public class JournalViewActivity extends AppCompatActivity {
                             break;
                         case 4: // video
                             viewHolder.topImage.setVisibility(View.VISIBLE);
+                            viewHolder.playIcon.setVisibility(View.VISIBLE);
                             Glide.with(viewHolder.topImage.getContext())
                                     .using(imgLoader)
                                     .load(storage.getReferenceFromUrl
@@ -97,12 +100,21 @@ public class JournalViewActivity extends AppCompatActivity {
                             viewHolder.topImage.setVisibility(View.GONE);
                             break;
                     }
+                    viewHolder.editBtn.setOnClickListener( view -> {
+                        String key = getRef(position).getKey();
+                        toMediaEdit(model, key);
+                    });
                 }
 
             };
             entries.setAdapter(adapter);
         }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter.cleanup();
     }
 
     private File createFileName(String prefix, String ext) throws
@@ -114,6 +126,22 @@ public class JournalViewActivity extends AppCompatActivity {
         File media = File.createTempFile(prefix + "-" + fmt.print(now),
                 ext, cacheDir);
         return media;
+    }
+
+    private void toMediaView (JournalEntry model) {
+//        Intent toView = new Intent(this, MediaViewActivity.class);
+//        toView.putExtra ("MEDIA_URL", model.getUrl());
+//        toView.putExtra ("MEDIA_TYPE", model.getType());
+//        startActivity (toView);
+    }
+
+    private void toMediaEdit (JournalEntry model, String key) {
+        Intent toEdit = new Intent(this, JournalEditActivity.class);
+        Parcelable parcel = Parcels.wrap(model);
+        toEdit.putExtra ("JRNL_ENTRY", parcel);
+        toEdit.putExtra ("JRNL_KEY", key);
+        toEdit.putExtra ("DB_REF", entriesRef.getParent().toString());
+        startActivity (toEdit);
     }
 
     @OnClick(R.id.fab_add_photo)

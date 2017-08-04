@@ -25,4 +25,5 @@
     <string name="journal_entry_date">Date</string>
     <string name="journal_entry_location">Location</string>
     <string name="journal_entry_time">Time</string>
+    <string name="title_activity_journal_edit">JournalEditActivity</string>
 </resources>

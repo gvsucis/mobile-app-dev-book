@@ -1,9 +1,12 @@
 package edu.gvsu.cis.traxy.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by dulimarh on 8/1/17.
  */
 
+@Parcel
 public class JournalEntry {
     String caption, date;
     double lat, lng;
