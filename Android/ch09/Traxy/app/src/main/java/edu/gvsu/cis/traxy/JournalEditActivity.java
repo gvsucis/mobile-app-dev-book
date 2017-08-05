@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -38,6 +39,7 @@ public class JournalEditActivity extends AppCompatActivity {
     private JournalEntry entry;
     private DatabaseReference parentRef, myRef;
     private Map<String,Object> updateMap = new TreeMap<>();
+    private String coverUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,13 @@ public class JournalEditActivity extends AppCompatActivity {
             Parcelable parcel = incoming.getParcelableExtra("JRNL_ENTRY");
             entry = Parcels.unwrap(parcel);
             String url = null;
-            if (entry.getType() == 2)
+            if (entry.getType() == 2) {
                 url = entry.getUrl();
-            else if (entry.getType() == 2) {
+                fabCover.setVisibility(View.VISIBLE);
+            }
+            else if (entry.getType() == 4) {
                 url = entry.getThumbnailUrl();
+                fabCover.setVisibility(View.GONE);
             }
             if (url != null) {
                 Glide.with(this)
@@ -77,6 +82,16 @@ public class JournalEditActivity extends AppCompatActivity {
     public void useCoverPhoto() {
 
         fabCover.setSelected( ! fabCover.isSelected());
+        if (fabCover.isSelected()) {
+            coverUrl = entry.getUrl();
+            Snackbar.make(fabCover, "Cover photo will be updated when " +
+                    "you save changes", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            Snackbar.make(fabCover, "Cover photo unchanged", Snackbar
+                    .LENGTH_LONG).show();
+            coverUrl = null;
+        }
     }
 
     @Override
@@ -105,6 +120,10 @@ public class JournalEditActivity extends AppCompatActivity {
             updateMap.put("caption", caption.getText().toString());
             updateMap.put("date", dateTime.getText().toString());
             myRef.updateChildren(updateMap, updateListener);
+            if (coverUrl != null) {
+                updateMap.clear();
+                parentRef.child("coverPhotoUrl").setValue(coverUrl);
+            }
             return true;
         } else
             return false;
