@@ -7,6 +7,8 @@
     android:name="android.permission.WRITE_EXTERNAL_STORAGE"
                      android:maxSdkVersion="18"/
     -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:name=".TraxyApp"
         android:allowBackup="true"
@@ -64,8 +66,13 @@
         </provider>
 
         <activity android:name=".JournalEditActivity"/>
-        <activity android:name=".MediaViewActivity"
-                  android:screenOrientation="landscape">
+        <activity
+            android:name=".MediaViewActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".AudioActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

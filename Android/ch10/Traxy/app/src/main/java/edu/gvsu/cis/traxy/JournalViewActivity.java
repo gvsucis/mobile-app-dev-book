@@ -1,10 +1,15 @@
 package edu.gvsu.cis.traxy;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -38,8 +42,9 @@ import edu.gvsu.cis.traxy.model.JournalEntry;
 
 public class JournalViewActivity extends AppCompatActivity {
 
-    private final static int CAPTURE_PHOTO_REQUEST = 678;
-    private final static int CAPTURE_VIDEO_REQUEST = 679;
+    private static final int CAPTURE_PHOTO_REQUEST = 678;
+    private static final int CAPTURE_VIDEO_REQUEST = 679;
+    private static final int RECORD_AUDIO_REQUEST = 680;
 
     @BindView(R.id.journal_name) TextView title;
     @BindView(R.id.journal_entries) RecyclerView entries;
@@ -86,6 +91,8 @@ public class JournalViewActivity extends AppCompatActivity {
                                     .using(imgLoader)
                                     .load(storage.getReferenceFromUrl(model.getUrl()))
                                     .into(viewHolder.topImage);
+                            break;
+                        case 3: // audio
                             break;
                         case 4: // video
                             viewHolder.topImage.setVisibility(View.VISIBLE);
@@ -181,6 +188,21 @@ public class JournalViewActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.fab_add_audio)
+    public void do_add_audio() {
+        Intent toAudio = new Intent(this, AudioActivity.class);
+        try {
+            File audioFile = createFileName("traxyau",
+                    ".m4a");
+            mediaUri = FileProvider.getUriForFile(this,
+                    getPackageName() + ".provider", audioFile);
+            toAudio.putExtra("AUDIO_PATH", audioFile.getAbsolutePath());
+            startActivityForResult(toAudio, RECORD_AUDIO_REQUEST);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent showDetails = new Intent(this, MediaDetailsActivity.class);
@@ -198,4 +220,5 @@ public class JournalViewActivity extends AppCompatActivity {
         } else
             super.onActivityResult(requestCode, resultCode, data);
     }
+
 }
