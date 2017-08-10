@@ -207,13 +207,16 @@ public class JournalViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent showDetails = new Intent(this, MediaDetailsActivity.class);
         showDetails.putExtra("FIREBASE_REF", entriesRef.toString());
-        if (resultCode == RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAPTURE_PHOTO_REQUEST:
                     showDetails.putExtra("PHOTO_URI", mediaUri);
                     break;
                 case CAPTURE_VIDEO_REQUEST:
                     showDetails.putExtra("VIDEO_URI", mediaUri);
+                    break;
+                case RECORD_AUDIO_REQUEST:
+                    showDetails.putExtra("AUDIO_URI",mediaUri);
                     break;
             }
             startActivity(showDetails);

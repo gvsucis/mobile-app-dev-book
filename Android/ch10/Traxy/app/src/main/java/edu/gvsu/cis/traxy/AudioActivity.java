@@ -1,15 +1,16 @@
 package edu.gvsu.cis.traxy;
 
-import android.*;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class AudioActivity extends AppCompatActivity {
     private static final String[] permArr = {Manifest.permission
             .RECORD_AUDIO};
     private Handler myHandler;
+    private MediaPlayer audioPlay;
 
     private enum Status {START, RECORDING, RECORD_STOP, PLAYING,
         PLAY_PAUSE};
@@ -49,7 +51,7 @@ public class AudioActivity extends AppCompatActivity {
     private MediaRecorder audioRec;
 
     private String audioFilePath;
-    private Status currentStatus;
+    private Status currentState;
     private int duration = 0;
 
     @Override
@@ -57,7 +59,7 @@ public class AudioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
         ButterKnife.bind(this);
-        currentStatus = Status.START;
+        currentState = Status.START;
         myHandler = new Handler();
         Intent incoming = getIntent();
         if (incoming.hasExtra("AUDIO_PATH")) {
@@ -72,6 +74,16 @@ public class AudioActivity extends AppCompatActivity {
         if (currentPerm == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, permArr, AUDIO_PERMISSION_REQUEST);
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (audioRec != null)
+            stopRecording();
+        if (audioPlay != null)
+            pausePlayback();
     }
 
     private void startRecording() {
@@ -97,10 +109,10 @@ public class AudioActivity extends AppCompatActivity {
     
     @OnClick(R.id.centerBtn)
     public void doCenterButton() {
-        switch (currentStatus) {
+        switch (currentState) {
             case START:
                 startRecording();
-                currentStatus = Status.RECORDING;
+                currentState = Status.RECORDING;
                 recordBtn.setImageResource(R.drawable.ic_stop_black_24dp);
                 status.setText("Recording");
                 myHandler.post(myRunner);
@@ -108,7 +120,7 @@ public class AudioActivity extends AppCompatActivity {
             case RECORDING:
                 myHandler.removeCallbacks(myRunner);
                 stopRecording();
-                currentStatus = Status.RECORD_STOP;
+                currentState = Status.RECORD_STOP;
                 status.setText("Audio Recorded");
                 recordBtn.setImageResource(R.drawable.ic_done_black_24dp);
                 resetBtn.setVisibility(View.VISIBLE);
@@ -119,6 +131,47 @@ public class AudioActivity extends AppCompatActivity {
                 setResult(RESULT_OK);
                 finish();
                 break;
+        }
+    }
+
+    private void initAudioPlayer() throws IOException {
+        audioPlay = new MediaPlayer();
+//        audioPlay.setOnPreparedListener(prepareListener);
+        audioPlay.setOnCompletionListener(endAudioListener);
+        audioPlay.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        audioPlay.setDataSource(audioFilePath);
+        audioPlay.prepare();
+    }
+
+    private void startPlayback() {
+        try {
+            if (audioPlay == null)
+                initAudioPlayer();
+            audioPlay.start();
+        } catch (IOException ioe) {
+            Snackbar.make(recordBtn, "Unable to initialize Audio", Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    private void pausePlayback() {
+        audioPlay.pause();
+    }
+
+    @OnClick(R.id.rightBtn)
+    public void doRightButton() {
+        if (currentState == Status.PLAYING) {
+            myHandler.removeCallbacks(myRunner);
+            pausePlayback();
+            currentState = Status.PLAY_PAUSE;
+            playBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+            status.setText("Paused");
+        } else {
+            startPlayback();
+            duration = 0;
+            currentState = Status.PLAYING;
+            playBtn.setImageResource(R.drawable.ic_pause_black_24dp);
+            status.setText("Playing");
+            myHandler.post(myRunner);
         }
     }
 
@@ -149,4 +202,11 @@ public class AudioActivity extends AppCompatActivity {
             myHandler.postDelayed(myRunner, 1000);
         }
     };
+
+    private MediaPlayer.OnCompletionListener endAudioListener =
+            mediaPlayer -> {
+                myHandler.removeCallbacks(myRunner);
+                currentState = Status.PLAY_PAUSE;
+                status.setText("End of audio");
+            };
 }

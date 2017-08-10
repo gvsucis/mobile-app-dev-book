@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -48,6 +49,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
     @BindView(R.id.journal_entry_caption) TextView entry_caption;
     @BindView(R.id.journal_entry_date) TextView entry_date;
     @BindView(R.id.journal_entry_time) TextView entry_location;
+    @BindView(R.id.audioLabel) TextView audioLabel;
+
+    ImageButton playIt;
+
     private DatabaseReference entriesRef;
     private Uri dataUri;
     private StorageReference storageRef;
@@ -77,10 +82,23 @@ public class MediaDetailsActivity extends AppCompatActivity {
                         (dataUri);
                 Bitmap bmp = BitmapFactory.decodeStream(istr);
                 photoView.setImageBitmap(bmp);
+                audioLabel.setVisibility(View.GONE);
+                photoView.setVisibility(View.VISIBLE);
+                videoView.setVisibility(View.GONE);
                 istr.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if (incoming.hasExtra("AUDIO_URI")) {
+            mediaType = 3;
+            dataUri = incoming.getParcelableExtra("AUDIO_URI");
+            videoView.setVideoURI(dataUri);
+            MediaController mc = new MediaController(this);
+            videoView.setMediaController(mc);
+            photoView.setVisibility(View.GONE);
+            audioLabel.setVisibility(View.VISIBLE);
+            videoView.setVisibility(View.VISIBLE);
         }
         if (incoming.hasExtra("VIDEO_URI")) {
             mediaType = 4;
@@ -88,7 +106,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
             videoView.setVideoURI(dataUri);
             MediaController mc = new MediaController(this);
             videoView.setMediaController(mc);
-            photoView.setVisibility(View.INVISIBLE);
+            audioLabel.setVisibility(View.GONE);
+            photoView.setVisibility(View.GONE);
             videoView.setVisibility(View.VISIBLE);
         }
     }
@@ -161,6 +180,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     uploadMedia(mediaType, "image/jpeg", "photos");
                     break;
                 case 3: // audio
+                    uploadMedia(mediaType, "audio/m4a", "audio");
+
                     break;
                 case 4: // video
                     uploadMedia(mediaType, "video/mp4", "videos");
