@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -25,6 +26,8 @@ public class AudioActivity extends AppCompatActivity {
     private static final int AUDIO_PERMISSION_REQUEST = 681;
     private static final String[] permArr = {Manifest.permission
             .RECORD_AUDIO};
+    private Handler myHandler;
+
     private enum Status {START, RECORDING, RECORD_STOP, PLAYING,
         PLAY_PAUSE};
 
@@ -40,10 +43,14 @@ public class AudioActivity extends AppCompatActivity {
     @BindView(R.id.status)
     TextView status;
 
+    @BindView(R.id.timeMarker)
+    TextView timeMarker;
+
     private MediaRecorder audioRec;
 
     private String audioFilePath;
     private Status currentStatus;
+    private int duration = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class AudioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_audio);
         ButterKnife.bind(this);
         currentStatus = Status.START;
+        myHandler = new Handler();
         Intent incoming = getIntent();
         if (incoming.hasExtra("AUDIO_PATH")) {
             audioFilePath = incoming.getStringExtra("AUDIO_PATH");
@@ -95,8 +103,10 @@ public class AudioActivity extends AppCompatActivity {
                 currentStatus = Status.RECORDING;
                 recordBtn.setImageResource(R.drawable.ic_stop_black_24dp);
                 status.setText("Recording");
+                myHandler.post(myRunner);
                 break;
             case RECORDING:
+                myHandler.removeCallbacks(myRunner);
                 stopRecording();
                 currentStatus = Status.RECORD_STOP;
                 status.setText("Audio Recorded");
@@ -131,4 +141,12 @@ public class AudioActivity extends AppCompatActivity {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    private Runnable myRunner = new Runnable() {
+        @Override
+        public void run() {
+            timeMarker.setText(duration + " secs");
+            duration++;
+            myHandler.postDelayed(myRunner, 1000);
+        }
+    };
 }
