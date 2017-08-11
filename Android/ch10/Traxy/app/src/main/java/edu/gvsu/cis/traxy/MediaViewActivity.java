@@ -56,9 +56,17 @@ public class MediaViewActivity extends AppCompatActivity {
         if (incoming.hasExtra("JRNL_ENTRY")) {
             Parcelable parcel = incoming.getParcelableExtra("JRNL_ENTRY");
             entry = Parcels.unwrap(parcel);
-            if (entry.getType() == 3 || entry.getType() == 4) {
-                photoView.setVisibility(View.GONE);
-                initExoPlayer();
+            switch (entry.getType()) {
+                case 1:
+                    break;
+                case 2:
+                    videoView.setVisibility(View.GONE);
+                    break;
+                case 3:
+                case 4:
+                    photoView.setVisibility(View.GONE);
+                    initExoPlayer();
+                    break;
             }
         }
     }

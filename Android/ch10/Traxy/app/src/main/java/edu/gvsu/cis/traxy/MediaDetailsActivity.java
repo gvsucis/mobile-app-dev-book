@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -49,6 +50,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     @BindView(R.id.journal_entry_date) TextView entry_date;
     @BindView(R.id.journal_entry_time) TextView entry_location;
     @BindView(R.id.audioLabel) TextView audioLabel;
+    @BindView(R.id.frameLayout) FrameLayout topContainer;
 
     ImageButton playIt;
 
@@ -89,7 +91,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        if (incoming.hasExtra("AUDIO_URI")) {
+        else if (incoming.hasExtra("AUDIO_URI")) {
             mediaType = 3;
             dataUri = incoming.getParcelableExtra("AUDIO_URI");
             videoView.setVideoURI(dataUri);
@@ -99,7 +101,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
             audioLabel.setVisibility(View.VISIBLE);
             videoView.setVisibility(View.VISIBLE);
         }
-        if (incoming.hasExtra("VIDEO_URI")) {
+        else if (incoming.hasExtra("VIDEO_URI")) {
             mediaType = 4;
             dataUri = incoming.getParcelableExtra("VIDEO_URI");
             videoView.setVideoURI(dataUri);
@@ -108,6 +110,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
             audioLabel.setVisibility(View.GONE);
             photoView.setVisibility(View.GONE);
             videoView.setVisibility(View.VISIBLE);
+        } else {
+            /* a text only entry */
+            mediaType = 1;
+            topContainer.setVisibility(View.GONE);
         }
     }
 
@@ -174,6 +180,20 @@ public class MediaDetailsActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.save_media) {
             switch (mediaType) {
                 case 1: // text
+                    DateTime now = DateTime.now();
+                    DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+                    JournalEntry currentEntry = new JournalEntry();
+                    currentEntry.setCaption(entry_caption.getText().toString());
+                    currentEntry.setType(mediaType);
+                    currentEntry.setLat(ALLENDALE_LAT);
+                    currentEntry.setLng(ALLENDATE_LNG);
+                    currentEntry.setDate(fmt.print(now));
+
+                    DatabaseReference savedEntry = entriesRef.push();
+                    savedEntry.setValue(currentEntry);
+                    Snackbar.make(entry_caption,
+                            "Your entry is saved",
+                            Snackbar.LENGTH_LONG).show();
                     break;
                 case 2: // photo
                     uploadMedia(mediaType, "image/jpeg", "photos");

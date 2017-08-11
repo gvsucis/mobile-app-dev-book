@@ -41,6 +41,7 @@ public class JournalViewActivity extends AppCompatActivity {
     private static final int CAPTURE_PHOTO_REQUEST = 678;
     private static final int CAPTURE_VIDEO_REQUEST = 679;
     private static final int RECORD_AUDIO_REQUEST = 680;
+    private static final int SELECT_ALBUM = 681;
     private static final int ITEM_VERTICAL_GAP = 32 ;
 
     @BindView(R.id.journal_name) TextView title;
@@ -80,7 +81,13 @@ public class JournalViewActivity extends AppCompatActivity {
                 @Override
                 protected void populateViewHolder(EntryHolder viewHolder, JournalEntry model, int position) {
                     viewHolder.setCaption(model.getCaption());
+                    viewHolder.setDate(model.getDate());
+
                     switch (model.getType()) {
+                        case 1:
+                            viewHolder.mediaContainer.setVisibility(View
+                                    .GONE);
+                            break;
                         case 2: // photo
                             viewHolder.topImage.setVisibility(View.VISIBLE);
                             viewHolder.playIcon.setVisibility(View.GONE);
@@ -213,6 +220,20 @@ public class JournalViewActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.fab_select_album)
+    public void do_add_photo_from_album() {
+        Intent toAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+        toAlbum.setType("image/*");
+        startActivityForResult(toAlbum, SELECT_ALBUM);
+    }
+
+    @OnClick(R.id.fab_add_text)
+    public void do_add_textentry() {
+        Intent toDetails = new Intent(this, MediaDetailsActivity.class);
+        toDetails.putExtra("FIREBASE_REF", entriesRef.toString());
+        startActivity(toDetails);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent showDetails = new Intent(this, MediaDetailsActivity.class);
@@ -228,6 +249,8 @@ public class JournalViewActivity extends AppCompatActivity {
                 case RECORD_AUDIO_REQUEST:
                     showDetails.putExtra("AUDIO_URI",mediaUri);
                     break;
+                case SELECT_ALBUM:
+                    showDetails.putExtra("PHOTO_URI", data.getData());
             }
             startActivity(showDetails);
         } else

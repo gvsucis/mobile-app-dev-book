@@ -78,6 +78,8 @@ public class JournalViewActivity extends AppCompatActivity {
                 @Override
                 protected void populateViewHolder(EntryHolder viewHolder, JournalEntry model, int position) {
                     viewHolder.setCaption(model.getCaption());
+                    viewHolder.setDate(model.getDate());
+
                     switch (model.getType()) {
                         case 2: // photo
                             viewHolder.topImage.setVisibility(View.VISIBLE);
