@@ -1,15 +1,11 @@
 package edu.gvsu.cis.traxy;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +41,7 @@ public class JournalViewActivity extends AppCompatActivity {
     private static final int CAPTURE_PHOTO_REQUEST = 678;
     private static final int CAPTURE_VIDEO_REQUEST = 679;
     private static final int RECORD_AUDIO_REQUEST = 680;
+    private static final int ITEM_VERTICAL_GAP = 32 ;
 
     @BindView(R.id.journal_name) TextView title;
     @BindView(R.id.journal_entries) RecyclerView entries;
@@ -93,6 +90,8 @@ public class JournalViewActivity extends AppCompatActivity {
                                     .into(viewHolder.topImage);
                             break;
                         case 3: // audio
+                            viewHolder.topImage.setVisibility(View.VISIBLE);
+                            viewHolder.playIcon.setVisibility(View.VISIBLE);
                             break;
                         case 4: // video
                             viewHolder.topImage.setVisibility(View.VISIBLE);
@@ -114,10 +113,14 @@ public class JournalViewActivity extends AppCompatActivity {
                     viewHolder.topImage.setOnClickListener( view -> {
                         toMediaView(model);
                     });
+                    viewHolder.playIcon.setOnClickListener( view -> {
+                        toMediaView(model);
+                    });
                 }
 
             };
             entries.setAdapter(adapter);
+            entries.addItemDecoration(verticalGap);
         }
     }
 
@@ -126,6 +129,13 @@ public class JournalViewActivity extends AppCompatActivity {
         super.onDestroy();
         adapter.cleanup();
     }
+
+    private RecyclerView.ItemDecoration verticalGap = new RecyclerView.ItemDecoration() {
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.bottom = ITEM_VERTICAL_GAP;
+        }
+    };
 
     private File createFileName(String prefix, String ext) throws
             IOException {

@@ -79,6 +79,15 @@ public class MediaViewActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+    }
+
     private void initExoPlayer() {
         DefaultBandwidthMeter bwMeter = new DefaultBandwidthMeter();
         AdaptiveTrackSelection.Factory trackFactory = new AdaptiveTrackSelection.Factory(bwMeter);

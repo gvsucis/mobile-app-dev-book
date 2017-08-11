@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -145,7 +144,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
             savedEntry.child("url").setValue(uri.toString());
             Snackbar.make(entry_caption,
                     "Your media is uploaded to " + uri.toString(),
-                    Toast.LENGTH_LONG).show();
+                    Snackbar.LENGTH_LONG).show();
         });
         if (mediaType == 4) { // is it a video?
             // Create a thumbnail image
@@ -186,7 +185,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 case 4: // video
                     uploadMedia(mediaType, "video/mp4", "videos");
                     break;
-
             }
             return true;
         }

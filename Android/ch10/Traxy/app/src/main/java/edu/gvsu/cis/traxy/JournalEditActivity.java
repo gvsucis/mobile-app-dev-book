@@ -1,11 +1,11 @@
 package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +56,10 @@ public class JournalEditActivity extends AppCompatActivity {
             if (entry.getType() == 2) {
                 url = entry.getUrl();
                 fabCover.setVisibility(View.VISIBLE);
+            }
+            else if (entry.getType() == 3) {
+                fabCover.setVisibility(View.GONE);
+                imageView.setImageResource(R.drawable.transparent_box);
             }
             else if (entry.getType() == 4) {
                 url = entry.getThumbnailUrl();

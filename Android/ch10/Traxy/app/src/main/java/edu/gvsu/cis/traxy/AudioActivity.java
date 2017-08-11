@@ -7,13 +7,13 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,6 +29,7 @@ public class AudioActivity extends AppCompatActivity {
             .RECORD_AUDIO};
     private Handler myHandler;
     private MediaPlayer audioPlay;
+    private AudioManager audioMgr;
 
     private enum Status {START, RECORDING, RECORD_STOP, PLAYING,
         PLAY_PAUSE};
@@ -61,6 +62,7 @@ public class AudioActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         currentState = Status.START;
         myHandler = new Handler();
+        audioMgr = (AudioManager) getSystemService(AUDIO_SERVICE);
         Intent incoming = getIntent();
         if (incoming.hasExtra("AUDIO_PATH")) {
             audioFilePath = incoming.getStringExtra("AUDIO_PATH");
@@ -122,6 +124,7 @@ public class AudioActivity extends AppCompatActivity {
                 stopRecording();
                 currentState = Status.RECORD_STOP;
                 status.setText("Audio Recorded");
+                duration = 0;
                 recordBtn.setImageResource(R.drawable.ic_done_black_24dp);
                 resetBtn.setVisibility(View.VISIBLE);
                 playBtn.setVisibility(View.VISIBLE);
@@ -147,7 +150,11 @@ public class AudioActivity extends AppCompatActivity {
         try {
             if (audioPlay == null)
                 initAudioPlayer();
-            audioPlay.start();
+            int result = audioMgr.requestAudioFocus(audioFocusListener,
+                    AudioManager.STREAM_MUSIC, AudioManager
+                            .AUDIOFOCUS_GAIN);
+            if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+                audioPlay.start();
         } catch (IOException ioe) {
             Snackbar.make(recordBtn, "Unable to initialize Audio", Snackbar.LENGTH_LONG).show();
         }
@@ -167,11 +174,29 @@ public class AudioActivity extends AppCompatActivity {
             status.setText("Paused");
         } else {
             startPlayback();
-            duration = 0;
             currentState = Status.PLAYING;
             playBtn.setImageResource(R.drawable.ic_pause_black_24dp);
             status.setText("Playing");
             myHandler.post(myRunner);
+        }
+    }
+
+
+    @OnClick(R.id.leftBtn)
+    public void resetAll() {
+        currentState = Status.START;
+        myHandler.removeCallbacks(myRunner);
+        status.setText("");
+        resetBtn.setVisibility(View.GONE);
+        recordBtn.setImageResource(R.drawable.ic_record_black_24dp);
+        playBtn.setVisibility(View.GONE);
+        playBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        duration = 0;
+        timeMarker.setText("0");
+        if (audioPlay != null) {
+            audioPlay.stop();
+            audioPlay.release();
+            audioPlay = null;
         }
     }
 
@@ -208,5 +233,63 @@ public class AudioActivity extends AppCompatActivity {
                 myHandler.removeCallbacks(myRunner);
                 currentState = Status.PLAY_PAUSE;
                 status.setText("End of audio");
+                playBtn.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                duration = 0;
+            };
+
+    private boolean lostFocus, lowerVolume;
+
+    private AudioManager.OnAudioFocusChangeListener x = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int i) {
+
+        }
+    };
+
+    private AudioManager.OnAudioFocusChangeListener audioFocusListener =
+            focusChange -> {
+              switch (focusChange) {
+                  case AudioManager.AUDIOFOCUS_LOSS:
+                      if (audioPlay.isPlaying()) {
+                          audioPlay.pause();
+                          audioPlay.stop();
+                          myHandler.removeCallbacks(myRunner);
+//                          lostFocus = true;
+                      }
+                      break;
+                  case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                      if (audioPlay.isPlaying()) {
+                          audioPlay.pause();
+                          myHandler.removeCallbacks(myRunner);
+                          lostFocus = true;
+                      }
+                      break;
+                  case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                      if (audioPlay.isPlaying()) {
+                          lowerVolume = true;
+                          audioMgr.adjustStreamVolume(
+                                  AudioManager.STREAM_MUSIC,
+                                  AudioManager.ADJUST_LOWER, 0);
+                      }
+                      break;
+                  case AudioManager.AUDIOFOCUS_GAIN:
+                      if (audioPlay != null) {
+                          if (lostFocus) {
+                              lostFocus = false;
+                              audioPlay.start();
+                              myHandler.post(myRunner);
+                          }
+                          if (lowerVolume) {
+                              lowerVolume = false;
+                              audioMgr.adjustStreamVolume(
+                                      AudioManager.STREAM_MUSIC,
+                                      AudioManager.ADJUST_RAISE, 0);
+                          }
+                      }
+                      break;
+                  default:
+                      System.out.println("Type of focus change " +
+                              focusChange);
+              }
             };
 }

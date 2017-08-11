@@ -2,9 +2,10 @@ package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -55,7 +56,8 @@ public class MediaViewActivity extends AppCompatActivity {
         if (incoming.hasExtra("JRNL_ENTRY")) {
             Parcelable parcel = incoming.getParcelableExtra("JRNL_ENTRY");
             entry = Parcels.unwrap(parcel);
-            if (entry.getType() == 4) {
+            if (entry.getType() == 3 || entry.getType() == 4) {
+                photoView.setVisibility(View.GONE);
                 initExoPlayer();
             }
         }
@@ -76,6 +78,15 @@ public class MediaViewActivity extends AppCompatActivity {
                     .load(storage.getReferenceFromUrl(url))
                     .centerCrop()
                     .into(photoView);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 

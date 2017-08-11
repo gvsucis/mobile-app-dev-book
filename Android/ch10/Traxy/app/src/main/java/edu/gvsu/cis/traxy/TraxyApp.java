@@ -1,6 +1,7 @@
 package edu.gvsu.cis.traxy;
 
 import android.app.Application;
+
 import net.danlew.android.joda.JodaTimeAndroid;
 
 /*

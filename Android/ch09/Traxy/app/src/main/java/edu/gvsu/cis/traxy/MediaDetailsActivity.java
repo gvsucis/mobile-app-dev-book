@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -126,7 +125,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
             savedEntry.child("url").setValue(uri.toString());
             Snackbar.make(entry_caption,
                     "Your media is uploaded to " + uri.toString(),
-                    Toast.LENGTH_LONG).show();
+                    Snackbar.LENGTH_LONG).show();
         });
         if (mediaType == 4) { // is it a video?
             // Create a thumbnail image

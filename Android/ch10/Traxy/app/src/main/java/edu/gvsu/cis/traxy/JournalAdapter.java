@@ -5,14 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
 import org.joda.time.DateTime;
 
-import edu.gvsu.cis.traxy.JournalFragment.OnListFragmentInteractionListener;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.gvsu.cis.traxy.JournalFragment.OnListFragmentInteractionListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyJournal} and makes a call to the
