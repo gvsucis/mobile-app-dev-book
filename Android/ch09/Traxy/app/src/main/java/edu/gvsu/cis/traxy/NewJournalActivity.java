@@ -22,8 +22,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import edu.gvsu.cis.traxy.model.Trip;
 
 public class NewJournalActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -83,10 +82,10 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
     @OnClick(R.id.fab)
     public void FABPressed() {
         Intent result = new Intent();
-        currentTrip.name = jname.getText().toString();
+        currentTrip.setName(jname.getText().toString());
         DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-        currentTrip.startDate = fmt.print(startDate);
-        currentTrip.endDate = fmt.print(endDate);
+        currentTrip.setStartDate(fmt.print(startDate));
+        currentTrip.setEndDate(fmt.print(endDate));
         // add more code to initialize the rest of the fields
         Parcelable parcel = Parcels.wrap(currentTrip);
         result.putExtra("TRIP", parcel);
@@ -104,10 +103,10 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
             if (resultCode == RESULT_OK) {
                 Place pl = PlaceAutocomplete.getPlace(this, data);
                 location.setText(pl.getName());
-                currentTrip.location = pl.getName().toString();
-                currentTrip.lat = pl.getLatLng().latitude;
-                currentTrip.lng = pl.getLatLng().longitude;
-                currentTrip.placeId = pl.getId();
+                currentTrip.setLocation(pl.getName().toString());
+                currentTrip.setLat(pl.getLatLng().latitude);
+                currentTrip.setLng(pl.getLatLng().longitude);
+                currentTrip.setPlaceId(pl.getId());
 
                 Log.i(TAG, "onActivityResult: " + pl.getName() + "/" + pl.getAddress());
 

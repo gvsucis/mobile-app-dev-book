@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.traxy.model.JournalEntry;
+import edu.gvsu.cis.traxy.model.Trip;
 
 public class JournalViewActivity extends AppCompatActivity {
 

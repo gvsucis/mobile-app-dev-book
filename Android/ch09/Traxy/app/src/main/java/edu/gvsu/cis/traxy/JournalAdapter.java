@@ -10,12 +10,14 @@ import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import org.joda.time.DateTime;
 
 import edu.gvsu.cis.traxy.JournalFragment.OnListFragmentInteractionListener;
+import edu.gvsu.cis.traxy.model.Trip;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyJournal} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Trip} and makes a
+ * call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
@@ -39,8 +41,8 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
         past.clear();
         future.clear();
         for (Trip t : data) {
-            DateTime begDate = DateTime.parse(t.startDate);
-            DateTime endDate = DateTime.parse(t.endDate);
+            DateTime begDate = DateTime.parse(t.getStartDate());
+            DateTime endDate = DateTime.parse(t.getEndDate());
             if (begDate.isAfterNow()) {
                 future.add(t);
             } else if (endDate.isBeforeNow()) {
@@ -132,8 +134,8 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
                 item = this.past.get(position);
         }
         holder.mItem = item;
-        holder.mIdView.setText(item.name);
-        holder.mContentView.setText(item.location);
+        holder.mIdView.setText(item.getName());
+        holder.mContentView.setText(item.getLocation());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

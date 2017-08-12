@@ -1,4 +1,4 @@
-package edu.gvsu.cis.traxy;
+package edu.gvsu.cis.traxy.model;
 
 import org.parceler.Parcel;
 

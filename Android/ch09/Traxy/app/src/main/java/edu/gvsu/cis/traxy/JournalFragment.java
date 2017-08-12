@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.gvsu.cis.traxy.model.Trip;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -62,7 +64,7 @@ public class JournalFragment extends Fragment {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Trip entry = (Trip) dataSnapshot.getValue(Trip.class);
-            entry._key = dataSnapshot.getKey();
+            entry.setKey(dataSnapshot.getKey());
             allTrips.add(entry);
         }
 
@@ -75,7 +77,7 @@ public class JournalFragment extends Fragment {
             Trip entry = (Trip) dataSnapshot.getValue(Trip.class);
             List<Trip> newTrips = new ArrayList<Trip>();
             for (Trip t : allTrips) {
-                if (!t._key.equals(dataSnapshot.getKey())) {
+                if (!t.getKey().equals(dataSnapshot.getKey())) {
                     newTrips.add(t);
                 }
             }
