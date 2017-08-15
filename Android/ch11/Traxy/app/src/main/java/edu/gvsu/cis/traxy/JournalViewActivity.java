@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 
 import org.joda.time.DateTime;
@@ -64,9 +65,10 @@ public class JournalViewActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     private String tripKey;
-    private DatabaseReference entriesRef;
+    private Query entriesRef;
     private Uri mediaUri;
-    private FirebaseRecyclerAdapter<JournalEntry, EntryHolder> adapter;
+    private SectionedFirebaseRecyclerAdapter<JournalEntry, EntryHolder,SectionHolder>
+            adapter;
     private FirebaseStorage storage;
     private DateTimeFormatter dateFormat = DateTimeFormat.forPattern
             ("yyyyMMdd");
@@ -90,7 +92,7 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
             entriesRef = dbRef.getReference(user.getUid())
-                    .child(tripKey + "/entries");
+                    .child(tripKey + "/entries").orderByChild("date");
             storage = FirebaseStorage.getInstance();
             adapter = new MyAdapter();
             entries.setAdapter(adapter);
@@ -149,7 +151,8 @@ public class JournalViewActivity extends AppCompatActivity {
         Parcelable parcel = Parcels.wrap(model);
         toEdit.putExtra ("JRNL_ENTRY", parcel);
         toEdit.putExtra ("JRNL_KEY", key);
-        toEdit.putExtra ("DB_REF", entriesRef.getParent().toString());
+        toEdit.putExtra ("DB_REF", entriesRef.getRef().getParent()
+                .toString());
         startActivity (toEdit);
     }
 
@@ -240,14 +243,18 @@ public class JournalViewActivity extends AppCompatActivity {
     }
 
     private class MyAdapter extends
-            FirebaseRecyclerAdapter<JournalEntry,EntryHolder> {
+            SectionedFirebaseRecyclerAdapter<JournalEntry,EntryHolder,
+                    SectionHolder> {
 
         FirebaseImageLoader imgLoader = new FirebaseImageLoader();
         Set<DateTime> seenDates;
 
         public MyAdapter() {
             super(JournalEntry.class, R.layout.journal_entry_item,
-                    EntryHolder.class, entriesRef);
+                    EntryHolder.class,
+                    R.layout.journal_entry_header,
+                    SectionHolder.class,
+                    entriesRef);
             entryMap = new TreeMap<>();
             dayToTemp = new TreeMap<>();
             seenDates = new TreeSet<>();
@@ -269,14 +276,19 @@ public class JournalViewActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void populateViewHolder(EntryHolder viewHolder,
-                                          JournalEntry model, int position) {
+        protected void populateItemViewHolder(EntryHolder viewHolder,
+                                              JournalEntry __unused__,
+                                              int section, int secPos,
+                                              int listPos) {
+            String thisKey = (String) entryMap.keySet().toArray()[section];
+            JournalEntry model = entryMap.get(thisKey).get(secPos);
             DateTime entryDate = DateTime.parse(model.getDate());
             final DateTime midDay = entryDate.withTimeAtStartOfDay().plusHours(12);
             if (seenDates.add(midDay))
                 fetchWeatherForDate (model.getLat(), model.getLng(),
                         midDay);
-            viewHolder.setCaption(model.getCaption());
+            viewHolder.setCaption(model.getCaption() + " " + section + "/" +
+                    secPos);
             viewHolder.setDate(model.getDate());
 
             switch (model.getType()) {
@@ -310,7 +322,7 @@ public class JournalViewActivity extends AppCompatActivity {
                     break;
             }
             viewHolder.editBtn.setOnClickListener( view -> {
-                String key = getRef(position).getKey();
+                String key = getRef(listPos).getKey();
                 toMediaEdit(model, key);
             });
             viewHolder.topImage.setOnClickListener( view -> {
@@ -319,6 +331,29 @@ public class JournalViewActivity extends AppCompatActivity {
             viewHolder.playIcon.setOnClickListener( view -> {
                 toMediaView(model);
             });
+        }
+
+        @Override
+        void populateHeaderViewHolder(SectionHolder viewHolder, int
+                section) {
+            String key = (String) entryMap.keySet().toArray()[section];
+            Double temp = dayToTemp.get(key);
+            if (temp == null)
+                viewHolder.textView.setText("Fetching temperature for " +
+                        key);
+            else
+                viewHolder.textView.setText("Temperature: " + temp);
+        }
+
+        @Override
+        int getSectionCount() {
+            return entryMap.size();
+        }
+
+        @Override
+        int getItemCountForSection(int section) {
+            String dateStr = (String) entryMap.keySet().toArray()[section];
+            return entryMap.get(dateStr).size();
         }
     }
 
