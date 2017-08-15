@@ -49,7 +49,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.traxy.model.JournalEntry;
 import edu.gvsu.cis.traxy.model.Trip;
+import edu.gvsu.cis.traxy.webservice.DarkSkyServices;
+import edu.gvsu.cis.traxy.webservice.DarkSkyWeather;
+import edu.gvsu.cis.traxy.webservice.WeatherData;
 import edu.gvsu.cis.traxy.webservice.WeatherService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class JournalViewActivity extends AppCompatActivity {
     private static final String TAG = "JournalViewActivity";
@@ -75,6 +83,7 @@ public class JournalViewActivity extends AppCompatActivity {
     private Map<String,List<JournalEntry>> entryMap;
     private Map<String,Double> dayToTemp;
     private List<String> seenDates;
+    private DarkSkyServices darkSkyClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,11 @@ public class JournalViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         entries.setLayoutManager(new LinearLayoutManager(this));
+        Retrofit retro = new Retrofit.Builder()
+                .baseUrl("https://api.darksky.net/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        darkSkyClient = retro.create(DarkSkyServices.class);
         Intent incoming = getIntent();
         if (incoming.hasExtra("TRIP")) {
             Parcelable par = incoming.getParcelableExtra("TRIP");
@@ -101,20 +115,21 @@ public class JournalViewActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        IntentFilter weatherFilter;
-        weatherFilter = new IntentFilter(WeatherService.BROADCAST_WEATHER);
-        LocalBroadcastManager.getInstance(this).registerReceiver
-                (weatherReceiver, weatherFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(weatherReceiver);
-    }
+// These two methods are not needed when we use Retrofit
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        IntentFilter weatherFilter;
+//        weatherFilter = new IntentFilter(WeatherService.BROADCAST_WEATHER);
+//        LocalBroadcastManager.getInstance(this).registerReceiver
+//                (weatherReceiver, weatherFilter);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(weatherReceiver);
+//    }
 
     @Override
     protected void onDestroy() {
@@ -290,8 +305,7 @@ public class JournalViewActivity extends AppCompatActivity {
                 fetchWeatherForDate(model.getLat(), model.getLng(),
                         midDay);
             }
-            viewHolder.setCaption(model.getCaption() + " " + section + "/" +
-                    secPos);
+            viewHolder.setCaption(model.getCaption());
             viewHolder.setDate(model.getDate());
 
             switch (model.getType()) {
@@ -361,12 +375,35 @@ public class JournalViewActivity extends AppCompatActivity {
     }
 
     private void fetchWeatherForDate(double lat, double lng, DateTime when) {
-        Intent wsRequest = new Intent(this, WeatherService.class);
-        wsRequest.putExtra(WeatherService.EXTRA_KEY, dateFormat.print(when));
-        wsRequest.putExtra(WeatherService.EXTRA_LAT, lat);
-        wsRequest.putExtra(WeatherService.EXTRA_LNG, lng);
-        wsRequest.putExtra(WeatherService.EXTRA_TIME, when.getMillis() / 1000);
-        startService(wsRequest);
+//        Intent wsRequest = new Intent(this, WeatherService.class);
+//        wsRequest.putExtra(WeatherService.EXTRA_KEY, dateFormat.print(when));
+//        wsRequest.putExtra(WeatherService.EXTRA_LAT, lat);
+//        wsRequest.putExtra(WeatherService.EXTRA_LNG, lng);
+//        wsRequest.putExtra(WeatherService.EXTRA_TIME, when.getMillis() / 1000);
+//        startService(wsRequest);
+        darkSkyClient.fetchWeatherForDate(lat, lng, when.getMillis()/1000)
+                .enqueue(new Callback<DarkSkyWeather>() {
+                    @Override
+                    public void onResponse(Call<DarkSkyWeather> call, Response<DarkSkyWeather> response) {
+                        if (response.isSuccessful()) {
+                            String key;
+                            synchronized (dayToTemp) {
+                                key = dateFormat.print(when);
+                                DarkSkyWeather weather = response.body();
+                                WeatherData data = weather.currently;
+                                dayToTemp.put(key, data.temperature);
+                            }
+                            int section = seenDates.indexOf(key);
+                            int pos = adapter.positionOfSection(section);
+                            adapter.notifyItemChanged(pos);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DarkSkyWeather> call, Throwable t) {
+
+                    }
+                });
     }
 
     private BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
