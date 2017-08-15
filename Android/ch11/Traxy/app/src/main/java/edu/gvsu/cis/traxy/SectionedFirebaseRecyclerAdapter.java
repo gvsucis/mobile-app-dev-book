@@ -26,13 +26,22 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
     private int itemLayout;
     private int headerLayout;
 
-    SectionedFirebaseRecyclerAdapter(Class<T> itemClass,
+    /**
+     *
+     * @param modelClass  the class of the list items
+     * @param itemLayout  XML layout of each list item
+     * @param itemHolderClass  ViewHolder subclass of the list item
+     * @param headerLayout  XML layout of the section headers
+     * @param headerHolderClass  ViewHolder subclass of the section headers
+     * @param q reference to the Firebase datasource
+     */
+    SectionedFirebaseRecyclerAdapter(Class<T> modelClass,
                                      @LayoutRes int itemLayout,
                                      Class<VH> itemHolderClass,
                                      @LayoutRes int headerLayout,
                                      Class<SVH> headerHolderClass,
                                      Query q) {
-        super(itemClass, itemLayout,
+        super(modelClass, itemLayout,
                 (Class<RecyclerView.ViewHolder>) itemHolderClass, q);
         this.itemLayout = itemLayout;
         this.headerLayout = headerLayout;
@@ -66,7 +75,7 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
         if (isHeader(position))
             return null;
         else {
-            int section = sectionOf(position);
+            int section = sectionOfPosition(position);
             return super.getItem(position - (section + 1));
         }
     }
@@ -75,7 +84,7 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
     public DatabaseReference getRef(int position) {
         if (isHeader(position))
             return null;
-        int section = sectionOf(position);
+        int section = sectionOfPosition(position);
         return super.getRef(position - (section + 1));
     }
 
@@ -84,13 +93,25 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
      * @param pos the list position of an item
      * @return
      */
-    private int sectionOf(int pos) {
+    public int sectionOfPosition(int pos) {
         int section = 0;
         while (pos >= rowCount[section]) {
             pos -= rowCount[section];
             section++;
         }
         return section;
+    }
+
+    /**
+     * Determine the first list position of a given section
+     * @param sec
+     * @return
+     */
+    public int positionOfSection(int sec) {
+        int pos = 0;
+        for (int k = 0; k < sec; k++)
+            pos += rowCount[k];
+        return pos;
     }
 
     /**
@@ -142,7 +163,7 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
     @Override
     protected void populateViewHolder(RecyclerView.ViewHolder viewHolder, T model, int
             position) {
-        int section = sectionOf(position);
+        int section = sectionOfPosition(position);
         if (!isHeader(position)) {
             int secPos = positionInSection(position);
             populateItemViewHolder((VH)viewHolder, model, section, secPos,

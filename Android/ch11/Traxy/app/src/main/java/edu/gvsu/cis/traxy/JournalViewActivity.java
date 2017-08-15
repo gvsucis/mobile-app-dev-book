@@ -74,6 +74,7 @@ public class JournalViewActivity extends AppCompatActivity {
             ("yyyyMMdd");
     private Map<String,List<JournalEntry>> entryMap;
     private Map<String,Double> dayToTemp;
+    private List<String> seenDates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,7 +248,6 @@ public class JournalViewActivity extends AppCompatActivity {
                     SectionHolder> {
 
         FirebaseImageLoader imgLoader = new FirebaseImageLoader();
-        Set<DateTime> seenDates;
 
         public MyAdapter() {
             super(JournalEntry.class, R.layout.journal_entry_item,
@@ -257,7 +257,7 @@ public class JournalViewActivity extends AppCompatActivity {
                     entriesRef);
             entryMap = new TreeMap<>();
             dayToTemp = new TreeMap<>();
-            seenDates = new TreeSet<>();
+            seenDates = new ArrayList<>();
         }
 
         @Override
@@ -282,11 +282,14 @@ public class JournalViewActivity extends AppCompatActivity {
                                               int listPos) {
             String thisKey = (String) entryMap.keySet().toArray()[section];
             JournalEntry model = entryMap.get(thisKey).get(secPos);
-            DateTime entryDate = DateTime.parse(model.getDate());
-            final DateTime midDay = entryDate.withTimeAtStartOfDay().plusHours(12);
-            if (seenDates.add(midDay))
-                fetchWeatherForDate (model.getLat(), model.getLng(),
+            if (!seenDates.contains(thisKey)) {
+                seenDates.add(thisKey);
+                DateTime entryDate = DateTime.parse(model.getDate());
+                final DateTime midDay = entryDate.withTimeAtStartOfDay().plusHours(12);
+                /* fetch weather data if midDay is a new insert */
+                fetchWeatherForDate(model.getLat(), model.getLng(),
                         midDay);
+            }
             viewHolder.setCaption(model.getCaption() + " " + section + "/" +
                     secPos);
             viewHolder.setDate(model.getDate());
@@ -369,14 +372,17 @@ public class JournalViewActivity extends AppCompatActivity {
     private BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "onReceive() called with: context = [" + context + "], intent = [" + intent + "]");
+            String key;
             synchronized (dayToTemp) {
-                String key = intent.getStringExtra(WeatherService.EXTRA_KEY);
+                key = intent.getStringExtra(WeatherService.EXTRA_KEY);
                 double temperature = intent.getDoubleExtra(WeatherService
                         .EXTRA_TEMP, 0.0);
                 String icon = intent.getStringExtra(WeatherService.EXTRA_ICON);
                 dayToTemp.put(key, temperature);
             }
+            int section = seenDates.indexOf(key);
+            int pos = adapter.positionOfSection(section);
+            adapter.notifyItemChanged(pos);
         }
     };
 }
