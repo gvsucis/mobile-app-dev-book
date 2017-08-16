@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="edu.gvsu.cis.traxy"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+    uses-permission
+    android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="18"/
+    -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <application
+        android:name=".TraxyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB9XIftWKE1Yv-9pA2f8YCZeU2gYv2Ygbk"/>
+
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.traxy.LoginActivity"/>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".JournalViewActivity"
+            android:label="@string/title_activity_journal_view"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".NewJournalActivity"
+            android:label="@string/title_activity_new_journal"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.traxy.MainActivity"/>
+        </activity>
+        <activity android:name=".MediaDetailsActivity"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        <activity android:name=".JournalEditActivity"/>
+        <activity
+            android:name=".MediaViewActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".AudioActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <service
+            android:name=".webservice.WeatherService"
+            android:exported="false">
+        </service>
+    </application>
+
+</manifest>
