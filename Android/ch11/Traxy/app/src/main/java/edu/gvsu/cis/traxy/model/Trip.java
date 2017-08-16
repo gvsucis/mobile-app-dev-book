@@ -13,6 +13,7 @@ public class Trip {
     String location;
     String placeId;
     String startDate, endDate;
+    String coverPhotoUrl;
     double lat, lng;
 
     public String getKey() {
@@ -79,4 +80,11 @@ public class Trip {
         this.lng = lng;
     }
 
+    public String getCoverPhotoUrl() {
+        return coverPhotoUrl;
+    }
+
+    public void setCoverPhotoUrl(String coverPhotoUrl) {
+        this.coverPhotoUrl = coverPhotoUrl;
+    }
 }

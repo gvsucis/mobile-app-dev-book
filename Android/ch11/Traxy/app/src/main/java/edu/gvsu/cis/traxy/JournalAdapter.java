@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
 import org.joda.time.DateTime;
@@ -138,6 +140,14 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
         holder.mIdView.setText(item.getName());
         holder.mContentView.setText(item.getLocation());
 
+        String photoUrl = item.getCoverPhotoUrl();
+        if (photoUrl != null && photoUrl.startsWith("http")) {
+            Glide.with(holder.mBackImage.getContext())
+                    .load(photoUrl)
+                    .placeholder(R.drawable.traxy_landscape)
+                    .centerCrop()
+                    .into(holder.mBackImage);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,11 +183,13 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final ImageView mBackImage;
         public Trip mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mBackImage = (ImageView) view.findViewById(R.id.imageView2);
             mIdView = (TextView) view.findViewById(R.id.name);
             mContentView = (TextView) view.findViewById(R.id.location);
         }
