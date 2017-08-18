@@ -33,10 +33,10 @@ import edu.gvsu.cis.traxy.model.Trip;
 
 public class MainActivity extends AppCompatActivity implements
         JournalFragment.OnJournalInteractionListener,
-        MonthlyFragment.OnFragmentInteractionListener,
         GoogleApiClient.OnConnectionFailedListener {
 
     private final static int NEW_TRIP_REQUEST = 146;
+    private final static int EDIT_TRIP_REQUEST = 147;
     private FirebaseAuth mAuth;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.viewpager) ViewPager viewPager;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @OnClick(R.id.fab)
     public void addNewJournal() {
-        Intent newJournal = new Intent(MainActivity.this, NewJournalActivity.class);
+        Intent newJournal = new Intent(MainActivity.this, TripEditorActivity.class);
         startActivityForResult(newJournal, NEW_TRIP_REQUEST);
     }
 
@@ -108,6 +108,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onTripEdit(Trip item) {
+        Intent toEdit = new Intent(this, TripEditorActivity.class);
+        toEdit.putExtra("TRIP", Parcels.wrap(item));
+        startActivityForResult(toEdit, EDIT_TRIP_REQUEST);
+    }
+
+    @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         System.out.println("oops");
     }
@@ -122,13 +129,18 @@ public class MainActivity extends AppCompatActivity implements
                 Snackbar.make(toolbar, "New Trip Added", Snackbar.LENGTH_SHORT).show();
             }
         }
+        else if (requestCode == EDIT_TRIP_REQUEST) {
+            if (data != null && data.hasExtra("TRIP")) {
+                Parcelable par = data.getParcelableExtra("TRIP");
+                Trip t = Parcels.unwrap(par);
+                topRef.child(t.getKey()).setValue(t);
+                topRef.child(t.getKey()).child("key").removeValue();
+                Snackbar.make(toolbar, "Trip Edited", Snackbar
+                        .LENGTH_SHORT).show();
+            }
+        }
         else
             super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     private class JournalPageAdapter extends FragmentPagerAdapter {

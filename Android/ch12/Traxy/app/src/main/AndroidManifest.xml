@@ -45,7 +45,7 @@
             android:label="@string/title_activity_journal_view"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".NewJournalActivity"
+            android:name=".TripEditorActivity"
             android:label="@string/title_activity_new_journal"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

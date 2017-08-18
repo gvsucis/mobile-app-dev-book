@@ -1,12 +1,14 @@
 package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
@@ -15,6 +17,10 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -28,40 +34,65 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.traxy.model.Trip;
 
-public class NewJournalActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class TripEditorActivity extends AppCompatActivity
+        implements DatePickerDialog.OnDateSetListener, PhotoFragment.OnPhotoInteractionListener {
 
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private static final String TAG = "NewJournalActivity";
+    private static final String TAG = "TripEditorActivity";
 
     @BindView(R.id.journal_name) EditText jname;
     @BindView(R.id.location) TextView location;
     @BindView(R.id.start_date) TextView startDateView;
     @BindView(R.id.end_date) TextView endDateView;
-
+    @BindView(R.id.toolbar) Toolbar toolbar;
     private DateTime startDate, endDate;
     private DatePickerDialog dpDialog;
     private Trip currentTrip;
-
+    private PhotoFragment photoFrag;
+    private String coverPhotoUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_journal);
         ButterKnife.bind(this);
 
-        currentTrip = new Trip();
+        Intent data = getIntent();
+        if (data.hasExtra("TRIP")) {
+            toolbar.setTitle("Edit Journal");
+            Parcelable par = data.getParcelableExtra("TRIP");
+            currentTrip = Parcels.unwrap(par);
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String uid = auth.getCurrentUser().getUid();
+            DatabaseReference ref = FirebaseDatabase.getInstance()
+                    .getReference(uid).child(currentTrip.getKey())
+                    .child("entries");
+            photoFrag = PhotoFragment.newInstance(ref.toString());
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, photoFrag)
+                    .commit();
+            jname.setText(currentTrip.getName());
+            location.setText(currentTrip.getLocation());
+            startDateView.setText(formatted(DateTime.parse(currentTrip
+                    .getStartDate())));
+            endDateView.setText(formatted(DateTime.parse(currentTrip.getEndDate())));
+            startDate = DateTime.parse(currentTrip.getStartDate());
+            endDate = DateTime.parse(currentTrip.getEndDate());
+        } else {
+            toolbar.setTitle("New Journal");
+            currentTrip = new Trip();
+            DateTime today = DateTime.now();
+            startDateView.setText(formatted(today));
+            endDateView.setText(formatted(today.plusDays(1)));
+            startDate = today;
+            endDate = today.plusDays(1);
+        }
+        dpDialog = DatePickerDialog.newInstance(this,
+                startDate.getYear(), startDate.getMonthOfYear() - 1, startDate
+                        .getDayOfMonth());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DateTime today = DateTime.now();
-        dpDialog = DatePickerDialog.newInstance(this,
-                today.getYear(), today.getMonthOfYear() - 1, today.getDayOfMonth());
 
-
-        startDateView.setText(formatted(today));
-        endDateView.setText(formatted(today.plusDays(1)));
-        startDate = today;
-        endDate = today.plusDays(1);
     }
 
     @OnClick(R.id.location)
@@ -90,6 +121,8 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
         DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
         currentTrip.setStartDate(fmt.print(startDate));
         currentTrip.setEndDate(fmt.print(endDate));
+        if (coverPhotoUrl != null)
+            currentTrip.setCoverPhotoUrl(coverPhotoUrl);
         // add more code to initialize the rest of the fields
         Parcelable parcel = Parcels.wrap(currentTrip);
         result.putExtra("TRIP", parcel);
@@ -132,5 +165,10 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
         endDate = new DateTime(yearEnd, monthOfYearEnd + 1, dayOfMonthEnd, 0, 0);
         startDateView.setText(formatted(startDate));
         endDateView.setText(formatted(endDate));
+    }
+
+    @Override
+    public void onPhotoSelected(String url) {
+        coverPhotoUrl = url;
     }
 }

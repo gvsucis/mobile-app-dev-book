@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import edu.gvsu.cis.traxy.model.Trip;
  * interface.
  */
 public class JournalFragment extends Fragment {
-
+    private static final String TAG = "JournalFragment";
     // TODO: Customize parameter argument names
     private static final String ARG_LAYOUT = "cell-layout";
     // TODO: Customize parameters
@@ -79,7 +80,16 @@ public class JournalFragment extends Fragment {
         }
 
         @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        public void onChildChanged(DataSnapshot dataSnapshot, String
+                prevKey) {
+            String key = dataSnapshot.getKey();
+            for (int k = 0; k < allTrips.size(); k++) {
+                if (allTrips.get(k).getKey().equals(key)) {
+                    allTrips.set(k, dataSnapshot.getValue(Trip.class));
+                    break;
+                }
+            }
+            adapter.notifyDataSetChanged();
         }
 
         @Override
@@ -191,6 +201,6 @@ public class JournalFragment extends Fragment {
     public interface OnJournalInteractionListener {
         // TODO: Update argument type and name
         void onTripSelected(Trip item);
-//        void onTripEdit(Trip item);
+        void onTripEdit(Trip item);
     }
 }

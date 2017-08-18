@@ -160,12 +160,18 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
                     .centerCrop()
                     .into(holder.coverPhoto);
         }
+        else
+            holder.coverPhoto.setImageResource(R.drawable.traxy_landscape);
         holder.mView.setOnClickListener((View v) -> {
             if (null != mListener) {
                 // Notify the active callbacks interface (the activity, if the
                 // fragment is attached to one) that an item has been selected.
                 mListener.onTripSelected(item);
             }
+        });
+        holder.editBtn.setOnClickListener( v -> {
+            if (null != mListener)
+                mListener.onTripEdit(item);
         });
     }
 
