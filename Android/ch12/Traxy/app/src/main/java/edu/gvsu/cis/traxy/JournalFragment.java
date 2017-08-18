@@ -23,9 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import edu.gvsu.cis.traxy.model.Trip;
 
@@ -41,6 +44,7 @@ public class JournalFragment extends Fragment {
     private static final String ARG_LAYOUT = "cell-layout";
     // TODO: Customize parameters
     private OnJournalInteractionListener mListener;
+    private JournalDataListener dataListener;
     private List<Trip> allTrips, selectedTrips;
     private JournalAdapter adapter;
     private Interval dateFilter;
@@ -63,6 +67,8 @@ public class JournalFragment extends Fragment {
             } else {
                 adapter.reloadFrom(allTrips);
             }
+            if (dataListener != null)
+                dataListener.onJournalUpdated(allTrips);
         }
 
         @Override
@@ -202,5 +208,13 @@ public class JournalFragment extends Fragment {
         // TODO: Update argument type and name
         void onTripSelected(Trip item);
         void onTripEdit(Trip item);
+    }
+
+    public interface JournalDataListener {
+        void onJournalUpdated(List<Trip> trips);
+    }
+
+    public void setJournalDataListener (JournalDataListener listener) {
+        dataListener = listener;
     }
 }
