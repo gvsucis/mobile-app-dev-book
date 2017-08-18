@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/all_trips"
+          android:enabled="true"
+          android:icon="@drawable/ic_trip_collection"
+          android:title="TRIPS"/>
+    <item android:id="@+id/monthly_trips" android:enabled="true"
+          android:icon="@drawable/ic_calendar"
+          android:title="CALENDAR"/>
+</menu>

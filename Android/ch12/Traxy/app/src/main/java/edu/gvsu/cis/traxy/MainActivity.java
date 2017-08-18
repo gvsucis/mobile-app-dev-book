@@ -1,12 +1,11 @@
 package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -35,13 +34,14 @@ public class MainActivity extends AppCompatActivity implements
         JournalFragment.OnJournalInteractionListener,
         GoogleApiClient.OnConnectionFailedListener {
 
+    private static final String TAG = "MainActivity";
     private final static int NEW_TRIP_REQUEST = 146;
     private final static int EDIT_TRIP_REQUEST = 147;
     private FirebaseAuth mAuth;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.viewpager) ViewPager viewPager;
-    @BindView(R.id.tabs)
-    TabLayout tabLayout;
+//    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.bottom_tabs) BottomNavigationView bottomTabs;
 
     DatabaseReference topRef;
 
@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements
                 .build();
         JournalPageAdapter pageAdapter = new JournalPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+//        tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(pageListener);
+        bottomTabs.setOnNavigationItemSelectedListener(bottomTabsSelected);
     }
 
     @Override
@@ -174,4 +176,39 @@ public class MainActivity extends AppCompatActivity implements
             return 2;
         }
     }
+
+    private ViewPager.OnPageChangeListener pageListener = new ViewPager.OnPageChangeListener() {
+        private MenuItem prevSelection;
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            if (prevSelection != null)
+                prevSelection.setChecked(false);
+            MenuItem thisMenu = bottomTabs.getMenu().getItem(position);
+            thisMenu.setChecked(true);
+            prevSelection = thisMenu;
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
+    };
+
+    private BottomNavigationView.OnNavigationItemSelectedListener
+            bottomTabsSelected = (@NonNull MenuItem item) -> {
+            switch (item.getItemId()) {
+                case R.id.all_trips:
+                    viewPager.setCurrentItem(0, true);
+                    break;
+                case R.id.monthly_trips:
+                    viewPager.setCurrentItem(1, true);
+                    break;
+            }
+            return true;
+        };
+
+
 }

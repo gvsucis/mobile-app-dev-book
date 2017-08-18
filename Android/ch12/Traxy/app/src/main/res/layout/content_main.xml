@@ -9,16 +9,22 @@
     tools:context="edu.gvsu.cis.traxy.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <!--TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
-        android:id="@+id/user" /-->
-    <fragment
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        app:itemBackground="@color/colorPrimary"
+        app:itemTextColor="@android:color/white"
+        app:itemIconTint="@android:color/white"
+        app:menu="@menu/menu_bottom_nav"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="edu.gvsu.cis.traxy.JournalFragment"
-        android:id="@+id/fragment" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_above="@+id/bottom_tabs"
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>
