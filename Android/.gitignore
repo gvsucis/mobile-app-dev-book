@@ -24,3 +24,5 @@
 **/*.iml
 
 **/google-services.json
+darksky.properties
+traxy.properties

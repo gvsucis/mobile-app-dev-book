@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+def darkSkyFile = rootProject.file("traxy.properties");
+def darkSkyProp = new Properties()
+darkSkyProp.load(new FileInputStream(darkSkyFile))
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "edu.gvsu.cis.traxy"
+        minSdkVersion 17
+        targetSdkVersion 25
+//        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        jackOptions {
+            enabled true
+        }
+        vectorDrawables {
+            useSupportLibrary true
+        }
+        buildConfigField "String", "DARK_SKY_API_KEY", darkSkyProp['API_KEY']
+        resValue "string", "google_maps_api_key", darkSkyProp['MAP_API_KEY']
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'net.danlew:android.joda:2.9.5'
+    compile 'com.google.android.gms:play-services-places:11.0.1'
+    compile 'com.google.android.gms:play-services-maps:11.0.1'
+    compile 'com.google.firebase:firebase-database:11.0.1'
+    compile 'com.google.firebase:firebase-auth:11.0.1'
+    compile 'com.google.firebase:firebase-storage:11.0.1'
+    compile 'com.firebaseui:firebase-ui-database:2.0.1'
+    compile 'com.firebaseui:firebase-ui-storage:2.0.1'
+    compile 'com.truizlop.sectionedrecyclerview:library:1.2.0'
+    compile 'com.borax12.materialdaterangepicker:library:1.9'
+    compile 'org.parceler:parceler-api:1.1.6'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.github.clans:fab:1.6.4'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    compile 'com.google.android.exoplayer:exoplayer-core:r2.4.4'
+    compile 'com.google.android.exoplayer:exoplayer-ui:r2.4.4'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'org.parceler:parceler:1.1.6'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+}
+
+apply plugin: 'com.google.gms.google-services'
