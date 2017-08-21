@@ -19,13 +19,11 @@ import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.gvsu.cis.traxy.model.Trip;
 
 
 /**
@@ -33,7 +31,7 @@ import edu.gvsu.cis.traxy.model.Trip;
  * Use the {@link MonthlyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MonthlyFragment extends /*JournalLoader*/Fragment  {
+public class MonthlyFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,11 +78,6 @@ public class MonthlyFragment extends /*JournalLoader*/Fragment  {
         return view;
     }
 
-//    @Override
-//    void onJournalUpdated(List<Trip> trips) {
-//
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -118,18 +111,4 @@ public class MonthlyFragment extends /*JournalLoader*/Fragment  {
             view.addSpan(new DotSpan(10, Color.RED));
         }
     };
-
-//    @Override
-//    public void onJournalUpdated(List<Trip> trips) {
-//        tripDays.clear();
-//        for (Trip t : trips) {
-//            LocalDate d = DateTime.parse(t.getStartDate()).toLocalDate();
-//            LocalDate endDate = DateTime.parse(t.getEndDate()).toLocalDate();
-//            while (!d.isAfter(endDate)) {
-//                tripDays.add(d);
-//                d = d.plusDays(1);
-//            }
-//        }
-//        monthly.invalidateDecorators();
-//    }
 }

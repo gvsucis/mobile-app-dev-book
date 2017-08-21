@@ -68,7 +68,9 @@ public abstract class JournalLoaderFragment extends Fragment {
             Trip entry = (Trip) dataSnapshot.getValue(Trip.class);
             entry.setKey(dataSnapshot.getKey());
             /* Check for possible duplicate */
-//            if (!allTrips.stream().anyMatch(t -> t.getKey() == entry.getKey()))
+            boolean keyFound = allTrips.stream()
+                    .anyMatch(t -> t.getKey().equals(entry.getKey()));
+            if (!keyFound)
                 allTrips.add(entry);
         }
 

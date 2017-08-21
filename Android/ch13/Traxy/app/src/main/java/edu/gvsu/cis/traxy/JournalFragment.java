@@ -32,7 +32,6 @@ public class JournalFragment extends JournalLoaderFragment {
     private List<Trip> allTrips, selectedTrips;
     private JournalAdapter adapter;
     private Interval dateFilter;
-    private int cellLayout;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -53,16 +52,6 @@ public class JournalFragment extends JournalLoaderFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            cellLayout = getArguments().getInt(ARG_LAYOUT);
-            adapter = new JournalAdapter(selectedTrips, cellLayout, mListener);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
@@ -73,7 +62,7 @@ public class JournalFragment extends JournalLoaderFragment {
              Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            adapter = new JournalAdapter(selectedTrips, cellLayout, mListener);
+            adapter = new JournalAdapter(selectedTrips, cellLayout, mListener);
             recyclerView.setAdapter(adapter);
         }
         return view;
