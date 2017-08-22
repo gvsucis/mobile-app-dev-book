@@ -1,17 +1,33 @@
 package edu.gvsu.cis.traxy;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,23 +43,34 @@ import edu.gvsu.cis.traxy.model.Trip;
  * Use the {@link TripMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TripMapFragment extends /*JournalLoader*/Fragment implements
-        OnMapReadyCallback {
+public class TripMapFragment extends JournalLoaderFragment implements
+        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private OnMapInteractionListener mListener;
+    private final static int LOCATION_PERM_REQUEST = 148;
+    private final static String[] permArr = {Manifest.permission.ACCESS_FINE_LOCATION};
 
     @BindView(R.id.tripMap) MapView myMap;
+    private GoogleMap gMap;
+    private boolean mapReady, dataReady;
+    private List<Marker> allMarkers;
 
+    private static DateTimeFormatter longFormat, medFormat, shortFormat;
+    static {
+        longFormat = DateTimeFormat.forPattern("MMM d, yyyy");
+        medFormat = DateTimeFormat.forPattern("MMM d");
+        shortFormat = DateTimeFormat.forPattern("MMM");
+
+    }
     public TripMapFragment() {
         // Required empty public constructor
+        allMarkers = new ArrayList<>();
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment TripMapFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -130,15 +157,80 @@ public class TripMapFragment extends /*JournalLoader*/Fragment implements
         mListener = null;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
+
+    private String formatDate (DateTime beg, DateTime end) {
+        if (beg.getYear() != end.getYear())
+            return longFormat.print(beg) + "-" + longFormat.print(end);
+        if (beg.getMonthOfYear() != end.getMonthOfYear())
+            return medFormat.print(beg) + "-" + medFormat.print(end) + ", " + beg
+                    .getYear();
+        return shortFormat.print(beg) + " " + beg.getDayOfMonth() + "-" +
+                end.getDayOfMonth() + ", " + beg.getYear();
 
     }
 
-//    @Override
-//    public void onJournalUpdated(List<Trip> trips) {
-//
-//    }
+    private void refreshMarkers() {
+//        if (allMarkers.size() == allTrips.size()) return;
+        LatLngBounds.Builder boundBuilder = new LatLngBounds.Builder();
+        allMarkers.clear();
+        gMap.clear();
+        for (Trip t : allTrips) {
+            DateTime begDate = DateTime.parse(t.getStartDate());
+            DateTime endDate = DateTime.parse(t.getEndDate());
+            LatLng thisLoc = new LatLng(t.getLat(), t.getLng());
+            Marker m = gMap.addMarker(
+                    new MarkerOptions().position(thisLoc).title(t.getName())
+                            .snippet(formatDate(begDate, endDate)));
+            m.setTag(t);
+            allMarkers.add(m);
+            boundBuilder.include(thisLoc);
+        }
+        if (allMarkers.size() > 0) {
+            int screenWidth = getResources().getDisplayMetrics().widthPixels;
+            int screenHeight = getResources().getDisplayMetrics().heightPixels;
+            LatLngBounds bound = boundBuilder.build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bound,
+                    screenWidth, screenHeight, 56);
+            gMap.animateCamera(cameraUpdate);
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gMap = googleMap;
+        gMap.setOnInfoWindowClickListener(this);
+        if (ContextCompat.checkSelfPermission(getActivity(), permArr[0]) ==
+                PackageManager.PERMISSION_DENIED)
+            requestPermissions(permArr, LOCATION_PERM_REQUEST);
+        else
+            gMap.setMyLocationEnabled(true);
+        mapReady = true;
+        if (dataReady) refreshMarkers();
+    }
+
+    @Override
+    public void onJournalUpdated(List<Trip> trips) {
+        dataReady = true;
+        if (mapReady) refreshMarkers();
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Trip t = (Trip) marker.getTag();
+        mListener.onMarkerSelected(t);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERM_REQUEST) {
+            try {
+                gMap.setMyLocationEnabled(grantResults[0] == PackageManager.PERMISSION_GRANTED);
+            } catch (SecurityException se) {
+
+            }
+        }
+    }
 
     /**
      * This interface must be implemented by activities that contain this

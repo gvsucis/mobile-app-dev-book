@@ -3,6 +3,7 @@ package edu.gvsu.cis.traxy;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class JournalFragment extends JournalLoaderFragment {
     private List<Trip> allTrips, selectedTrips;
     private JournalAdapter adapter;
     private Interval dateFilter;
+//    private int cellLayout;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -49,6 +51,15 @@ public class JournalFragment extends JournalLoaderFragment {
         args.putInt(ARG_LAYOUT, cellLayout);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+//            cellLayout = getArguments().getInt(ARG_LAYOUT);
+//            adapter = new JournalAdapter(selectedTrips, cellLayout, mListener);
+        }
     }
 
     @Override

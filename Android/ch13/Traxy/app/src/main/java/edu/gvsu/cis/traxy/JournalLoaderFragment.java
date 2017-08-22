@@ -28,9 +28,7 @@ public abstract class JournalLoaderFragment extends Fragment {
 
     abstract void onJournalUpdated(List<Trip> trips);
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public JournalLoaderFragment() {
         allTrips = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userRef = FirebaseDatabase.getInstance().getReference(user.getUid());
@@ -39,8 +37,8 @@ public abstract class JournalLoaderFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        userRef.addValueEventListener(valEvListener);
         userRef.addChildEventListener(chEvListener);
+        userRef.addListenerForSingleValueEvent(valEvListener);
     }
 
     @Override
@@ -53,7 +51,7 @@ public abstract class JournalLoaderFragment extends Fragment {
     private ValueEventListener valEvListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            onJournalUpdated(new ArrayList<>(allTrips));
+            onJournalUpdated(allTrips);
         }
 
         @Override

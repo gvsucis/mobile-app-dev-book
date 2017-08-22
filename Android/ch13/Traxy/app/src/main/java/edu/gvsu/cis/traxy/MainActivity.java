@@ -148,7 +148,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onMarkerSelected(Trip t) {
-
+        Intent toDetail = new Intent(MainActivity.this, JournalViewActivity.class);
+        toDetail.putExtra("TRIP", Parcels.wrap(t));
+        startActivity(toDetail);
     }
 
     private class JournalPageAdapter extends FragmentPagerAdapter {
