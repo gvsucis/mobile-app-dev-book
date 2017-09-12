@@ -162,6 +162,12 @@ class JournalTableViewController: UITableViewController {
                 destCtrl.imageToView = self.capturedImage
                 destCtrl.captionToView = self.entryToEdit?.caption
             }
+        } else if segue.identifier == "recordAudio" {
+            if let destCtrl = segue.destination as? AudioViewController {
+                destCtrl.entry = self.entryToEdit // will be nil if new item.
+                destCtrl.delegate = self
+                destCtrl.journal = self.journal
+            }
         }
     }
     
@@ -254,7 +260,7 @@ class JournalTableViewController: UITableViewController {
         
         let addAudioAction = UIAlertAction(title: "Audio Entry", style: .default) {
             (action) in
-            // TBD
+            self.performSegue(withIdentifier: "recordAudio", sender: self)
         }
         alertController.addAction(addAudioAction)
         
@@ -434,6 +440,25 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         }
     }
     
+    func saveAudio(entry: JournalEntry) {
+        
+        let vals = self.toDictionary(vals: entry)
+        let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        
+        // if we have a nil key, then this is a new entry and we have an audio file to save.
+        if entry.key == nil {
+            
+            self.saveMediaFileToFirebase(entry: entry, saveRefClosure: { (downloadUrl) in
+                
+                // having uploaded the audio data, now store its URL.
+                let vals = [
+                    "url" : downloadUrl as NSString
+                ]
+                entryRef?.updateChildValues(vals)
+            })
+        }
+    }
+    
     func saveImageToFirebase(imageToSave : UIImage?, saveRefClosure: @escaping
         (String) -> ())
     {
@@ -528,10 +553,6 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         } catch {
             print("oops that wasn't good now")
         }
-    }
-    
-    func saveAudio(entry: JournalEntry) {
-        // TODO: stub method, to be completed in next chapter.
     }
     
     
