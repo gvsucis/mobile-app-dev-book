@@ -276,17 +276,17 @@ class JournalTableViewController: UITableViewController {
 
 extension JournalTableViewController  {
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection
-        section: Int) -> String? {
-        return self.journal.name
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView
-        view: UIView, forSection section: Int) {
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = THEME_COLOR2
-        header.contentView.backgroundColor = THEME_COLOR3
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection
+//        section: Int) -> String? {
+//        return self.journal.name
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, willDisplayHeaderView
+//        view: UIView, forSection section: Int) {
+//        let header = view as! UITableViewHeaderFooterView
+//        header.textLabel?.textColor = THEME_COLOR2
+//        header.contentView.backgroundColor = THEME_COLOR3
+//    }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {

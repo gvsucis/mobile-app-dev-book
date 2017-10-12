@@ -30,6 +30,8 @@ class JournalTableViewController: UITableViewController {
     fileprivate var ref : FIRDatabaseReference?
     fileprivate var storageRef : FIRStorageReference?
     
+    var weatherService = DarkSkyWeatherService.getInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -48,6 +50,33 @@ class JournalTableViewController: UITableViewController {
         self.ref = FIRDatabase.database().reference().child(self.userId).child(self.journal.key!)
         self.registerForFireBaseUpdates()
         self.configureStorage()
+    }
+    
+    func partitionIntoDailySections(entries: [JournalEntry])
+    {
+        // We assume the model already provides them ascending date order.
+        var data : Dictionary<String,[JournalEntry]> = [:]
+        
+        for e in entries {
+            let date = e.date!
+            let dateStr = date.short
+            if var container = data[dateStr] {
+                container.append(e)
+                data[dateStr] = container
+            } else {
+                data[dateStr] = [e]
+            }
+        }
+        
+        self.tableViewData = []
+        for (key, val) in data {
+            self.tableViewData?.append((sectionHeader: key, entries: val))
+        }
+        self.tableViewData?.sort {
+            $0.sectionHeader.dateFromShort! > $1.sectionHeader.dateFromShort!
+        }
+        self.tableView.reloadData()
+        
     }
     
     func registerForFireBaseUpdates()
@@ -82,7 +111,8 @@ class JournalTableViewController: UITableViewController {
                 }
                 strongSelf.entries = tmpItems
                 strongSelf.entries.sort {$0.date! > $1.date! }
-                strongSelf.tableView.reloadData()
+                //strongSelf.tableView.reloadData()
+                strongSelf.partitionIntoDailySections(entries: tmpItems)
             }
         })
     }
@@ -161,6 +191,12 @@ class JournalTableViewController: UITableViewController {
             if let destCtrl = segue.destination as? PhotoViewController {
                 destCtrl.imageToView = self.capturedImage
                 destCtrl.captionToView = self.entryToEdit?.caption
+            }
+        } else if segue.identifier == "recordAudio" {
+            if let destCtrl = segue.destination as? AudioViewController {
+                destCtrl.entry = self.entryToEdit // will be nil if new item.
+                destCtrl.delegate = self
+                destCtrl.journal = self.journal
             }
         }
     }
@@ -254,7 +290,7 @@ class JournalTableViewController: UITableViewController {
         
         let addAudioAction = UIAlertAction(title: "Audio Entry", style: .default) {
             (action) in
-            // TBD
+            self.performSegue(withIdentifier: "recordAudio", sender: self)
         }
         alertController.addAction(addAudioAction)
         
@@ -270,26 +306,53 @@ class JournalTableViewController: UITableViewController {
 
 extension JournalTableViewController  {
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection
-//        section: Int) -> String? {
-//        return self.journal.name
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, willDisplayHeaderView
-//        view: UIView, forSection section: Int) {
-//        let header = view as! UITableViewHeaderFooterView
-//        header.textLabel?.textColor = THEME_COLOR2
-//        header.contentView.backgroundColor = THEME_COLOR3
-//    }
-    
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int)
+        -> UIView? {
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "CustomHeader") as!
+            CustomJournalSectionHeaderTableViewCell
+            
+            headerCell.backgroundColor = THEME_COLOR3
+            headerCell.headerText?.textColor = THEME_COLOR2
+            headerCell.temperatureLabel?.textColor = THEME_COLOR2
+            
+            if let date = self.tableViewData?[section].sectionHeader.dateFromShort {
+                
+                headerCell.headerText?.text = self.tableViewData![section].sectionHeader
+                headerCell.temperatureLabel.text = ""
+                self.weatherService.getWeatherForDate(date: date.addingTimeInterval(12*60*60),
+                                                      forLocation:  (self.journal.lat!, self.journal.lng!), completion: { (weather) in
+                                                        if let weather = weather {
+                                                            DispatchQueue.main.async {
+                                                                headerCell.temperatureLabel.text = "\(Int(weather.temperature))°"
+                                                                headerCell.weatherIcon.image = UIImage(named: weather.iconName)
+                                                                headerCell.setNeedsDisplay()
+                                                            }
+                                                        }
+                })
+            }
+            return headerCell
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection
-        section: Int) -> Int {
-        return self.entries.count
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection 
+        section: Int) -> CGFloat 
+    {
+        return 60.0
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if let data = self.tableViewData {
+            return data.count
+        } else {
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let data = self.tableViewData {
+            return data[section].entries.count
+        } else {
+            return 0
+        }
     }
     
     
@@ -434,6 +497,25 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         }
     }
     
+    func saveAudio(entry: JournalEntry) {
+        
+        let vals = self.toDictionary(vals: entry)
+        let entryRef = self.saveEntryToFireBase(key: entry.key, ref: self.ref, vals: vals)
+        
+        // if we have a nil key, then this is a new entry and we have an audio file to save.
+        if entry.key == nil {
+            
+            self.saveMediaFileToFirebase(entry: entry, saveRefClosure: { (downloadUrl) in
+                
+                // having uploaded the audio data, now store its URL.
+                let vals = [
+                    "url" : downloadUrl as NSString
+                ]
+                entryRef?.updateChildValues(vals)
+            })
+        }
+    }
+    
     func saveImageToFirebase(imageToSave : UIImage?, saveRefClosure: @escaping
         (String) -> ())
     {
@@ -528,10 +610,6 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         } catch {
             print("oops that wasn't good now")
         }
-    }
-    
-    func saveAudio(entry: JournalEntry) {
-        // TODO: stub method, to be completed in next chapter.
     }
     
     

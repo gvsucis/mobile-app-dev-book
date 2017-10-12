@@ -1,0 +1,12 @@
+
+/* Class = "UITextField"; placeholder = "Enter email"; ObjectID = "bqb-Lx-VuR"; */
+"bqb-Lx-VuR.placeholder" = "E-mailadres";
+
+/* Class = "UILabel"; text = "Welcome to"; ObjectID = "kYz-t7-Aga"; */
+"kYz-t7-Aga.text" = "Welkom bij";
+
+/* Class = "UITextField"; placeholder = "Enter password"; ObjectID = "v9n-4m-KUv"; */
+"v9n-4m-KUv.placeholder" = "Wachtwoord";
+
+/* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "wKR-bb-zl5"; */
+"wKR-bb-zl5.normalTitle" = "Inloggen";
