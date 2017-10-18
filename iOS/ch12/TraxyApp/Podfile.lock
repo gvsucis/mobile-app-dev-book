@@ -28,6 +28,7 @@ PODS:
   - FirebaseStorage (1.1.0):
     - FirebaseAnalytics (~> 3.7)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FSCalendar (2.7.8)
   - GoogleMaps (2.2.0):
     - GoogleMaps/Maps (= 2.2.0)
   - GoogleMaps/Base (2.2.0)
@@ -56,6 +57,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - FSCalendar
   - GooglePlacePicker
   - Kingfisher (~> 3.0)
 
@@ -68,6 +70,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
+  FSCalendar: 09369a2bf554ba71cd8e8cfb627e2df22a2c2af4
   GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   GooglePlacePicker: 345b1aabd42c9d6d9bf2369c1bae1234d903e764
   GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
@@ -75,6 +78,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   Kingfisher: 300035f9a40634dc9b452d946c9f22250688fecd
 
-PODFILE CHECKSUM: ed97b86acee3c4396ea8b8e697001f1d3e384a72
+PODFILE CHECKSUM: 6226177ea7d068fa8c19821cb5cbae110f208838
 
 COCOAPODS: 1.2.1

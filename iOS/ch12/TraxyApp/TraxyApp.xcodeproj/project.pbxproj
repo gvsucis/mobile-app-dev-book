@@ -27,6 +27,10 @@
 		9E4660231E9D811700C112D7 /* JournalEntryConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4660221E9D811700C112D7 /* JournalEntryConfirmationViewController.swift */; };
 		9E68885E1F965E730037C783 /* TraxyTopLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68885D1F965E730037C783 /* TraxyTopLevelViewController.swift */; };
 		9E6888601F965F190037C783 /* TraxyTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68885F1F965F190037C783 /* TraxyTabBarViewController.swift */; };
+		9E6888621F968A9E0037C783 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6888611F968A9E0037C783 /* CalendarViewController.swift */; };
+		9E6888641F9697760037C783 /* JournalEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6888631F9697760037C783 /* JournalEditorViewController.swift */; };
+		9E6888661F9697930037C783 /* CoverPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6888651F9697930037C783 /* CoverPhotoCollectionViewController.swift */; };
+		9E6888681F9697B90037C783 /* CoverPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6888671F9697B90037C783 /* CoverPhotoCollectionViewCell.swift */; };
 		9E8D1AD81E92D81A005B3A31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */; };
 		9E8D1ADA1E92EE91005B3A31 /* Date+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */; };
 		9EB7E3141F66F2E700191DA8 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7E3131F66F2E700191DA8 /* AudioViewController.swift */; };
@@ -90,6 +94,10 @@
 		9E4660221E9D811700C112D7 /* JournalEntryConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryConfirmationViewController.swift; sourceTree = "<group>"; };
 		9E68885D1F965E730037C783 /* TraxyTopLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyTopLevelViewController.swift; sourceTree = "<group>"; };
 		9E68885F1F965F190037C783 /* TraxyTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraxyTabBarViewController.swift; sourceTree = "<group>"; };
+		9E6888611F968A9E0037C783 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		9E6888631F9697760037C783 /* JournalEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEditorViewController.swift; sourceTree = "<group>"; };
+		9E6888651F9697930037C783 /* CoverPhotoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverPhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		9E6888671F9697B90037C783 /* CoverPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ISO8601.swift"; sourceTree = "<group>"; };
 		9EB7E3131F66F2E700191DA8 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +197,9 @@
 				9EB7E3131F66F2E700191DA8 /* AudioViewController.swift */,
 				9E68885D1F965E730037C783 /* TraxyTopLevelViewController.swift */,
 				9E68885F1F965F190037C783 /* TraxyTabBarViewController.swift */,
+				9E6888611F968A9E0037C783 /* CalendarViewController.swift */,
+				9E6888631F9697760037C783 /* JournalEditorViewController.swift */,
+				9E6888651F9697930037C783 /* CoverPhotoCollectionViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +216,7 @@
 				9E3D17D31E7AE33000DB9A96 /* TraxyMainTableViewCell.swift */,
 				9E1B71471EBBACE4007231BA /* JournalEntryTableViewCell.swift */,
 				9E341E761F9004C1006095B6 /* CustomerJournalSectionHeaderTableViewCell.swift */,
+				9E6888671F9697B90037C783 /* CoverPhotoCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -588,6 +600,7 @@
 				9E3D17CE1E786C3000DB9A96 /* JournalModel.swift in Sources */,
 				9E229D571E8AB3F000DE7490 /* APIKeys.swift in Sources */,
 				9E3D17CC1E786BDE00DB9A96 /* Journal.swift in Sources */,
+				9E6888661F9697930037C783 /* CoverPhotoCollectionViewController.swift in Sources */,
 				9E229D591E8AB73100DE7490 /* AddJournalViewController.swift in Sources */,
 				9E68885E1F965E730037C783 /* TraxyTopLevelViewController.swift in Sources */,
 				9EB7E3141F66F2E700191DA8 /* AudioViewController.swift in Sources */,
@@ -599,6 +612,8 @@
 				9E1B714A1EBBCFB1007231BA /* PhotoViewController.swift in Sources */,
 				9E46601E1E9C15E800C112D7 /* JournalEntry.swift in Sources */,
 				9E6888601F965F190037C783 /* TraxyTabBarViewController.swift in Sources */,
+				9E6888641F9697760037C783 /* JournalEditorViewController.swift in Sources */,
+				9E6888681F9697B90037C783 /* CoverPhotoCollectionViewCell.swift in Sources */,
 				9EF72FA81E5CE8AC00803E9C /* TraxyLoginButton.swift in Sources */,
 				9E4660231E9D811700C112D7 /* JournalEntryConfirmationViewController.swift in Sources */,
 				9E341E721F9001C0006095B6 /* WeatherService.swift in Sources */,
@@ -608,6 +623,7 @@
 				9EF72FAE1E5CE98000803E9C /* TraxyLoginViewController.swift in Sources */,
 				9EF72FAC1E5CE91700803E9C /* TraxyLoginTextField.swift in Sources */,
 				9E341E751F9002C6006095B6 /* DarkSkyWeatherService.swift in Sources */,
+				9E6888621F968A9E0037C783 /* CalendarViewController.swift in Sources */,
 				9E8D1ADA1E92EE91005B3A31 /* Date+ISO8601.swift in Sources */,
 				9EF72FAA1E5CE8EC00803E9C /* TraxyLoginLabel.swift in Sources */,
 			);

@@ -16,8 +16,12 @@ struct Journal {
     var lat : Double?
     var lng : Double?
     var placeId : String?
+    var coverPhotoUrl : String?
+    var entries : [String: AnyObject]?
+    
     init(key: String?, name: String?, location: String?, startDate: Date?,
-         endDate : Date?, lat: Double?, lng: Double?, placeId : String?)
+         endDate : Date?, lat: Double?, lng: Double?, placeId : String?,
+         coverPhotoUrl: String?, entries: [String: AnyObject]?)
     {
         self.key = key
         self.name = name
@@ -27,16 +31,24 @@ struct Journal {
         self.lat = lat
         self.lng = lng
         self.placeId = placeId
+        if let cover = coverPhotoUrl {
+            self.coverPhotoUrl = cover
+        } else {
+            self.coverPhotoUrl = ""
+        }
+        self.entries = entries
     }
+    
     init(name: String?, location: String?, startDate: Date?, endDate : Date?,
          lat: Double?, lng: Double?, placeId : String?)
     {
         self.init(key: nil, name: name, location: location, startDate: startDate,
-                  endDate: endDate, lat: lat, lng: lng, placeId: placeId)
+                  endDate: endDate, lat: lat, lng: lng, placeId: placeId, coverPhotoUrl: "",
+                  entries: nil)
     }
     
     init() {
-        self.init(key: nil, name: nil, location: nil, startDate: nil, endDate: nil, lat: nil, lng: nil, placeId: nil)
+        self.init(key: nil, name: nil, location: nil, startDate: nil, endDate: nil, 
+                  lat: nil, lng: nil, placeId: nil, coverPhotoUrl: "", entries: nil)
     }
-    
 }

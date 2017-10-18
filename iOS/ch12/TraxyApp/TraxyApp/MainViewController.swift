@@ -10,12 +10,12 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UITableViewDelegate, AddJournalDelegate
+class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UITableViewDelegate, JournalEditorDelegate
  {
 
     
     @IBOutlet weak var tableView: UITableView!
-
+    var journalToEdit : Journal?
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
         didSet {
@@ -85,7 +85,6 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
         
     }
 
-
     // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableViewData?.count ?? 0
@@ -110,7 +109,14 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
             
             cell.name?.text = journal.name
             cell.subName?.text = journal.location
-            cell.coverImage?.image = UIImage(named: "landscape")
+            if let coverUrl = journal.coverPhotoUrl {
+                let url = URL(string: coverUrl)
+                cell.coverImage?.kf.indicatorType = .activity
+                cell.coverImage?.kf.setImage(with: url)
+            } else {
+                cell.coverImage?.image = UIImage(named: "landscape")
+            }
+
             
             
             return cell
@@ -170,7 +176,7 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addJournalSegue" {
-            if let destVC = segue.destination as? AddJournalViewController {
+            if let destVC = segue.destination as? JournalEditorViewController {
                 destVC.delegate = self
             }
         } else if segue.identifier == "showJournalSegue" {
@@ -179,17 +185,24 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
                 let values = self.tableViewData?[indexPath!.section]
                 destVC.journal  = values?.journals[indexPath!.row]
                 destVC.userId = self.userId
+                destVC.journalEditorDelegate = self
             }
         }
     }
     
-    // MARK: - AddJournalDelegate
+    // MARK: - JournalEditorDelegate
     func save(journal: Journal) {
-        let newChild = self.ref?.child(self.userId!).childByAutoId()
-        newChild?.setValue(self.toDictionary(vals: journal))
+        if let k = journal.key {
+            let child = self.ref?.child(self.userId!).child(k)
+            child?.updateChildValues(self.toDictionary(vals: journal))
+        } else {
+            let newChild = self.ref?.child(self.userId!).childByAutoId()
+            newChild?.setValue(self.toDictionary(vals: journal))
+        }
     }
     
-    func toDictionary(vals: Journal) -> NSDictionary {
+    func toDictionary(vals: Journal) -> [String : Any] {
+        
         return [
             "name": vals.name! as NSString,
             "address": vals.location! as NSString,
@@ -197,8 +210,10 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
             "endDate": NSString(string: (vals.endDate?.iso8601)!),
             "lat" : NSNumber(value: vals.lat!),
             "lng" : NSNumber(value: vals.lng!),
-            "placeId" : vals.placeId! as NSString
+            "placeId" : vals.placeId! as NSString,
+            "coverPhotoUrl" : vals.coverPhotoUrl! as NSString
         ]
+        
     }
     
     /*

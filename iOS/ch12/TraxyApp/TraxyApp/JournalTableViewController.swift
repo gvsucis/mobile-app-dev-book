@@ -26,6 +26,7 @@ class JournalTableViewController: UITableViewController {
     var entries : [JournalEntry] = []
     var entryToEdit : JournalEntry?
     var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]?
+    var journalEditorDelegate : JournalEditorDelegate!
     
     fileprivate var ref : FIRDatabaseReference?
     fileprivate var storageRef : FIRStorageReference?
@@ -197,6 +198,11 @@ class JournalTableViewController: UITableViewController {
                 destCtrl.entry = self.entryToEdit // will be nil if new item.
                 destCtrl.delegate = self
                 destCtrl.journal = self.journal
+            }
+        } else if segue.identifier == "editJournalSegue" {
+            if let destVC = segue.destination as? JournalEditorViewController {
+                destVC.delegate = self.journalEditorDelegate
+                destVC.journal = self.journal
             }
         }
     }

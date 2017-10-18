@@ -66,14 +66,14 @@ class TraxyTopLevelViewController: UIViewController {
     
     fileprivate func registerForFireBaseUpdates()
     {
+        
         self.ref!.child(self.userId!).observe(.value, with: { [weak self] snapshot in
             guard let strongSelf = self else { return }
+            
             if let postDict = snapshot.value as? [String : AnyObject] {
                 var tmpItems = [Journal]()
                 for (_,val) in postDict.enumerated() {
-                    //print("key = \(key) and val = \(val)")
                     let entry = val.1 as! Dictionary<String,AnyObject>
-                    print ("entry=\(entry)")
                     let key = val.0
                     let name : String? = entry["name"] as! String?
                     let location : String?  = entry["address"] as! String?
@@ -84,34 +84,32 @@ class TraxyTopLevelViewController: UIViewController {
                     let placeId = entry["placeId"] as! String?
                     var coverPhotoUrl = entry["coverPhotoUrl"] as! String?
                     
-                    
+                    var entries : [String : AnyObject]? = nil
                     if let e = entry["entries"] as? [String : AnyObject] {
-                        // if no cover, use first photo, if any.
+                        entries = e
+                        // if no photo is marked as cover, we will use first photo, if any.
                         if coverPhotoUrl == nil || coverPhotoUrl == "" {
                             for (_,val) in e.enumerated() {
                                 let entry = val.1 as! Dictionary<String,AnyObject>
-                                print ("entry=\(entry)")
                                 let typeRaw = entry["type"] as! Int?
                                 let type = EntryType(rawValue: typeRaw!)
                                 if type == .photo {
                                     let url : String? = entry["url"] as! String?
                                     coverPhotoUrl = url
-                                    print("Will use \(String(describing: url)) as assumed cover photo")
                                     break
                                 }
                             }
                         }
                     }
-                    tmpItems.append(Journal(key: key, name: name, location: location,
-                                            startDate: startDateStr?.dateFromISO8601,
-                                            endDate: endDateStr?.dateFromISO8601,
-                                            lat: lat, lng: lng, placeId: placeId))
-                    
+                    tmpItems.append(Journal(key: key, name: name, location: location, 
+                                            startDate: startDateStr?.dateFromISO8601, endDate: 
+                        endDateStr?.dateFromISO8601, lat: lat, lng: lng, placeId: placeId, 
+                                                     coverPhotoUrl: coverPhotoUrl, entries: entries))
                 }
                 strongSelf.journals = tmpItems
             }
         })
-    }
+    }	
     
     @IBAction func logout() {
         // Note we need not explicitly do a segue as the auth listener on our
