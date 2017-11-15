@@ -365,7 +365,8 @@ extension JournalTableViewController  {
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let entry = self.entries[indexPath.row]
+        //let entry = self.entries[indexPath.row]
+        let entry = (self.tableViewData?[indexPath.section].entries[indexPath.row])!
         var cellIds = ["NA", "TextCell", "PhotoCell", "AudioCell", "PhotoCell"]
         
         let cell = tableView.dequeueReusableCell(withIdentifier:
