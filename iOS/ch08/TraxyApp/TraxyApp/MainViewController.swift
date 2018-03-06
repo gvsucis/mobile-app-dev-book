@@ -18,7 +18,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var tableView: UITableView!
     var journals : [Journal]?
     
-    fileprivate var ref : FIRDatabaseReference?
+    fileprivate var ref : DatabaseReference?
     fileprivate var userId : String? = ""
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
@@ -36,10 +36,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.journals = model.getJournals()
         self.sortIntoSections(journals: self.journals!)
         
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
                 self.userId = user.uid
-                self.ref = FIRDatabase.database().reference()
+                self.ref = Database.database().reference()
                 self.registerForFireBaseUpdates()
             }
         }
@@ -154,7 +154,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return
         }
-        print("Selected\(journal.name)")
+        print("Selected\(String(describing: journal.name))")
     }
 
 
@@ -175,8 +175,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - AddJournalDelegate
     func save(journal: Journal) {
-        let newChild = self.ref?.child(self.userId!).childByAutoId()
-        newChild?.setValue(self.toDictionary(vals: journal))
+        if let newChild = self.ref?.child(self.userId!).childByAutoId() {
+            newChild.setValue(self.toDictionary(vals: journal))
+        }
     }
     
     func toDictionary(vals: Journal) -> NSDictionary {
@@ -193,7 +194,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     fileprivate func registerForFireBaseUpdates()
     {
-        self.ref!.child(self.userId!).observe(.value, with: { snapshot in
+        self.ref?.child(self.userId!).observe(.value, with: { snapshot in
             if let postDict = snapshot.value as? [String : AnyObject] {
                 var tmpItems = [Journal]()
                 for (_,val) in postDict.enumerated() {

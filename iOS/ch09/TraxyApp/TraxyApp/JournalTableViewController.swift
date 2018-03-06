@@ -27,8 +27,8 @@ class JournalTableViewController: UITableViewController {
     var entryToEdit : JournalEntry?
     var tableViewData: [(sectionHeader: String, entries: [JournalEntry])]?
     
-    fileprivate var ref : FIRDatabaseReference?
-    fileprivate var storageRef : FIRStorageReference?
+    fileprivate var ref : DatabaseReference?
+    fileprivate var storageRef : StorageReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class JournalTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.ref = FIRDatabase.database().reference().child(self.userId).child(self.journal.key!)
+        self.ref = Database.database().reference().child(self.userId).child(self.journal.key!)
         self.registerForFireBaseUpdates()
         self.configureStorage()
     }
@@ -88,8 +88,8 @@ class JournalTableViewController: UITableViewController {
     }
     
     func configureStorage() {
-        let storageUrl = FIRApp.defaultApp()?.options.storageBucket
-        self.storageRef = FIRStorage.storage().reference(forURL: "gs://" + storageUrl!)
+        let storageUrl = FirebaseApp.app()?.options.storageBucket
+        self.storageRef = Storage.storage().reference(forURL: "gs://" + storageUrl!)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -166,9 +166,9 @@ class JournalTableViewController: UITableViewController {
     }
     
     func displayCameraIfPermitted() {
-        let cameraMediaType = AVMediaTypeVideo
+        let cameraMediaType = AVMediaType.video
         let cameraAuthorizationStatus =
-            AVCaptureDevice.authorizationStatus(forMediaType: cameraMediaType)
+            AVCaptureDevice.authorizationStatus(for: cameraMediaType)
         
         switch cameraAuthorizationStatus {
         case .denied:
@@ -178,7 +178,7 @@ class JournalTableViewController: UITableViewController {
         case .restricted: break
         case .notDetermined:
             // Prompting user for the permission to use the camera.
-            AVCaptureDevice.requestAccess(forMediaType: cameraMediaType) { granted in
+            AVCaptureDevice.requestAccess(for: cameraMediaType) { granted in
                 if granted {
                     DispatchQueue.main.async {
                         self.displayImagePicker(type: .camera)
@@ -393,10 +393,10 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         }
     }
     
-    func saveEntryToFireBase(key: String?, ref : FIRDatabaseReference?, vals:
-        NSMutableDictionary) -> FIRDatabaseReference?
+    func saveEntryToFireBase(key: String?, ref : DatabaseReference?, vals:
+        NSMutableDictionary) -> DatabaseReference?
     {
-        var child : FIRDatabaseReference?
+        var child : DatabaseReference?
         if let k = key {
             child = ref?.child("entries").child(k)
             child?.setValue(vals)
@@ -440,11 +440,11 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         if let image = imageToSave {
             let imageData = UIImageJPEGRepresentation(image, 0.8)
             let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-            let metadata = FIRStorageMetadata()
+            let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             if let sr = self.storageRef {
                 sr.child(imagePath)
-                    .put(imageData!, metadata: metadata) { (metadata, error) in
+                    .putData(imageData!, metadata: metadata) { (metadata, error) in
                         if let error = error {
                             print("Error uploading: \(error)")
                             return
@@ -511,11 +511,11 @@ extension JournalTableViewController : AddJournalEntryDelegate {
                 let media = try Data(contentsOf: url!)
                 print("got data")
                 let mediaPath = "\(self.userId!)/\(type)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).\(ext)"
-                let metadata = FIRStorageMetadata()
+                let metadata = StorageMetadata()
                 metadata.contentType = mime
                 if let sr = self.storageRef {
                     sr.child(mediaPath)
-                        .put(media, metadata: metadata) {(metadata, error) in
+                        .putData(media, metadata: metadata) {(metadata, error) in
                             if let error = error {
                                 print("Error uploading: \(error)")
                                 return

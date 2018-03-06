@@ -113,9 +113,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return self.tableViewData?[section].sectionHeader
     }
 
-    // MARK: - UITableViewDelegate
-    
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
         CGFloat {
             return 200.0
@@ -131,20 +128,16 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView,
                    forSection section: Int) {
-        
-        
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = THEME_COLOR2
         header.contentView.backgroundColor = THEME_COLOR3
-        
-        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return
         }
-        print("Selected\(journal.name)")
+        print("Selected\(String(describing: journal.name))")
     }
 
 

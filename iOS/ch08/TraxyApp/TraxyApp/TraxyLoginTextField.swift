@@ -24,9 +24,8 @@ class TraxyLoginTextField: UITextField {
         guard let ph = self.placeholder  else {
             return
         }
-        
         self.attributedPlaceholder =
-            NSAttributedString(string: ph, attributes: [NSForegroundColorAttributeName :
+            NSAttributedString(string: ph, attributes: [NSAttributedStringKey.foregroundColor :
                 THEME_COLOR3])
     }
 }

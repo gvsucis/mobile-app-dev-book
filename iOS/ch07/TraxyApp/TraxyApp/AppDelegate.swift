@@ -9,15 +9,15 @@
 import UIKit
 import GooglePlaces
 
-let THEME_COLOR1 = UIColor.init(colorLiteralRed:0.000, green:0.157, blue:0.216,
+let THEME_COLOR1 = UIColor.init(red:0.000, green:0.157, blue:0.216,
                                 alpha:1.00)  // DARK BLUE
-let THEME_COLOR2 = UIColor.init(colorLiteralRed:0.000, green:0.369, blue:0.420,
+let THEME_COLOR2 = UIColor.init(red:0.000, green:0.369, blue:0.420,
                                 alpha:1.00) // Light Tan
-let THEME_COLOR3 = UIColor.init(colorLiteralRed: 0.937, green: 0.820, blue: 0.576,
+let THEME_COLOR3 = UIColor.init(red: 0.937, green: 0.820, blue: 0.576,
                                 alpha: 1.0)  // Lighter Blue
-let THEME_COLOR4 = UIColor.init(colorLiteralRed:0.576, green:0.596, blue:0.329,
+let THEME_COLOR4 = UIColor.init(red:0.576, green:0.596, blue:0.329,
                                 alpha:1.00) // Greenish Tan
-let THEME_COLOR5 = UIColor.init(colorLiteralRed:0.251, green:0.286, blue:0.141,
+let THEME_COLOR5 = UIColor.init(red:0.251, green:0.286, blue:0.141,
                                 alpha:1.00) // Army Green
 
 
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navAppearance.barTintColor = THEME_COLOR2
         navAppearance.tintColor = THEME_COLOR3
         navAppearance.isTranslucent = false
-        navAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        navAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         GMSPlacesClient.provideAPIKey(GOOGLE_PLACES_API_KEY)
         return true
     }

@@ -117,7 +117,7 @@ class AudioViewController: UIViewController {
         }
     }
     
-    func updateTimeLabel(timer:Timer) {
+    @objc func updateTimeLabel(timer:Timer) {
         
         if self.recorder.isRecording {
             let min = Int(recorder.currentTime / 60)
@@ -187,7 +187,7 @@ class AudioViewController: UIViewController {
         self.audioFileUrl =
             documentsDirectory.appendingPathComponent(currentFileName)
         if FileManager.default.fileExists(atPath: audioFileUrl.absoluteString) {
-            print("File \\(audioFileUrl.absoluteString) already exists!")
+            print("File \(audioFileUrl.absoluteString) already exists!")
         }
         let recordSettings:[String : AnyObject] = [
             AVFormatIDKey:             NSNumber(value: kAudioFormatMPEG4AAC),
@@ -266,9 +266,8 @@ extension AudioViewController : AVAudioRecorderDelegate {
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder,
                                           error: Error?) {
-        
         if let e = error {
-            print("\\(e.localizedDescription)")
+            print("\(e.localizedDescription)")
         }
     }
 }
@@ -283,7 +282,7 @@ extension AudioViewController : AVAudioPlayerDelegate {
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let e = error {
-            print("\\(e.localizedDescription)")
+            print("\(e.localizedDescription)")
         }
     }
 }

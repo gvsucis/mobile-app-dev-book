@@ -145,7 +145,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return
         }
-        print("Selected\(journal.name)")
+        print("Selected\(String(describing: journal.name))")
     }
 
 

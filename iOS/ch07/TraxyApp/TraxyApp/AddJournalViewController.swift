@@ -121,12 +121,12 @@ class AddJournalViewController: FormViewController {
         
     }
     
-    func cancelPressed()
+    @objc func cancelPressed()
     {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func savePressed()
+    @objc func savePressed()
     {
         let errors = self.form.validate()
         if errors.count > 0 {

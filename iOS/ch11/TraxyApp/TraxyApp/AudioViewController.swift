@@ -117,7 +117,7 @@ class AudioViewController: UIViewController {
         }
     }
     
-    func updateTimeLabel(timer:Timer) {
+    @objc func updateTimeLabel(timer:Timer) {
         
         if self.recorder.isRecording {
             let min = Int(recorder.currentTime / 60)
@@ -268,7 +268,7 @@ extension AudioViewController : AVAudioRecorderDelegate {
                                           error: Error?) {
         
         if let e = error {
-            print("\\(e.localizedDescription)")
+            print("\(e.localizedDescription)")
         }
     }
 }
@@ -283,7 +283,7 @@ extension AudioViewController : AVAudioPlayerDelegate {
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let e = error {
-            print("\\(e.localizedDescription)")
+            print("\(e.localizedDescription)")
         }
     }
 }

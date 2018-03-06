@@ -32,10 +32,10 @@ class MainViewController: TraxyTopLevelViewController, UITableViewDataSource, UI
 //        self.journals = model.getJournals()
 //        self.sortIntoSections(journals: self.journals!)
 //        
-//        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+//        Auth.auth().addStateDidChangeListener { auth, user in
 //            if let user = user {
 //                self.userId = user.uid
-//                self.ref = FIRDatabase.database().reference()
+//                self.ref = Database.database().reference()
 //                self.registerForFireBaseUpdates()
 //            }
 //        }

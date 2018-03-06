@@ -50,7 +50,7 @@ class SignUpViewController: TraxyLoginViewController {
     
     @IBAction func signupButtonPressed(_ sender: UIButton) {
         if self.validateFields() {
-            FIRAuth.auth()?.createUser(withEmail: self.emailField.text!, password:
+            Auth.auth().createUser(withEmail: self.emailField.text!, password:
             self.passwordField.text!) { (user, error) in
                 if let  _ = user {
                     self.performSegue(withIdentifier: "segueToMainFromSignUp", sender: self)

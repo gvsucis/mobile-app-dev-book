@@ -31,7 +31,7 @@ class LoginViewController: TraxyLoginViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     

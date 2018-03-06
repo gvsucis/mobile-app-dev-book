@@ -7,8 +7,7 @@ target 'TraxyApp' do
   use_frameworks!
 
   # Pods for TraxyApp
- # pod 'Eureka', '~> 3.0'
-  pod 'Eureka', '~> 2.0.0-beta.1'
+  pod 'Eureka'
   pod 'GooglePlacePicker'
 
   target 'TraxyAppTests' do

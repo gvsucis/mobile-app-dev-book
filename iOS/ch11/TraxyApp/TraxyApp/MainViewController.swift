@@ -18,7 +18,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var tableView: UITableView!
     var journals : [Journal]?
     
-    fileprivate var ref : FIRDatabaseReference?
+    fileprivate var ref : DatabaseReference?
     fileprivate var userId : String? = ""
     
     var tableViewData: [(sectionHeader: String, journals: [Journal])]? {
@@ -36,10 +36,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.journals = model.getJournals()
         self.sortIntoSections(journals: self.journals!)
         
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
                 self.userId = user.uid
-                self.ref = FIRDatabase.database().reference()
+                self.ref = Database.database().reference()
                 self.registerForFireBaseUpdates()
             }
         }
@@ -154,7 +154,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let journal = tableViewData?[indexPath.section].journals[indexPath.row] else {
             return
         }
-        print("Selected\(journal.name)")
+        print("Selected\(String(describing: journal.name))")
     }
 
 

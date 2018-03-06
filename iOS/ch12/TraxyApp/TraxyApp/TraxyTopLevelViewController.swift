@@ -18,7 +18,7 @@ class TraxyTopLevelViewController: UIViewController {
             self.journalsDidLoad()
         }
     }
-    var ref : FIRDatabaseReference?
+    var ref : DatabaseReference?
     var userId : String? = "" {
         didSet {
             if userId != nil && userId != "" {
@@ -33,7 +33,7 @@ class TraxyTopLevelViewController: UIViewController {
                         }
                     }
                 }
-                self.ref = FIRDatabase.database().reference()
+                self.ref = Database.database().reference()
                 if self.shouldLoad {
                     self.registerForFireBaseUpdates()
                 }
@@ -115,7 +115,7 @@ class TraxyTopLevelViewController: UIViewController {
         // Note we need not explicitly do a segue as the auth listener on our
         // top level tab bar controller will detect and put up the login.
         do {
-            try FIRAuth.auth()?.signOut()
+            try Auth.auth().signOut()
             print("Logged out")
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)

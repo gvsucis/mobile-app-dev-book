@@ -33,7 +33,7 @@ class LoginViewController: TraxyLoginViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
@@ -55,7 +55,7 @@ class LoginViewController: TraxyLoginViewController {
     @IBAction func signupButtonPressed(_ sender: UIButton) {
         if self.validateFields() {
             print("Congratulations!  You entered correct values.")
-            FIRAuth.auth()?.signIn(withEmail: self.emailField.text!, password:
+            Auth.auth().signIn(withEmail: self.emailField.text!, password:
             self.passwordField.text!) { (user, error) in
                 if let _ = user {
                     self.performSegue(withIdentifier: "segueToMain", sender: self)
@@ -72,7 +72,7 @@ class LoginViewController: TraxyLoginViewController {
     
     @IBAction func logout(segue : UIStoryboardSegue) {
         do {
-            try FIRAuth.auth()?.signOut()
+            try Auth.auth().signOut()
             print("Logged out")
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
