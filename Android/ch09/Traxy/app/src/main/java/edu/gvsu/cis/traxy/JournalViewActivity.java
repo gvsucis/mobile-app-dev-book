@@ -187,7 +187,7 @@ public class JournalViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent showDetails = new Intent(this, MediaDetailsActivity.class);
         showDetails.putExtra("FIREBASE_REF", entriesRef.toString());
-        if (resultCode == RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK /*&& data != null*/) {
             switch (requestCode) {
                 case CAPTURE_PHOTO_REQUEST:
                     showDetails.putExtra("PHOTO_URI", mediaUri);
