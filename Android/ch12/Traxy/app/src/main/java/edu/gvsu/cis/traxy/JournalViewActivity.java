@@ -106,8 +106,9 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
+            // TODO: the orderByChild method call is causing probs downstream!
             entriesRef = dbRef.getReference(user.getUid())
-                    .child(tripKey + "/entries").orderByChild("date");
+                    .child(tripKey + "/entries");/*.orderByChild("date")*/;
             storage = FirebaseStorage.getInstance();
             adapter = new MyAdapter();
             entries.setAdapter(adapter);
