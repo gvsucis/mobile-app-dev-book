@@ -107,7 +107,7 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
             entriesRef = dbRef.getReference(user.getUid())
-                    .child(tripKey + "/entries").orderByChild("date");
+                    .child(tripKey + "/entries");/*.orderByChild("date")*/;
             storage = FirebaseStorage.getInstance();
             adapter = new MyAdapter();
             entries.setAdapter(adapter);
