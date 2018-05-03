@@ -8,29 +8,29 @@
     tools:context="edu.gvsu.cis.traxy.MediaDetailsActivity">
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintDimensionRatio="h,16:9"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/traxy_logo"
-        android:id="@+id/frameLayout">
-        <ImageView
-            android:id="@+id/journal_entry_photo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+        app:srcCompat="@drawable/traxy_logo">
+
         <VideoView
             android:id="@+id/journal_entry_video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/journal_entry_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/traxy_logo"/>
 
         <TextView
             android:id="@+id/audioLabel"
@@ -41,15 +41,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@android:color/white"/>
 
+
     </FrameLayout>
 
-    <EditText
-        android:id="@+id/journal_entry_date"
+    <TextView
+        android:id="@+id/journal_entry_datetime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:background="@android:color/white"
         android:drawableEnd="@drawable/ic_expand_more_black_24dp"
         android:ems="10"
@@ -61,40 +62,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"/>
 
-    <EditText
-        android:id="@+id/journal_entry_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/white"
-        android:drawableEnd="@drawable/ic_expand_more_black_24dp"
-        android:ems="10"
-        android:hint="@string/journal_entry_time"
-        android:inputType="time"
-        android:padding="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/journal_entry_date"
-        app:layout_constraintRight_toRightOf="@+id/journal_entry_date"
-        app:layout_constraintTop_toBottomOf="@+id/journal_entry_date"/>
-
-    <EditText
+    <TextView
         android:id="@+id/journal_entry_loc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/white"
         android:drawableEnd="@drawable/ic_near_me_black_24dp"
         android:ems="10"
         android:hint="@string/journal_entry_location"
         android:inputType="textPostalAddress"
         android:padding="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/journal_entry_time"
-        app:layout_constraintRight_toRightOf="@+id/journal_entry_time"
-        app:layout_constraintTop_toBottomOf="@+id/journal_entry_time"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/journal_entry_datetime"/>
 
     <EditText
         android:id="@+id/journal_entry_caption"
@@ -116,4 +99,20 @@
         app:layout_constraintRight_toRightOf="@+id/journal_entry_loc"
         app:layout_constraintTop_toBottomOf="@+id/journal_entry_loc"
         app:layout_constraintVertical_bias="0.0"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:src="@drawable/ic_done_black_24dp"
+        app:fabSize="normal"
+        app:fab_colorNormal="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/journal_entry_datetime"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:srcCompat="@drawable/ic_done_black_24dp"/>
+
 </android.support.constraint.ConstraintLayout>
