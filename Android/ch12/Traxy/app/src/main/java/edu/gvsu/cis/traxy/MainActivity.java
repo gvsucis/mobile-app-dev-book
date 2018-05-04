@@ -76,11 +76,9 @@ public class MainActivity extends AppCompatActivity implements
         topRef = dbRef.getReference(uid);
     }
 
-    @OnClick(R.id.fab)
-    public void addNewJournal() {
-        Intent newJournal = new Intent(MainActivity.this, TripEditorActivity.class);
-        startActivityForResult(newJournal, NEW_TRIP_REQUEST);
-    }
+//    @OnClick(R.id.fab)
+//    public void addNewJournal() {
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.action_add_journal) {
+            Intent newJournal = new Intent(MainActivity.this, TripEditorActivity.class);
+            startActivityForResult(newJournal, NEW_TRIP_REQUEST);
             return true;
         }
         return false;
