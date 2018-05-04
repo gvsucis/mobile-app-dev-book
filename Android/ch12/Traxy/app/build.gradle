@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "edu.gvsu.cis.traxy"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 26
 //        multiDexEnabled true
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '26.0.3'
 }
 
 dependencies {
