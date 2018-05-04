@@ -1,0 +1,97 @@
+PODS:
+  - Eureka (4.1.0)
+  - Firebase/Auth (4.9.0):
+    - Firebase/Core
+    - FirebaseAuth (= 4.4.3)
+  - Firebase/Core (4.9.0):
+    - FirebaseAnalytics (= 4.0.9)
+    - FirebaseCore (= 4.0.15)
+  - Firebase/Database (4.9.0):
+    - Firebase/Core
+    - FirebaseDatabase (= 4.1.4)
+  - Firebase/Storage (4.9.0):
+    - Firebase/Core
+    - FirebaseStorage (= 2.1.2)
+  - FirebaseAnalytics (4.0.9):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - nanopb (~> 0.3)
+  - FirebaseAuth (4.4.3):
+    - FirebaseAnalytics (~> 4.0)
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (4.0.15):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseDatabase (4.1.4):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (2.0.9):
+    - FirebaseCore (~> 4.0)
+  - FirebaseStorage (2.1.2):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FSCalendar (2.7.9)
+  - GoogleMaps (2.6.0):
+    - GoogleMaps/Maps (= 2.6.0)
+  - GoogleMaps/Base (2.6.0)
+  - GoogleMaps/Maps (2.6.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.6.0):
+    - GoogleMaps (= 2.6.0)
+    - GooglePlaces (= 2.6.0)
+  - GooglePlaces (2.6.0):
+    - GoogleMaps/Base (= 2.6.0)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
+  - GTMSessionFetcher/Core (1.1.14)
+  - Kingfisher (4.6.3)
+  - leveldb-library (1.20)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+
+DEPENDENCIES:
+  - Eureka
+  - Firebase/Auth
+  - Firebase/Database
+  - Firebase/Storage
+  - FSCalendar
+  - GoogleMaps
+  - GooglePlacePicker
+  - Kingfisher
+
+SPEC CHECKSUMS:
+  Eureka: 5770ef95bbbbe52f8abbc0d9bea6ee8282c50209
+  Firebase: 632216af3ed7f31e3be34776947fdc7546cfb572
+  FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
+  FirebaseAuth: aaaf68d5064a6c8fec435758f83a43b8db26ccaa
+  FirebaseCore: 3bd047463058fa6b5d312c97502c52e45401cdfb
+  FirebaseDatabase: de4446507ccd3257fca37d16f40e1540324571fd
+  FirebaseInstanceID: d2058a35e9bebda1b6dd42486b84917bde552a9d
+  FirebaseStorage: 181bb543d39ee3c53e0558de7ba86b1286a0427f
+  FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
+  GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
+  GooglePlacePicker: e4488625effb006f59de49e14b7a603e463e4261
+  GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
+  Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+
+PODFILE CHECKSUM: a57c83141ad6e2918852c4c6b925735351d4235a
+
+COCOAPODS: 1.4.0
