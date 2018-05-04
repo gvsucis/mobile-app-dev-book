@@ -107,9 +107,8 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
-            // TODO: the orderByChild method call is causing probs downstream!
             entriesRef = dbRef.getReference(user.getUid())
-                    .child(tripKey + "/entries");/*.orderByChild("date")*/;
+                    .child(tripKey + "/entries").orderByChild("date");
             storage = FirebaseStorage.getInstance();
             adapter = new MyAdapter();
             entries.setAdapter(adapter);
@@ -233,14 +232,14 @@ public class JournalViewActivity extends AppCompatActivity {
     @OnClick(R.id.fab_add_text)
     public void do_add_textentry() {
         Intent toDetails = new Intent(this, MediaDetailsActivity.class);
-        toDetails.putExtra("FIREBASE_REF", entriesRef.toString());
+        toDetails.putExtra("FIREBASE_REF", entriesRef.getRef().toString());
         startActivity(toDetails);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent showDetails = new Intent(this, MediaDetailsActivity.class);
-        showDetails.putExtra("FIREBASE_REF", entriesRef.toString());
+        showDetails.putExtra("FIREBASE_REF", entriesRef.getRef().toString());
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAPTURE_PHOTO_REQUEST:
