@@ -2,6 +2,7 @@ package edu.gvsu.cis.traxy;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -9,9 +10,12 @@ import android.widget.TextView;
  */
 
 public class SectionHolder extends RecyclerView.ViewHolder {
-    public final TextView textView;
+    public final TextView headerText, temperature;
+    public final ImageView icon;
     public SectionHolder(View itemView) {
         super(itemView);
-        textView = (TextView) itemView.findViewById(R.id.text1);
+        headerText = (TextView) itemView.findViewById(R.id.header);
+        temperature = (TextView) itemView.findViewById(R.id.temperature);
+        icon = (ImageView) itemView.findViewById(R.id.weather_icon);
     }
 }

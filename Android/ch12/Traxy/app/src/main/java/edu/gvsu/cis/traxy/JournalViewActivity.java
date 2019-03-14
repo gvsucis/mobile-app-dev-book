@@ -82,6 +82,7 @@ public class JournalViewActivity extends AppCompatActivity {
             ("yyyyMMdd");
     private Map<String,List<JournalEntry>> entryMap;
     private Map<String,Double> dayToTemp;
+    private Map<String,String> dayToIcon;
     private List<String> seenDates;
     private DarkSkyServices darkSkyClient;
 
@@ -106,9 +107,8 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseDatabase dbRef = FirebaseDatabase.getInstance();
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
-            // TODO: the orderByChild method call is causing probs downstream!
             entriesRef = dbRef.getReference(user.getUid())
-                    .child(tripKey + "/entries");/*.orderByChild("date")*/;
+                    .child(tripKey + "/entries").orderByChild("date");
             storage = FirebaseStorage.getInstance();
             adapter = new MyAdapter();
             entries.setAdapter(adapter);
@@ -232,14 +232,14 @@ public class JournalViewActivity extends AppCompatActivity {
     @OnClick(R.id.fab_add_text)
     public void do_add_textentry() {
         Intent toDetails = new Intent(this, MediaDetailsActivity.class);
-        toDetails.putExtra("FIREBASE_REF", entriesRef.toString());
+        toDetails.putExtra("FIREBASE_REF", entriesRef.getRef().toString());
         startActivity(toDetails);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent showDetails = new Intent(this, MediaDetailsActivity.class);
-        showDetails.putExtra("FIREBASE_REF", entriesRef.toString());
+        showDetails.putExtra("FIREBASE_REF", entriesRef.getRef().toString());
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAPTURE_PHOTO_REQUEST:
@@ -273,6 +273,7 @@ public class JournalViewActivity extends AppCompatActivity {
                     entriesRef);
             entryMap = new TreeMap<>();
             dayToTemp = new TreeMap<>();
+            dayToIcon = new TreeMap<>();
             seenDates = new ArrayList<>();
         }
 
@@ -355,12 +356,62 @@ public class JournalViewActivity extends AppCompatActivity {
         void populateHeaderViewHolder(SectionHolder viewHolder, int
                 section) {
             String key = (String) entryMap.keySet().toArray()[section];
+            String date = key.substring(0,4) + "-"
+                    + key.substring(4,6) + "-"
+                    + key.substring(6);
+
             Double temp = dayToTemp.get(key);
+            String icon = dayToIcon.get(key);
             if (temp == null)
-                viewHolder.textView.setText("Fetching temperature for " +
-                        key);
-            else
-                viewHolder.textView.setText("Temperature: " + temp);
+                viewHolder.headerText.setText("Fetching temperature for " +
+                        date);
+            else {
+                viewHolder.headerText.setText(date);
+                viewHolder.temperature.setText(String.format("%.0f\u2109", temp));
+                switch (icon) {
+                    case "clear-day":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_clear_day));
+                        break;
+                    case "clear-night":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_clear_night));
+                        break;
+                    case "rain":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_rain));
+                        break;
+                    case "snow":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_snow));
+                        break;
+                    case "sleet":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_sleet));
+                        break;
+                    case "wind":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_wind));
+                        break;
+                    case "fog":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_fog));
+                        break;
+                    case "cloudy":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_cloudy));
+                        break;
+                    case "partly-cloudy-day":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_partly_cloudy_day));
+                        break;
+                    case "partly-cloudy-night":
+                        viewHolder.icon.setImageDrawable(getResources()
+                                .getDrawable(R.drawable.ic_darksky_partly_cloudy_night));
+                        break;
+                }
+
+            }
         }
 
         @Override
@@ -393,6 +444,7 @@ public class JournalViewActivity extends AppCompatActivity {
                                 DarkSkyWeather weather = response.body();
                                 WeatherData data = weather.currently;
                                 dayToTemp.put(key, data.temperature);
+                                dayToIcon.put(key, data.icon);
                             }
                             int section = seenDates.indexOf(key);
                             int pos = adapter.positionOfSection(section);
@@ -417,6 +469,7 @@ public class JournalViewActivity extends AppCompatActivity {
                         .EXTRA_TEMP, 0.0);
                 String icon = intent.getStringExtra(WeatherService.EXTRA_ICON);
                 dayToTemp.put(key, temperature);
+                dayToIcon.put(key, icon);
             }
             int section = seenDates.indexOf(key);
             int pos = adapter.positionOfSection(section);

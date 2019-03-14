@@ -5,4 +5,8 @@
     <item android:title="@string/logout"
         android:id="@+id/action_logout"
         app:showAsAction="never" />
+    <item android:title="@string/new_trip"
+        android:id="@+id/action_add_journal"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_white_24dp"/>
 </menu>
