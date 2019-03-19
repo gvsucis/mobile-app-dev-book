@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("cis.gvsu.edu.traxy", appContext.getPackageName());
+        assertEquals("cis.gvsu.edu.edu.gvsu.cis.traxy", appContext.getPackageName());
     }
 }
