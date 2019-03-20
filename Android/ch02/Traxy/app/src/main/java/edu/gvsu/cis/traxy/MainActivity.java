@@ -9,9 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import java.util.regex.Pattern;
 
-import edu.gvsu.cis.traxy.R;
-
-public class LoginActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final Pattern EMAIL_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
@@ -20,11 +18,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
-        EditText email = (EditText) findViewById(R.id.email);
-        EditText passwd = (EditText) findViewById(R.id.password);
-        Button signin = (Button) findViewById(R.id.signin);
+        final EditText email = (EditText) findViewById(R.id.email);
+        final EditText passwd = (EditText) findViewById(R.id.password);
+        final Button signin = (Button) findViewById(R.id.signin);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
         signin.setOnClickListener(v -> {
@@ -40,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             String passStr = passwd.getText().toString().toLowerCase();
-            if (!passStr.contains("edu.gvsu.cis.traxy")) {
+            if (!passStr.contains("traxy")) {
                 signin.startAnimation (shake);
                 return;
             }
