@@ -60,7 +60,7 @@ class SignUpViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToMainFromSignUp" {
-            if let destVC = segue.destination.childViewControllers[0] as? MainViewController {
+            if let destVC = segue.destination.children[0] as? MainViewController {
                 destVC.userEmail = self.emailField.text
             }
         }
