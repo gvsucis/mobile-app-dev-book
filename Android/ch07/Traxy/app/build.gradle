@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "cis.gvsu.edu.traxy"
         minSdkVersion 17
-        targetSdkVersion 26
+        targetSdkVersion 28
 //        multiDexEnabled true
         versionCode 1
         versionName "1.0"
@@ -27,23 +27,23 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'net.danlew:android.joda:2.9.5'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.truizlop.sectionedrecyclerview:library:1.2.0'
-    compile 'com.google.android.gms:play-services-places:10.2.1'
-    compile 'com.borax12.materialdaterangepicker:library:1.9'
-    compile 'org.parceler:parceler-api:1.1.6'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'net.danlew:android.joda:2.9.5'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.truizlop.sectionedrecyclerview:library:1.2.0'
+    implementation 'com.google.android.gms:play-services-places:10.2.1'
+    implementation 'com.borax12.materialdaterangepicker:library:1.9'
+    implementation 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
-    compile 'com.jakewharton:butterknife:8.4.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
