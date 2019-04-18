@@ -5,7 +5,7 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cis.gvsu.edu.traxy.LoginActivity">
+    tools:context="edu.gvsu.cis.traxy.LoginActivity">
 
     <TextView
         android:id="@+id/welcome_text"
