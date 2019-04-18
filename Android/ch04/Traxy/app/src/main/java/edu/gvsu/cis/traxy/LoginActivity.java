@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
@@ -9,6 +9,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import java.util.regex.Pattern;
+
+import edu.gvsu.cis.traxy.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             String passStr = passwd.getText().toString().toLowerCase();
-            if (!passStr.contains("traxy")) {
+            if (!passStr.contains("edu.gvsu.cis.edu.gvsu.cis.traxy")) {
                 signin.startAnimation (shake);
                 return;
             }

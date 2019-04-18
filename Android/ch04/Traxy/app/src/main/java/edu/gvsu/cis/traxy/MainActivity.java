@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_logout) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, edu.gvsu.cis.traxy.LoginActivity.class);
             startActivity(intent);
             finish();
             return true;

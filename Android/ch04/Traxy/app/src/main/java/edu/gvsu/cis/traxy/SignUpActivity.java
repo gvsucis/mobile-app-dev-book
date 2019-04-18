@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.regex.Pattern;
+
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -58,7 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Snackbar.make(email, "Login verified",
                         Snackbar.LENGTH_LONG).show();
-                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, edu.gvsu.cis.traxy.MainActivity.class);
                 intent.putExtra("email",emailStr);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity (intent);
