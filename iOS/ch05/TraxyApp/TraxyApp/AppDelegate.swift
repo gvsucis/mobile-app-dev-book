@@ -30,9 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // make the status bar more readable against darker background.
-        application.statusBarStyle = UIStatusBarStyle.lightContent
-        
         let navAppearance = UINavigationBar.appearance()
         navAppearance.barTintColor = THEME_COLOR2
         navAppearance.tintColor = THEME_COLOR3
