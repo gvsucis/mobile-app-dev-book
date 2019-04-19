@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cis.gvsu.edu.traxy.dummy.DummyContent;
-import cis.gvsu.edu.traxy.dummy.DummyContent.DummyJournal;
+import edu.gvsu.cis.traxy.dummy.DummyContent;
+import edu.gvsu.cis.traxy.dummy.DummyContent.DummyJournal;
 
 /**
  * A fragment representing a list of Items.

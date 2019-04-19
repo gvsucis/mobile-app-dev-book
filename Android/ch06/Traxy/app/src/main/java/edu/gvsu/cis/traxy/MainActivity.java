@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import cis.gvsu.edu.traxy.dummy.DummyContent;
+import edu.gvsu.cis.traxy.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity implements JournalFragment.OnListFragmentInteractionListener {
 

@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy.dummy;
+package edu.gvsu.cis.traxy.dummy;
 
 import org.joda.time.DateTime;
 

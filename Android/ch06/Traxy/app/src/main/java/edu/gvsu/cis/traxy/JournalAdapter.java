@@ -1,4 +1,4 @@
-package cis.gvsu.edu.traxy;
+package edu.gvsu.cis.traxy;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.truizlop.sectionedrecyclerview.HeaderViewHolder;
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
-import cis.gvsu.edu.traxy.JournalFragment.OnListFragmentInteractionListener;
-import cis.gvsu.edu.traxy.dummy.DummyContent.DummyJournal;
+import edu.gvsu.cis.traxy.JournalFragment.OnListFragmentInteractionListener;
+import edu.gvsu.cis.traxy.dummy.DummyContent.DummyJournal;
 
 import java.util.ArrayList;
 import java.util.List;
