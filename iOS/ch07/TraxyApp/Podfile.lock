@@ -15,12 +15,19 @@ DEPENDENCIES:
   - Eureka
   - GooglePlacePicker
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Eureka
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
+
 SPEC CHECKSUMS:
   Eureka: 5770ef95bbbbe52f8abbc0d9bea6ee8282c50209
   GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
   GooglePlacePicker: e4488625effb006f59de49e14b7a603e463e4261
   GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
 
-PODFILE CHECKSUM: 0e23aa23d706ce701f704551028b766c556141fc
+PODFILE CHECKSUM: 51115bd2c48daa72639ea408e6e5674c768375a9
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
