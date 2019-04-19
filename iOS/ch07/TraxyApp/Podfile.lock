@@ -1,15 +1,15 @@
 PODS:
-  - Eureka (4.1.0)
-  - GoogleMaps (2.6.0):
-    - GoogleMaps/Maps (= 2.6.0)
-  - GoogleMaps/Base (2.6.0)
-  - GoogleMaps/Maps (2.6.0):
+  - Eureka (5.0.0)
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
     - GoogleMaps/Base
-  - GooglePlacePicker (2.6.0):
-    - GoogleMaps (= 2.6.0)
-    - GooglePlaces (= 2.6.0)
-  - GooglePlaces (2.6.0):
-    - GoogleMaps/Base (= 2.6.0)
+  - GooglePlacePicker (3.1.0):
+    - GoogleMaps (= 3.1.0)
+    - GooglePlaces (= 3.1.0)
+  - GooglePlaces (3.1.0):
+    - GoogleMaps/Base (= 3.1.0)
 
 DEPENDENCIES:
   - Eureka
@@ -23,11 +23,11 @@ SPEC REPOS:
     - GooglePlaces
 
 SPEC CHECKSUMS:
-  Eureka: 5770ef95bbbbe52f8abbc0d9bea6ee8282c50209
-  GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
-  GooglePlacePicker: e4488625effb006f59de49e14b7a603e463e4261
-  GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
+  Eureka: 0f64f477ec8ef6201c6fec143d60ff5c201cf654
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  GooglePlacePicker: 1c60c2a26e9d1e73bcb0c6f89609db8d777d13c1
+  GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
 
-PODFILE CHECKSUM: 51115bd2c48daa72639ea408e6e5674c768375a9
+PODFILE CHECKSUM: 5581d0c07405eb295c52775e57b01e0d21d28744
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
