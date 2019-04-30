@@ -8,7 +8,6 @@ target 'TraxyApp' do
 
   # Pods for TraxyApp
   pod 'Eureka' 
-  #pod 'GooglePlacePicker'
   pod 'GooglePlaces'
 
   target 'TraxyAppTests' do
