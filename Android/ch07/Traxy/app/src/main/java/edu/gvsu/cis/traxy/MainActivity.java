@@ -6,15 +6,12 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
 
+import org.joda.time.DateTime;
 import org.parceler.Parcels;
 
 import butterknife.BindView;
@@ -22,20 +19,23 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.traxy.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements JournalFragment.OnListFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements JournalFragment.OnListFragmentInteractionListener {
 
     private final static int NEW_TRIP_REQUEST = 146;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+
+    private JournalFragment journalFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        journalFragment = (JournalFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         setSupportActionBar(toolbar);
 
-        Places.initialize(getApplicationContext(), "AIzaSyB9XIftWKE1Yv-9pA2f8YCZeU2gYv2Ygbk");
+        Places.initialize(getApplicationContext(), BuildConfig.PLACES_API_KEY);
     }
 
     @OnClick(R.id.fab)
@@ -70,17 +70,15 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.O
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        System.out.println("oops");
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_TRIP_REQUEST) {
             if (data != null && data.hasExtra("TRIP")) {
                 Parcelable parcel = data.getParcelableExtra("TRIP");
                 Trip t = Parcels.unwrap(parcel);
-                Log.d("MainACtivity", "New Trip: " + t.name);
+                DateTime startDate = DateTime.parse(t.startDate);
+                DummyContent.DummyJournal newEntry = new DummyContent.DummyJournal(t.name, t.location, startDate);
+                DummyContent.ITEMS.add(newEntry);
+                journalFragment.reloadView();
             }
         }
         else
