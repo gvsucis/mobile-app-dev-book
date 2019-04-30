@@ -9,15 +9,19 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.parceler.Parcels;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +46,7 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
         setContentView(R.layout.activity_new_journal);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DateTime today = DateTime.now();
@@ -56,16 +60,12 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
 
     @OnClick(R.id.location)
     public void locationPressed() {
-        try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this);
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
+        // Requested details: PlaceId, name, and address
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+        Intent intent =
+                new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                        .build(this);
+        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
     }
 
     @OnClick({R.id.start_date, R.id.end_date})
@@ -98,12 +98,12 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Place pl = PlaceAutocomplete.getPlace(this, data);
+                Place pl = Autocomplete.getPlaceFromIntent(data);
                 location.setText(pl.getAddress());
                 Log.i(TAG, "onActivityResult: " + pl.getName() + "/" + pl.getAddress());
 
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status stat = PlaceAutocomplete.getStatus(this, data);
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+//                Status stat = Autocomplete.getStatusFromIntent(data);
                 Log.d(TAG, "onActivityResult: ");
             }
             else if (requestCode == RESULT_CANCELED){

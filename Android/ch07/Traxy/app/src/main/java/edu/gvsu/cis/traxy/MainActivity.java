@@ -12,7 +12,8 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Places;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 
 import org.parceler.Parcels;
 
@@ -33,13 +34,8 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.O
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        GoogleApiClient apiClient;
 
-        apiClient = new GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
+        Places.initialize(getApplicationContext(), "AIzaSyB9XIftWKE1Yv-9pA2f8YCZeU2gYv2Ygbk");
     }
 
     @OnClick(R.id.fab)
