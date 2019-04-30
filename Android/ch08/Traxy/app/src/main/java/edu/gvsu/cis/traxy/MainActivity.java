@@ -3,17 +3,13 @@ package edu.gvsu.cis.traxy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Places;
+import com.google.android.libraries.places.api.Places;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements JournalFragment.OnListFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements JournalFragment.OnListFragmentInteractionListener {
 
     private final static int NEW_TRIP_REQUEST = 146;
     private FirebaseAuth mAuth;
@@ -40,13 +36,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.O
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
-        GoogleApiClient apiClient;
-
-        apiClient = new GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
+        Places.initialize(getApplicationContext(), BuildConfig.PLACES_API_KEY);
     }
 
     @Override
@@ -89,11 +79,6 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.O
         Intent toDetails = new Intent(this, JournalViewActivity.class);
         toDetails.putExtra("TRIP_NAME", item.name);
         startActivity (toDetails);
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        System.out.println("oops");
     }
 
     @Override
