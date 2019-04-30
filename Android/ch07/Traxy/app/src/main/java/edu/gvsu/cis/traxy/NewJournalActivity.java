@@ -42,7 +42,7 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
         setContentView(R.layout.activity_new_journal);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DateTime today = DateTime.now();
@@ -104,7 +104,7 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status stat = PlaceAutocomplete.getStatus(this, data);
-                Log.d(TAG, "onActivityResult: ");
+                Log.d(TAG, "onActivityResult: " + stat.getStatusMessage());
             }
             else if (requestCode == RESULT_CANCELED){
                 System.out.println("Cancelled by the user");

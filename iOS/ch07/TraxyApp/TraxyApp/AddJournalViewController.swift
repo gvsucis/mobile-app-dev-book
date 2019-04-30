@@ -8,7 +8,8 @@
 
 import UIKit
 import Eureka
-import GooglePlacePicker
+//import GooglePlacePicker
+import GooglePlaces
 
 protocol AddJournalDelegate {
     func save(journal: Journal)
@@ -199,4 +200,6 @@ extension AddJournalViewController: GMSAutocompleteViewControllerDelegate {
     {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
+    
+
 }
