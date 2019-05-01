@@ -9,9 +9,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB9XIftWKE1Yv-9pA2f8YCZeU2gYv2Ygbk" />
 
         <activity android:name="edu.gvsu.cis.traxy.LoginActivity">
             <intent-filter>

@@ -26,7 +26,7 @@ public class JournalFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
+    private JournalAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -68,11 +68,18 @@ public class JournalFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new JournalAdapter(DummyContent.ITEMS, mListener));
+            adapter = new JournalAdapter(mListener);
+            adapter.updateListItems(DummyContent.ITEMS);
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
 
+
+    public void reloadView() {
+        adapter.updateListItems(DummyContent.ITEMS);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context) {

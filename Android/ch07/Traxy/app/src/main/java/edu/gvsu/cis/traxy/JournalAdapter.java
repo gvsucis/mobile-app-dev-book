@@ -25,12 +25,18 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
 
     private final List<DummyJournal> current, future, past;
 
-    public JournalAdapter(List<DummyJournal> items, OnListFragmentInteractionListener listener) {
+    public JournalAdapter(OnListFragmentInteractionListener listener) {
         mListener = listener;
         this.current = new ArrayList<DummyJournal>();
         this.future = new ArrayList<DummyJournal>();
         this.past = new ArrayList<DummyJournal>();
 
+    }
+
+    public void updateListItems(List<DummyJournal> items) {
+        this.current.clear();
+        this.future.clear();
+        this.past.clear();
         for (DummyJournal jrn : items) {
             if (jrn.startDate.isAfterNow())
                 future.add(jrn);

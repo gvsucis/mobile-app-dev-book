@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def secretFile = rootProject.file("placesapi.properties")
+def secretProp = new Properties()
+secretProp.load(new FileInputStream(secretFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -13,6 +17,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        buildConfigField "String", "PLACES_API_KEY", secretProp["API_KEY"]
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
