@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import edu.gvsu.cis.traxy.model.JournalEntry;
 
@@ -31,6 +33,7 @@ public class JournalEntryAdapter extends FirebaseRecyclerAdapter<JournalEntry, E
 
     @Override
     protected void onBindViewHolder(@NonNull EntryHolder viewHolder, int position, @NonNull JournalEntry model) {
+        StorageReference mediaRef;
         viewHolder.setCaption(model.getCaption());
         viewHolder.setDate(model.getDate());
 
@@ -38,15 +41,17 @@ public class JournalEntryAdapter extends FirebaseRecyclerAdapter<JournalEntry, E
             case 2: // photo
                 viewHolder.topImage.setVisibility(View.VISIBLE);
                 viewHolder.playIcon.setVisibility(View.GONE);
-                Glide.with(viewHolder.topImage.getContext())
-                        .load(Uri.parse(model.getUrl()))
+                mediaRef = FirebaseStorage.getInstance().getReferenceFromUrl(model.getUrl());
+                GlideApp.with(viewHolder.topImage.getContext())
+                        .load(mediaRef)
                         .into(viewHolder.topImage);
                 break;
             case 4: // video
                 viewHolder.topImage.setVisibility(View.VISIBLE);
                 viewHolder.playIcon.setVisibility(View.VISIBLE);
-                Glide.with(viewHolder.topImage.getContext())
-                        .load(Uri.parse(model.getThumbnailUrl()))
+                mediaRef = FirebaseStorage.getInstance().getReferenceFromUrl(model.getThumbnailUrl());
+                GlideApp.with(viewHolder.topImage.getContext())
+                        .load(mediaRef)
                         .into(viewHolder.topImage);
                 break;
             default:
