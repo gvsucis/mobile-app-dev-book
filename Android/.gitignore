@@ -16,11 +16,13 @@
 **/.signing/
 
 # User-specific configurations
+**/.idea
 **/.idea/libraries/
 **/.idea/workspace.xml
 **/.idea/tasks.xml
 **/.idea/vcs.xml
 **/.idea/gradle.xml
+**/.idea/encodings..xml
 **/*.iml
 
 **/google-services.json
