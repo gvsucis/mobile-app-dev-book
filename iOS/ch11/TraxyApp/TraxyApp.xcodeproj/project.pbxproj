@@ -25,6 +25,7 @@
 		9E4660201E9C16A900C112D7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E46601F1E9C16A900C112D7 /* MobileCoreServices.framework */; };
 		9E4660211E9C173A00C112D7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E46601B1E9C146B00C112D7 /* AVKit.framework */; };
 		9E4660231E9D811700C112D7 /* JournalEntryConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4660221E9D811700C112D7 /* JournalEntryConfirmationViewController.swift */; };
+		9E59185A227A180D00A33392 /* Weather.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E591859227A180D00A33392 /* Weather.xcassets */; };
 		9E8D1AD81E92D81A005B3A31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */; };
 		9E8D1ADA1E92EE91005B3A31 /* Date+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */; };
 		9EB7E3141F66F2E700191DA8 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7E3131F66F2E700191DA8 /* AudioViewController.swift */; };
@@ -86,6 +87,7 @@
 		9E46601D1E9C15E800C112D7 /* JournalEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		9E46601F1E9C16A900C112D7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9E4660221E9D811700C112D7 /* JournalEntryConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalEntryConfirmationViewController.swift; sourceTree = "<group>"; };
+		9E591859227A180D00A33392 /* Weather.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Weather.xcassets; sourceTree = "<group>"; };
 		9E8D1AD71E92D81A005B3A31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E8D1AD91E92EE91005B3A31 /* Date+ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ISO8601.swift"; sourceTree = "<group>"; };
 		9EB7E3131F66F2E700191DA8 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		9E3D17C81E786AB700DB9A96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9E591859227A180D00A33392 /* Weather.xcassets */,
 				9ECCF2D71E1E9312004CDD5C /* Main.storyboard */,
 				9ECCF2DA1E1E9312004CDD5C /* Assets.xcassets */,
 				9ECCF2DC1E1E9312004CDD5C /* LaunchScreen.storyboard */,
@@ -323,8 +326,6 @@
 				9ECCF2E01E1E9312004CDD5C /* Sources */,
 				9ECCF2E11E1E9312004CDD5C /* Frameworks */,
 				9ECCF2E21E1E9312004CDD5C /* Resources */,
-				B46EDD4677B1E705EDFB5CCE /* [CP] Embed Pods Frameworks */,
-				E68EA0B78F4C52A58DA2C8C7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -344,8 +345,6 @@
 				9ECCF2EB1E1E9312004CDD5C /* Sources */,
 				9ECCF2EC1E1E9312004CDD5C /* Frameworks */,
 				9ECCF2ED1E1E9312004CDD5C /* Resources */,
-				B8EE3CC2F1514E0D4CC987A8 /* [CP] Embed Pods Frameworks */,
-				C283C5A65AF0CF5E3F87F380 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -364,26 +363,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Jonathan Engelsma";
 				TargetAttributes = {
 					9ECCF2CF1E1E9312004CDD5C = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = E8L8N4A5R2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					9ECCF2E31E1E9312004CDD5C = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = E8L8N4A5R2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 9ECCF2CF1E1E9312004CDD5C;
 					};
 					9ECCF2EE1E1E9312004CDD5C = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = E8L8N4A5R2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 9ECCF2CF1E1E9312004CDD5C;
 					};
@@ -391,11 +390,12 @@
 			};
 			buildConfigurationList = 9ECCF2CB1E1E9312004CDD5C /* Build configuration list for PBXProject "TraxyApp" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				nl,
 			);
 			mainGroup = 9ECCF2C71E1E9312004CDD5C;
 			productRefGroup = 9ECCF2D11E1E9312004CDD5C /* Products */;
@@ -418,6 +418,7 @@
 				9EDE87D31E316CEF00C2F900 /* Localizable.strings in Resources */,
 				9E8D1AD81E92D81A005B3A31 /* GoogleService-Info.plist in Resources */,
 				9ECCF2DB1E1E9312004CDD5C /* Assets.xcassets in Resources */,
+				9E59185A227A180D00A33392 /* Weather.xcassets in Resources */,
 				9ECCF2D91E1E9312004CDD5C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,10 +464,10 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -475,44 +476,14 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B46EDD4677B1E705EDFB5CCE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8EE3CC2F1514E0D4CC987A8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC9AC3E288E0F1424D7616E7 /* [CP] Check Pods Manifest.lock */ = {
@@ -533,21 +504,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C283C5A65AF0CF5E3F87F380 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppUITests/Pods-TraxyAppUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D4C23C4C425543041C5FCE59 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,41 +522,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E68EA0B78F4C52A58DA2C8C7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyAppTests/Pods-TraxyAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F91A87238C8291943F60C481 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-resources.sh",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TraxyApp/Pods-TraxyApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -714,6 +651,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -721,6 +659,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -770,6 +709,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -777,6 +717,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -815,8 +756,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -830,8 +770,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -846,8 +785,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TraxyApp.app/TraxyApp";
 			};
 			name = Debug;
@@ -863,8 +801,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TraxyApp.app/TraxyApp";
 			};
 			name = Release;
@@ -879,8 +816,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = TraxyApp;
 			};
 			name = Debug;
@@ -895,8 +831,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.gvsu.cis.TraxyAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = TraxyApp;
 			};
 			name = Release;

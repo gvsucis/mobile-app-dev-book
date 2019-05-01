@@ -166,8 +166,8 @@ class AudioViewController: UIViewController {
         let avc = UIAlertController(title: "Mic Permission Required", message: "You need to provide this app permissions to use your microphone for this feature. You can do this by going to your Settings app and going to Privacy -> Microphone", preferredStyle: .alert)
         
         let settingsAction = UIAlertAction(title: "Settings", style: .default ) {action in
-            UIApplication.shared.open(NSURL(string: UIApplicationOpenSettingsURLString)! as URL, options:
-                [:], completionHandler: nil)
+            UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options:
+                convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
         }
         
@@ -211,7 +211,7 @@ class AudioViewController: UIViewController {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
         
         do {
-            try session.setCategory(AVAudioSessionCategoryPlayback)
+            try session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)))
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -225,7 +225,7 @@ class AudioViewController: UIViewController {
     func setSessionPlayAndRecord() {
         let session = AVAudioSession.sharedInstance()
         do {
-            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)))
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -288,3 +288,13 @@ extension AudioViewController : AVAudioPlayerDelegate {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
