@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
+//import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -39,7 +39,7 @@ public class MediaViewActivity extends AppCompatActivity {
     SimpleExoPlayerView videoView;
 
     private JournalEntry entry;
-    private FirebaseImageLoader imgLoader;
+//    private FirebaseImageLoader imgLoader;
     private FirebaseStorage storage;
     private SimpleExoPlayer player;
 
@@ -49,7 +49,7 @@ public class MediaViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_media_view);
         ButterKnife.bind(this);
 
-        imgLoader = new FirebaseImageLoader();
+//        imgLoader = new FirebaseImageLoader();
         storage = FirebaseStorage.getInstance();
         Intent incoming = getIntent();
         if (incoming.hasExtra("JRNL_ENTRY")) {
@@ -72,9 +72,9 @@ public class MediaViewActivity extends AppCompatActivity {
         }
         if (url != null) {
             Glide.with(this)
-                    .using(imgLoader)
-                    .load(storage.getReferenceFromUrl(url))
-                    .centerCrop()
+//                    .using(imgLoader)
+                    .load(Uri.parse(url))
+//                    .centerCrop()
                     .into(photoView);
         }
     }

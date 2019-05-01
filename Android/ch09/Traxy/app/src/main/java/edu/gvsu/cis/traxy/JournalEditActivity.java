@@ -1,6 +1,7 @@
 package edu.gvsu.cis.traxy;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
+//import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,7 +36,7 @@ public class JournalEditActivity extends AppCompatActivity {
     @BindView(R.id.date_time) EditText dateTime;
     @BindView(R.id.fab_cover_photo) FloatingActionButton fabCover;
 
-    private FirebaseImageLoader imgLoader;
+//    private FirebaseImageLoader imgLoader;
     private JournalEntry entry;
     private DatabaseReference parentRef, myRef;
     private Map<String,Object> updateMap = new TreeMap<>();
@@ -47,7 +48,7 @@ public class JournalEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_journal_edit);
         ButterKnife.bind(this);
         Intent incoming = getIntent();
-        imgLoader = new FirebaseImageLoader();
+//        imgLoader = new FirebaseImageLoader();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         if (incoming.hasExtra("JRNL_ENTRY")) {
             Parcelable parcel = incoming.getParcelableExtra("JRNL_ENTRY");
@@ -63,8 +64,8 @@ public class JournalEditActivity extends AppCompatActivity {
             }
             if (url != null) {
                 Glide.with(this)
-                        .using(imgLoader)
-                        .load(storage.getReferenceFromUrl(url))
+//                        .using(imgLoader)
+                        .load(Uri.parse(url))
                         .into(this.imageView);
             }
             caption.setText(entry.getCaption());

@@ -1,5 +1,6 @@
 package edu.gvsu.cis.traxy;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,9 +143,9 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
         String photoUrl = item.getCoverPhotoUrl();
         if (photoUrl != null && photoUrl.startsWith("http")) {
             Glide.with(holder.mBackImage.getContext())
-                    .load(photoUrl)
-                    .placeholder(R.drawable.traxy_landscape)
-                    .centerCrop()
+                    .load(Uri.parse(photoUrl))
+//                    .placeholder(R.drawable.traxy_landscape)
+//                    .centerCrop()
                     .into(holder.mBackImage);
         }
         holder.mView.setOnClickListener(new View.OnClickListener() {

@@ -10,12 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +34,7 @@ import butterknife.OnClick;
 import edu.gvsu.cis.traxy.model.JournalEntry;
 import edu.gvsu.cis.traxy.model.Trip;
 
-public class JournalViewActivity extends AppCompatActivity {
+public class JournalViewActivity extends AppCompatActivity implements JournalMediaActions {
 
     private final static int CAPTURE_PHOTO_REQUEST = 678;
     private final static int CAPTURE_VIDEO_REQUEST = 679;
@@ -58,7 +56,6 @@ public class JournalViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         entries.setLayoutManager(new LinearLayoutManager(this));
-        FirebaseImageLoader imgLoader = new FirebaseImageLoader();
         Intent incoming = getIntent();
         if (incoming.hasExtra("TRIP")) {
             Parcelable par = incoming.getParcelableExtra("TRIP");
@@ -70,56 +67,24 @@ public class JournalViewActivity extends AppCompatActivity {
             FirebaseUser user = auth.getCurrentUser();
             entriesRef = dbRef.getReference(user.getUid())
                     .child(tripKey + "/entries");
-            storage = FirebaseStorage.getInstance();
-            adapter = new FirebaseRecyclerAdapter<JournalEntry, EntryHolder>
-                    (JournalEntry.class, R.layout.journal_entry_item,
-                            EntryHolder.class, entriesRef) {
-
-                @Override
-                protected void populateViewHolder(EntryHolder viewHolder, JournalEntry model, int position) {
-                    viewHolder.setCaption(model.getCaption());
-                    viewHolder.setDate(model.getDate());
-
-                    switch (model.getType()) {
-                        case 2: // photo
-                            viewHolder.topImage.setVisibility(View.VISIBLE);
-                            viewHolder.playIcon.setVisibility(View.GONE);
-                            Glide.with(viewHolder.topImage.getContext())
-                                    .using(imgLoader)
-                                    .load(storage.getReferenceFromUrl(model.getUrl()))
-                                    .into(viewHolder.topImage);
-                            break;
-                        case 4: // video
-                            viewHolder.topImage.setVisibility(View.VISIBLE);
-                            viewHolder.playIcon.setVisibility(View.VISIBLE);
-                            Glide.with(viewHolder.topImage.getContext())
-                                    .using(imgLoader)
-                                    .load(storage.getReferenceFromUrl
-                                            (model.getThumbnailUrl()))
-                                    .into(viewHolder.topImage);
-                            break;
-                        default:
-                            viewHolder.topImage.setVisibility(View.GONE);
-                            break;
-                    }
-                    viewHolder.editBtn.setOnClickListener( view -> {
-                        String key = getRef(position).getKey();
-                        toMediaEdit(model, key);
-                    });
-                    viewHolder.topImage.setOnClickListener( view -> {
-                        toMediaView(model);
-                    });
-                }
-
-            };
+            FirebaseRecyclerOptions<JournalEntry> options;
+            options = new FirebaseRecyclerOptions.Builder<JournalEntry>()
+                    .setQuery(entriesRef, JournalEntry.class).build();
+            adapter = new JournalEntryAdapter(options, this);
             entries.setAdapter(adapter);
         }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        adapter.cleanup();
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
     private File createFileName(String prefix, String ext) throws
@@ -133,14 +98,16 @@ public class JournalViewActivity extends AppCompatActivity {
         return media;
     }
 
-    private void toMediaView (JournalEntry model) {
+    @Override
+    public void viewAction (JournalEntry model) {
         Intent toView = new Intent(this, MediaViewActivity.class);
         Parcelable parcel = Parcels.wrap(model);
         toView.putExtra ("JRNL_ENTRY", parcel);
         startActivity (toView);
     }
 
-    private void toMediaEdit (JournalEntry model, String key) {
+    @Override
+    public void editAction (JournalEntry model, String key) {
         Intent toEdit = new Intent(this, JournalEditActivity.class);
         Parcelable parcel = Parcels.wrap(model);
         toEdit.putExtra ("JRNL_ENTRY", parcel);
