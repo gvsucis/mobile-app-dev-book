@@ -8,7 +8,7 @@
 
 import UIKit
 import Eureka
-import GooglePlacePicker
+import GooglePlaces
 
 
 class AddJournalViewController: FormViewController {

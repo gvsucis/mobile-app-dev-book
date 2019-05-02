@@ -23,7 +23,7 @@ class TraxyTopLevelViewController: UIViewController {
         didSet {
             if userId != nil && userId != "" {
                 // pop off any controllers beyond this one.
-                if var count = self.navigationController?.childViewControllers.count
+                if var count = self.navigationController?.children.count
                 {
                     if count > 1 {
                         count -= 1

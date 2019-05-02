@@ -21,9 +21,9 @@ class TraxyTabBarViewController: UITabBarController {
         Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
                 self.userId = user.uid
-                for child in self.childViewControllers {
+                for child in self.children {
                     if let nc = child as? UINavigationController {
-                        if let c = nc.childViewControllers[0]
+                        if let c = nc.children[0]
                             as? TraxyTopLevelViewController {
                             c.userId = self.userId
                         }

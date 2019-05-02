@@ -74,11 +74,11 @@ class JournalEditorViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "formSegue" {
-            self.journalForm = segue.destination as! AddJournalViewController
-            self.journalForm.journal = self.journal
+            self.journalForm = segue.destination as? AddJournalViewController
+            self.journalForm?.journal = self.journal
         } else if segue.identifier == "coverSegue" {
-            self.coverSelect = segue.destination as! CoverPhotoCollectionViewController
-            self.coverSelect.journal = journal
+            self.coverSelect = segue.destination as? CoverPhotoCollectionViewController
+            self.coverSelect?.journal = journal
         }
     }
 }
