@@ -78,7 +78,6 @@ public class JournalViewActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private DateTimeFormatter dateFormat = DateTimeFormat.forPattern
             ("yyyyMMdd");
-    private Map<String,List<JournalEntry>> entryMap;
     private Map<String,Double> dayToTemp;
     private Map<String,String> dayToIcon;
     private List<String> seenDates;
@@ -271,11 +270,10 @@ public class JournalViewActivity extends AppCompatActivity {
     private class MyAdapter extends
             SectionedFirebaseRecyclerAdapter<JournalEntry,EntryHolder,
                     SectionHolder> {
-
-        FirebaseImageLoader imgLoader = new FirebaseImageLoader();
+        private Map<String,List<JournalEntry>> entryMap;
 
         public MyAdapter(FirebaseRecyclerOptions<JournalEntry> options) {
-            super(JournalEntry.class, R.layout.journal_entry_item,
+            super(R.layout.journal_entry_item,
                     EntryHolder.class,
                     R.layout.journal_entry_header,
                     SectionHolder.class,
@@ -293,12 +291,20 @@ public class JournalViewActivity extends AppCompatActivity {
             JournalEntry model = snapshot.getValue(JournalEntry.class);
             DateTime entryDate = DateTime.parse(model.getDate());
             String timeStr = dateFormat.print(entryDate);
+            // Group by date, is it any date?
             List<JournalEntry> entryList = entryMap.get(timeStr);
             if (entryList == null) { /* new date */
                 entryList = new ArrayList<>();
                 entryMap.put(timeStr, entryList);
             }
             entryList.add(model);
+        }
+
+        @Override
+        public void startListening() {
+            super.startListening();
+            if (entryMap != null)
+                entryMap.clear();
         }
 
         @Override
@@ -372,54 +378,58 @@ public class JournalViewActivity extends AppCompatActivity {
             Double temp = dayToTemp.get(key);
             String icon = dayToIcon.get(key);
             if (temp == null)
-                viewHolder.headerText.setText("Fetching temperature for " +
+                if (date != null)
+                    viewHolder.headerText.setText("Fetching temperature for " +
                         date);
+                else
+                    viewHolder.headerText.setText("No date");
             else {
                 viewHolder.headerText.setText(date);
-                viewHolder.temperature.setText(String.format("%.0f\u2109", temp));
-                switch (icon) {
-                    case "clear-day":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_clear_day));
-                        break;
-                    case "clear-night":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_clear_night));
-                        break;
-                    case "rain":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_rain));
-                        break;
-                    case "snow":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_snow));
-                        break;
-                    case "sleet":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_sleet));
-                        break;
-                    case "wind":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_wind));
-                        break;
-                    case "fog":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_fog));
-                        break;
-                    case "cloudy":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_cloudy));
-                        break;
-                    case "partly-cloudy-day":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_partly_cloudy_day));
-                        break;
-                    case "partly-cloudy-night":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_partly_cloudy_night));
-                        break;
+                if (temp != null && icon != null) {
+                    viewHolder.temperature.setText(String.format("%.0f\u2109", temp));
+                    switch (icon) {
+                        case "clear-day":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_clear_day));
+                            break;
+                        case "clear-night":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_clear_night));
+                            break;
+                        case "rain":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_rain));
+                            break;
+                        case "snow":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_snow));
+                            break;
+                        case "sleet":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_sleet));
+                            break;
+                        case "wind":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_wind));
+                            break;
+                        case "fog":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_fog));
+                            break;
+                        case "cloudy":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_cloudy));
+                            break;
+                        case "partly-cloudy-day":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_partly_cloudy_day));
+                            break;
+                        case "partly-cloudy-night":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_partly_cloudy_night));
+                            break;
+                    }
                 }
-
             }
         }
 

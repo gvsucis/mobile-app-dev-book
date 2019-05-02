@@ -38,16 +38,13 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
     private int headerLayout;
 
     /**
-     *
-     * @param modelClass  the class of the list items
      * @param itemLayout  XML layout of each list item
      * @param itemHolderClass  ViewHolder subclass of the list item
      * @param headerLayout  XML layout of the section headers
      * @param headerHolderClass  ViewHolder subclass of the section headers
      * @param options reference to the Firebase datasource
      */
-    SectionedFirebaseRecyclerAdapter(Class<T> modelClass,
-                                     @LayoutRes int itemLayout,
+    SectionedFirebaseRecyclerAdapter(@LayoutRes int itemLayout,
                                      Class<VH> itemHolderClass,
                                      @LayoutRes int headerLayout,
                                      Class<HVH> headerHolderClass,
@@ -59,6 +56,12 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
         this.headerLayout = headerLayout;
         this.itemClass = itemHolderClass;
         this.headerClass = headerHolderClass;
+    }
+
+    @Override
+    public void stopListening() {
+        super.stopListening();
+        totalRows = 0;
     }
 
     @Override
@@ -139,11 +142,12 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
      */
     private int positionInSection (int listPos) {
         int section = 0;
-        while (listPos >= rowCount[section]) {
-            listPos -= rowCount[section];
+        int localPos = listPos;
+        while (localPos >= rowCount[section]) {
+            localPos -= rowCount[section];
             section++;
         }
-        return listPos - 1; /* the first item in each section is a
+        return localPos - 1; /* the first item in each section is a
         header */
     }
 

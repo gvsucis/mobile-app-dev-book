@@ -145,7 +145,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         StorageReference mediaRef = storageRef.child(topDir + "/" + mediaName);
         mediaRef.putFile(dataUri, meta).continueWithTask(task -> mediaRef.getDownloadUrl())
                 .addOnCompleteListener(snapshot -> {
-                    @SuppressWarnings("VisibleForTests")
                     Uri uri = snapshot.getResult();
                     savedEntry.child("url").setValue(uri.toString());
                     Snackbar.make(entry_caption,
@@ -169,7 +168,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
             thumbRef.putBytes(baos.toByteArray(), thumbMeta)
                     .continueWithTask(task -> thumbRef.getDownloadUrl())
                     .addOnCompleteListener(snapshot -> {
-                        @SuppressWarnings("VisibleForTests")
                         Uri uri = snapshot.getResult();
                         savedEntry.child("thumbnailUrl").setValue(uri.toString());
                     });
