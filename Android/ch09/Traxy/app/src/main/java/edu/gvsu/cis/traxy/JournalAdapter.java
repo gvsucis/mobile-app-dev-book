@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
 import org.joda.time.DateTime;
@@ -142,10 +144,9 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
         holder.mContentView.setText(item.getLocation());
         String photoUrl = item.getCoverPhotoUrl();
         if (photoUrl != null && photoUrl.startsWith("http")) {
-            Glide.with(holder.mBackImage.getContext())
-                    .load(Uri.parse(photoUrl))
-//                    .placeholder(R.drawable.traxy_landscape)
-//                    .centerCrop()
+            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(photoUrl);
+            GlideApp.with(holder.mBackImage.getContext())
+                    .load(photoRef)
                     .into(holder.mBackImage);
         }
         holder.mView.setOnClickListener(new View.OnClickListener() {

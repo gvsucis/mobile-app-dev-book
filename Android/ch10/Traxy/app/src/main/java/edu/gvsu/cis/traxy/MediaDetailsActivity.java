@@ -22,8 +22,9 @@ import android.widget.VideoView;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -42,14 +43,14 @@ import org.joda.time.format.ISODateTimeFormat;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.gvsu.cis.traxy.model.JournalEntry;
-
-import static com.google.android.gms.location.places.ui.PlaceAutocomplete.MODE_FULLSCREEN;
 
 public class MediaDetailsActivity extends AppCompatActivity {
 
@@ -176,17 +177,17 @@ public class MediaDetailsActivity extends AppCompatActivity {
         StorageMetadata meta;
         String mediaName = dataUri.getLastPathSegment();
         meta = metaBuilder.setContentType(contentType).build();
-        UploadTask task = storageRef.child(topDir + "/" + mediaName)
-                .putFile(dataUri, meta);
-        task.addOnSuccessListener(snapshot -> {
-            @SuppressWarnings("VisibleForTests")
-            Uri uri = snapshot.getDownloadUrl();
-            savedEntry.child("url").setValue(uri.toString());
-            fabSave.hideProgress();
-            Snackbar.make(entry_caption,
-                    "Your media is uploaded to " + uri.toString(),
-                    Snackbar.LENGTH_LONG).show();
-        });
+        StorageReference mediaRef = storageRef.child(topDir + "/" + mediaName);
+        mediaRef.putFile(dataUri, meta)
+                .continueWithTask(task -> mediaRef.getDownloadUrl())
+                .addOnCompleteListener(snapshot -> {
+                    Uri uri = snapshot.getResult();
+                    savedEntry.child("url").setValue(uri.toString());
+                    fabSave.hideProgress();
+                    Snackbar.make(entry_caption,
+                            "Your media is uploaded to " + uri.toString(),
+                            Snackbar.LENGTH_LONG).show();
+                });
         if (mediaType == 4) { // is it a video?
             // Create a thumbnail image
             MediaMetadataRetriever mmr = new MediaMetadataRetriever();
@@ -200,14 +201,14 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     StorageMetadata.Builder();
             StorageMetadata thumbMeta = thumbMetaBuilder
                     .setContentDisposition("image/jpeg").build();
-            UploadTask thumbTask = storageRef.child("photos/" + thumbName)
-                    .putBytes(baos.toByteArray(), thumbMeta);
-            thumbTask.addOnSuccessListener(snapshot -> {
-                @SuppressWarnings("VisibleForTests")
-                Uri uri = snapshot.getDownloadUrl();
-                savedEntry.child("thumbnailUrl").setValue(uri.toString());
-                fabSave.hideProgress();
-            });
+            StorageReference photoRef = storageRef.child("photos/" + thumbName);
+            photoRef.putBytes(baos.toByteArray(), thumbMeta)
+                    .continueWithTask(task -> photoRef.getDownloadUrl())
+                    .addOnCompleteListener(snapshot2 -> {
+                        Uri uri = snapshot2.getResult();
+                        savedEntry.child("thumbnailUrl").setValue(uri.toString());
+                        fabSave.hideProgress();
+                    });
         }
     }
 
@@ -276,15 +277,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
     @OnClick(R.id.journal_entry_loc)
     public void locationPressed() {
-        try {
-            Intent toPlace = new PlaceAutocomplete.IntentBuilder(MODE_FULLSCREEN)
-                    .build(this);
-            startActivityForResult(toPlace, 0xD0C);
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        }
+        List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG);
+
+        Intent toPlace = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                .build(this);
+        startActivityForResult(toPlace, 0xD0C);
     }
 
     @OnClick(R.id.fab_save)
@@ -302,7 +299,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_OK) {
-            selectedPlace = PlaceAutocomplete.getPlace(this, data);
+            selectedPlace = Autocomplete.getPlaceFromIntent(data);
             entry_location.setText(selectedPlace.getAddress());
         }
     }
