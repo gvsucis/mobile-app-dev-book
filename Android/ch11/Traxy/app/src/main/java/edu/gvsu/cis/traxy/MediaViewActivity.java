@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.parceler.Parcels;
 
@@ -82,9 +83,9 @@ public class MediaViewActivity extends AppCompatActivity {
         }
         if (url != null) {
             Glide.with(this)
-                    .using(imgLoader)
+//                    .using(imgLoader)
                     .load(storage.getReferenceFromUrl(url))
-                    .centerCrop()
+//                    .centerCrop()
                     .into(photoView);
         }
     }

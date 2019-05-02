@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 
 import java.lang.reflect.Constructor;
 
@@ -44,16 +44,17 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
      * @param itemHolderClass  ViewHolder subclass of the list item
      * @param headerLayout  XML layout of the section headers
      * @param headerHolderClass  ViewHolder subclass of the section headers
-     * @param q reference to the Firebase datasource
+     * @param options reference to the Firebase datasource
      */
     SectionedFirebaseRecyclerAdapter(Class<T> modelClass,
                                      @LayoutRes int itemLayout,
                                      Class<VH> itemHolderClass,
                                      @LayoutRes int headerLayout,
                                      Class<HVH> headerHolderClass,
-                                     Query q) {
-        super(modelClass, itemLayout,
-                (Class<RecyclerView.ViewHolder>) itemHolderClass, q);
+                                     FirebaseRecyclerOptions<T> options) {
+        super(options);
+//        super(modelClass, itemLayout,
+//                (Class<RecyclerView.ViewHolder>) itemHolderClass, q);
         this.itemLayout = itemLayout;
         this.headerLayout = headerLayout;
         this.itemClass = itemHolderClass;
@@ -178,15 +179,15 @@ public abstract class SectionedFirebaseRecyclerAdapter<T,VH extends
     }
 
     @Override
-    protected void populateViewHolder(RecyclerView.ViewHolder viewHolder, T model, int
-            listPos) {
+    protected void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int
+            listPos, T model) {
         int section = sectionOfPosition(listPos);
         if (!isHeader(listPos)) {
             int secPos = positionInSection(listPos);
-            populateItemViewHolder((VH)viewHolder, model, section, secPos,
+            populateItemViewHolder((VH) viewHolder, model, section, secPos,
                     listPos);
         } else {
-            populateHeaderViewHolder((HVH)viewHolder, section);
+            populateHeaderViewHolder((HVH) viewHolder, section);
         }
     }
 

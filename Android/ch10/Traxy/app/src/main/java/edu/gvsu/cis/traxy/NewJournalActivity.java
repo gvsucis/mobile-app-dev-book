@@ -70,7 +70,8 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
 
     @OnClick(R.id.location)
     public void locationPressed() {
-        List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG);
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
+                Place.Field.ADDRESS, Place.Field.LAT_LNG);
 
         Intent intent =
                 new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
@@ -107,7 +108,7 @@ public class NewJournalActivity extends AppCompatActivity implements DatePickerD
             if (resultCode == RESULT_OK) {
                 Place pl = Autocomplete.getPlaceFromIntent(data);
                 location.setText(pl.getName());
-                currentTrip.setLocation(pl.getName().toString());
+                currentTrip.setLocation(pl.getName());
                 currentTrip.setLat(pl.getLatLng().latitude);
                 currentTrip.setLng(pl.getLatLng().longitude);
                 currentTrip.setPlaceId(pl.getId());

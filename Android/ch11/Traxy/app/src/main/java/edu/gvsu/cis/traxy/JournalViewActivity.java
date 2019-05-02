@@ -3,31 +3,29 @@ package edu.gvsu.cis.traxy;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.common.ChangeEventType;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.core.view.Event;
 import com.google.firebase.storage.FirebaseStorage;
 
 import org.joda.time.DateTime;
@@ -40,9 +38,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +54,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.firebase.ui.common.ChangeEventType.ADDED;
 
 public class JournalViewActivity extends AppCompatActivity {
     private static final String TAG = "JournalViewActivity";
@@ -111,7 +109,10 @@ public class JournalViewActivity extends AppCompatActivity {
             entriesRef = dbRef.getReference(user.getUid())
                     .child(tripKey + "/entries").orderByChild("date");
             storage = FirebaseStorage.getInstance();
-            adapter = new MyAdapter();
+            FirebaseRecyclerOptions<JournalEntry> options;
+            options = new FirebaseRecyclerOptions.Builder<JournalEntry>()
+                    .setQuery(entriesRef, JournalEntry.class).build();
+            adapter = new MyAdapter(options);
             entries.setAdapter(adapter);
             entries.addItemDecoration(verticalGap);
         }
@@ -133,10 +134,17 @@ public class JournalViewActivity extends AppCompatActivity {
 //        LocalBroadcastManager.getInstance(this).unregisterReceiver(weatherReceiver);
 //    }
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        adapter.cleanup();
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
     private RecyclerView.ItemDecoration verticalGap = new RecyclerView.ItemDecoration() {
@@ -266,12 +274,12 @@ public class JournalViewActivity extends AppCompatActivity {
 
         FirebaseImageLoader imgLoader = new FirebaseImageLoader();
 
-        public MyAdapter() {
+        public MyAdapter(FirebaseRecyclerOptions<JournalEntry> options) {
             super(JournalEntry.class, R.layout.journal_entry_item,
                     EntryHolder.class,
                     R.layout.journal_entry_header,
                     SectionHolder.class,
-                    entriesRef);
+                    options);
             entryMap = new TreeMap<>();
             dayToTemp = new TreeMap<>();
             dayToIcon = new TreeMap<>();
@@ -279,9 +287,9 @@ public class JournalViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onChildChanged(EventType type, DataSnapshot snapshot, int index, int oldIndex) {
+        public void onChildChanged(ChangeEventType type, DataSnapshot snapshot, int index, int oldIndex) {
             super.onChildChanged(type, snapshot, index, oldIndex);
-            if (type != EventType.ADDED) return;
+            if (type != ADDED) return;
             JournalEntry model = snapshot.getValue(JournalEntry.class);
             DateTime entryDate = DateTime.parse(model.getDate());
             String timeStr = dateFormat.print(entryDate);
@@ -319,8 +327,8 @@ public class JournalViewActivity extends AppCompatActivity {
                 case 2: // photo
                     viewHolder.topImage.setVisibility(View.VISIBLE);
                     viewHolder.playIcon.setVisibility(View.GONE);
-                    Glide.with(viewHolder.topImage.getContext())
-                            .using(imgLoader)
+                    GlideApp.with(viewHolder.topImage.getContext())
+//                            .using(imgLoader)
                             .load(storage.getReferenceFromUrl(model.getUrl()))
                             .into(viewHolder.topImage);
                     break;
@@ -331,8 +339,8 @@ public class JournalViewActivity extends AppCompatActivity {
                 case 4: // video
                     viewHolder.topImage.setVisibility(View.VISIBLE);
                     viewHolder.playIcon.setVisibility(View.VISIBLE);
-                    Glide.with(viewHolder.topImage.getContext())
-                            .using(imgLoader)
+                    GlideApp.with(viewHolder.topImage.getContext())
+//                            .using(imgLoader)
                             .load(storage.getReferenceFromUrl
                                     (model.getThumbnailUrl()))
                             .into(viewHolder.topImage);
