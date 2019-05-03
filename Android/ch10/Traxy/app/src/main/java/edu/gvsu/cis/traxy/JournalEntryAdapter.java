@@ -51,6 +51,7 @@ public class JournalEntryAdapter extends FirebaseRecyclerAdapter<JournalEntry, E
             case 3: // audio
                 viewHolder.topImage.setVisibility(View.VISIBLE);
                 viewHolder.playIcon.setVisibility(View.VISIBLE);
+                viewHolder.topImage.setImageResource(0);
                 break;
             case 4: // video
                 viewHolder.topImage.setVisibility(View.VISIBLE);

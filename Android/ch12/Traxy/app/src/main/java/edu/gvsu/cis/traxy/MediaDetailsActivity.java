@@ -142,16 +142,15 @@ public class MediaDetailsActivity extends AppCompatActivity {
         StorageMetadata meta;
         String mediaName = dataUri.getLastPathSegment();
         meta = metaBuilder.setContentType(contentType).build();
-        UploadTask task = storageRef.child(topDir + "/" + mediaName)
-                .putFile(dataUri, meta);
-        task.addOnSuccessListener(snapshot -> {
-            @SuppressWarnings("VisibleForTests")
-            Uri uri = snapshot.getDownloadUrl();
-            savedEntry.child("url").setValue(uri.toString());
-            Snackbar.make(entry_caption,
-                    "Your media is uploaded to " + uri.toString(),
-                    Snackbar.LENGTH_LONG).show();
-        });
+        StorageReference mediaRef = storageRef.child(topDir + "/" + mediaName);
+        mediaRef.putFile(dataUri, meta).continueWithTask(task -> mediaRef.getDownloadUrl())
+                .addOnCompleteListener(snapshot -> {
+                    Uri uri = snapshot.getResult();
+                    savedEntry.child("url").setValue(uri.toString());
+                    Snackbar.make(entry_caption,
+                            "Your media is uploaded to " + uri.toString(),
+                            Snackbar.LENGTH_LONG).show();
+                });
         if (mediaType == 4) { // is it a video?
             // Create a thumbnail image
             MediaMetadataRetriever mmr = new MediaMetadataRetriever();
@@ -165,13 +164,13 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     StorageMetadata.Builder();
             StorageMetadata thumbMeta = thumbMetaBuilder
                     .setContentDisposition("image/jpeg").build();
-            UploadTask thumbTask = storageRef.child("photos/" + thumbName)
-                    .putBytes(baos.toByteArray(), thumbMeta);
-            thumbTask.addOnSuccessListener(snapshot -> {
-                @SuppressWarnings("VisibleForTests")
-                Uri uri = snapshot.getDownloadUrl();
-                savedEntry.child("thumbnailUrl").setValue(uri.toString());
-            });
+            StorageReference thumbRef = storageRef.child("photos/" + thumbName);
+            thumbRef.putBytes(baos.toByteArray(), thumbMeta)
+                    .continueWithTask(task -> thumbRef.getDownloadUrl())
+                    .addOnCompleteListener(snapshot -> {
+                        Uri uri = snapshot.getResult();
+                        savedEntry.child("thumbnailUrl").setValue(uri.toString());
+                    });
         }
     }
 

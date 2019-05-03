@@ -3,6 +3,7 @@ package edu.gvsu.cis.traxy;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
@@ -322,7 +323,7 @@ public class JournalViewActivity extends AppCompatActivity {
                 fetchWeatherForDate(model.getLat(), model.getLng(),
                         midDay);
             }
-            viewHolder.setCaption(model.getCaption());
+            viewHolder.setCaption(model.getCaption() + "(" + model.getType() + ")");
             viewHolder.setDate(model.getDate());
 
             switch (model.getType()) {
@@ -341,6 +342,7 @@ public class JournalViewActivity extends AppCompatActivity {
                 case 3: // audio
                     viewHolder.topImage.setVisibility(View.VISIBLE);
                     viewHolder.playIcon.setVisibility(View.VISIBLE);
+                    viewHolder.topImage.setImageResource(0);
                     break;
                 case 4: // video
                     viewHolder.topImage.setVisibility(View.VISIBLE);
