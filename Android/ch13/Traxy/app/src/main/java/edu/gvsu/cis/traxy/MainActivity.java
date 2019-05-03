@@ -15,9 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Places;
+import com.google.android.libraries.places.api.Places;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -27,13 +25,11 @@ import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import edu.gvsu.cis.traxy.model.Trip;
 
 public class MainActivity extends AppCompatActivity implements
         JournalFragment.OnJournalInteractionListener,
-        TripMapFragment.OnMapInteractionListener,
-        GoogleApiClient.OnConnectionFailedListener {
+        TripMapFragment.OnMapInteractionListener {
 
     private static final String TAG = "MainActivity";
     private final static int NEW_TRIP_REQUEST = 146;
@@ -53,13 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
-        GoogleApiClient apiClient;
-
-        apiClient = new GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
+        Places.initialize(getApplicationContext(), BuildConfig.PLACES_API_KEY);
         JournalPageAdapter pageAdapter = new JournalPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
 //        tabLayout.setupWithViewPager(viewPager);
@@ -117,11 +107,6 @@ public class MainActivity extends AppCompatActivity implements
         Intent toEdit = new Intent(this, TripEditorActivity.class);
         toEdit.putExtra("TRIP", Parcels.wrap(item));
         startActivityForResult(toEdit, EDIT_TRIP_REQUEST);
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        System.out.println("oops");
     }
 
     @Override

@@ -3,6 +3,7 @@ package edu.gvsu.cis.traxy;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -88,7 +90,10 @@ public class PhotoFragment extends Fragment {
         ButterKnife.bind(this, view);
         photoList.setLayoutManager(
                 new GridLayoutManager(view.getContext(), 3));
-        adapter = new PhotoAdapter();
+        FirebaseRecyclerOptions<JournalEntry> options;
+        options = new FirebaseRecyclerOptions.Builder<JournalEntry>()
+                .setQuery(photoQuery, JournalEntry.class).build();
+        adapter = new PhotoAdapter(options);
         photoList.setAdapter(adapter);
         return view;
     }
@@ -118,22 +123,27 @@ public class PhotoFragment extends Fragment {
         private FirebaseStorage storage;
         private int selectedPosition;
 
-        public PhotoAdapter() {
-            super(JournalEntry.class, R.layout.photo_item,
-                    PhotoHolder.class, photoQuery);
+        public PhotoAdapter(FirebaseRecyclerOptions<JournalEntry> options) {
+            super(options);
             imgLoader = new FirebaseImageLoader();
             storage = FirebaseStorage.getInstance();
             selectedPosition = -1;
         }
 
+        @NonNull
         @Override
-        protected void populateViewHolder(PhotoHolder viewHolder, JournalEntry model, int position) {
+        public PhotoHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return null;
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull PhotoHolder viewHolder, int position, @NonNull JournalEntry model) {
             String url = model.getUrl();
             if (url != null && url.startsWith("http")) {
                 Glide.with(PhotoFragment.this)
-                        .using(imgLoader)
+//                        .using(imgLoader)
                         .load(storage.getReferenceFromUrl(url))
-                        .centerCrop()
+//                        .centerCrop()
                         .into(viewHolder.photo);
             }
             viewHolder.selected.setVisibility(position ==

@@ -90,10 +90,10 @@ public class PhotoFragment extends Fragment {
         ButterKnife.bind(this, view);
         photoList.setLayoutManager(
                 new GridLayoutManager(view.getContext(), 3));
-        FirebaseRecyclerOptions<JournalEntry> optinns;
-        optinns = new FirebaseRecyclerOptions.Builder<JournalEntry>()
+        FirebaseRecyclerOptions<JournalEntry> options;
+        options = new FirebaseRecyclerOptions.Builder<JournalEntry>()
                 .setQuery(photoQuery, JournalEntry.class).build();
-        adapter = new PhotoAdapter(optinns);
+        adapter = new PhotoAdapter(options);
         photoList.setAdapter(adapter);
         return view;
     }
