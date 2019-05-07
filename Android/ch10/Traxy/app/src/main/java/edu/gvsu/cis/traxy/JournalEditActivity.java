@@ -8,12 +8,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,7 +33,6 @@ public class JournalEditActivity extends AppCompatActivity {
     @BindView(R.id.date_time) EditText dateTime;
     @BindView(R.id.fab_cover_photo) FloatingActionButton fabCover;
 
-    private FirebaseImageLoader imgLoader;
     private JournalEntry entry;
     private DatabaseReference parentRef, myRef;
     private Map<String,Object> updateMap = new TreeMap<>();
@@ -47,7 +44,6 @@ public class JournalEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_journal_edit);
         ButterKnife.bind(this);
         Intent incoming = getIntent();
-        imgLoader = new FirebaseImageLoader();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         if (incoming.hasExtra("JRNL_ENTRY")) {
             Parcelable parcel = incoming.getParcelableExtra("JRNL_ENTRY");
@@ -55,19 +51,19 @@ public class JournalEditActivity extends AppCompatActivity {
             String url = null;
             if (entry.getType() == 2) {
                 url = entry.getUrl();
-                fabCover.setVisibility(View.VISIBLE);
+                fabCover.show();
             }
             else if (entry.getType() == 3) {
-                fabCover.setVisibility(View.GONE);
+                fabCover.hide();
                 imageView.setImageResource(R.drawable.transparent_box);
             }
             else if (entry.getType() == 4) {
                 url = entry.getThumbnailUrl();
-                fabCover.setVisibility(View.GONE);
+                fabCover.hide();
             }
             if (url != null) {
-                Glide.with(this)
-                        .using(imgLoader)
+                GlideApp.with(this)
+//                        .using(imgLoader)
                         .load(storage.getReferenceFromUrl(url))
                         .into(this.imageView);
             }

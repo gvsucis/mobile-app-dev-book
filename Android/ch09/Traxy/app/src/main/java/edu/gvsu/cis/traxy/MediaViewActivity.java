@@ -71,7 +71,7 @@ public class MediaViewActivity extends AppCompatActivity {
             url = entry.getThumbnailUrl();
         }
         if (url != null) {
-            Glide.with(this)
+            GlideApp.with(this)
 //                    .using(imgLoader)
                     .load(Uri.parse(url))
 //                    .centerCrop()

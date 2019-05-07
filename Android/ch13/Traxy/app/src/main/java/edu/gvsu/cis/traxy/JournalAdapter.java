@@ -154,10 +154,10 @@ public class JournalAdapter extends SectionedRecyclerViewAdapter<JournalAdapter.
             + " - " + dateFormat.print(DateTime.parse(item.getEndDate())));
         String photoUrl = item.getCoverPhotoUrl();
         if (photoUrl != null && photoUrl.startsWith("http")) {
-            Glide.with(holder.coverPhoto.getContext())
+            GlideApp.with(holder.coverPhoto.getContext())
                     .load(photoUrl)
-                    .placeholder(R.drawable.traxy_landscape)
-                    .centerCrop()
+//                    .placeholder(R.drawable.traxy_landscape)
+//                    .centerCrop()
                     .into(holder.coverPhoto);
         }
         else

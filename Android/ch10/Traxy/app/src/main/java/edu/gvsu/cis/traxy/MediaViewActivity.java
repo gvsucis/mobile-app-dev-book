@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -81,10 +80,10 @@ public class MediaViewActivity extends AppCompatActivity {
             url = entry.getThumbnailUrl();
         }
         if (url != null) {
-            Glide.with(this)
-                    .using(imgLoader)
-                    .load(storage.getReferenceFromUrl(url))
-                    .centerCrop()
+            GlideApp.with(this)
+//                    .using(imgLoader)
+                    .load(Uri.parse(url))
+//                    .centerCrop()
                     .into(photoView);
         }
     }

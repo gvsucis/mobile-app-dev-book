@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Rect;
+import android.icu.text.UnicodeSet;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -20,7 +21,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,6 +61,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.firebase.ui.common.ChangeEventType.ADDED;
 
 public class JournalViewActivity extends AppCompatActivity {
     private static final String TAG = "JournalViewActivity";
@@ -110,7 +115,10 @@ public class JournalViewActivity extends AppCompatActivity {
             entriesRef = dbRef.getReference(user.getUid())
                     .child(tripKey + "/entries").orderByChild("date");
             storage = FirebaseStorage.getInstance();
-            adapter = new MyAdapter();
+            FirebaseRecyclerOptions<JournalEntry> options;
+            options = new FirebaseRecyclerOptions.Builder<JournalEntry>()
+                    .setQuery(entriesRef, JournalEntry.class).build();
+            adapter = new MyAdapter(options);
             entries.setAdapter(adapter);
             entries.addItemDecoration(verticalGap);
         }
@@ -132,10 +140,17 @@ public class JournalViewActivity extends AppCompatActivity {
 //        LocalBroadcastManager.getInstance(this).unregisterReceiver(weatherReceiver);
 //    }
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        adapter.cleanup();
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
     private RecyclerView.ItemDecoration verticalGap = new RecyclerView.ItemDecoration() {
@@ -263,14 +278,8 @@ public class JournalViewActivity extends AppCompatActivity {
             SectionedFirebaseRecyclerAdapter<JournalEntry,EntryHolder,
                     SectionHolder> {
 
-        FirebaseImageLoader imgLoader = new FirebaseImageLoader();
-
-        public MyAdapter() {
-            super(JournalEntry.class, R.layout.journal_entry_item,
-                    EntryHolder.class,
-                    R.layout.journal_entry_header,
-                    SectionHolder.class,
-                    entriesRef);
+        public MyAdapter(FirebaseRecyclerOptions<JournalEntry> options) {
+            super(R.layout.journal_entry_item, EntryHolder.class, R.layout.journal_entry_header, SectionHolder.class, options);
             entryMap = new TreeMap<>();
             dayToTemp = new TreeMap<>();
             dayToIcon = new TreeMap<>();
@@ -278,9 +287,9 @@ public class JournalViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onChildChanged(EventType type, DataSnapshot snapshot, int index, int oldIndex) {
+        public void onChildChanged(ChangeEventType type, DataSnapshot snapshot, int index, int oldIndex) {
             super.onChildChanged(type, snapshot, index, oldIndex);
-            if (type != EventType.ADDED) return;
+            if (type != ADDED) return;
             JournalEntry model = snapshot.getValue(JournalEntry.class);
             DateTime entryDate = DateTime.parse(model.getDate());
             String timeStr = dateFormat.print(entryDate);
@@ -290,6 +299,13 @@ public class JournalViewActivity extends AppCompatActivity {
                 entryMap.put(timeStr, entryList);
             }
             entryList.add(model);
+        }
+
+        @Override
+        public void startListening() {
+            super.startListening();
+            if (entryMap != null)
+                entryMap.clear();
         }
 
         @Override
@@ -318,20 +334,21 @@ public class JournalViewActivity extends AppCompatActivity {
                 case 2: // photo
                     viewHolder.topImage.setVisibility(View.VISIBLE);
                     viewHolder.playIcon.setVisibility(View.GONE);
-                    Glide.with(viewHolder.topImage.getContext())
-                            .using(imgLoader)
+                    GlideApp.with(viewHolder.topImage.getContext())
+//                            .using(imgLoader)
                             .load(storage.getReferenceFromUrl(model.getUrl()))
                             .into(viewHolder.topImage);
                     break;
                 case 3: // audio
                     viewHolder.topImage.setVisibility(View.VISIBLE);
                     viewHolder.playIcon.setVisibility(View.VISIBLE);
+                    viewHolder.topImage.setImageResource(0);
                     break;
                 case 4: // video
                     viewHolder.topImage.setVisibility(View.VISIBLE);
                     viewHolder.playIcon.setVisibility(View.VISIBLE);
-                    Glide.with(viewHolder.topImage.getContext())
-                            .using(imgLoader)
+                    GlideApp.with(viewHolder.topImage.getContext())
+//                            .using(imgLoader)
                             .load(storage.getReferenceFromUrl
                                     (model.getThumbnailUrl()))
                             .into(viewHolder.topImage);
@@ -367,48 +384,50 @@ public class JournalViewActivity extends AppCompatActivity {
                         date);
             else {
                 viewHolder.headerText.setText(date);
-                viewHolder.temperature.setText(String.format("%.0f\u2109", temp));
-                switch (icon) {
-                    case "clear-day":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_clear_day));
-                        break;
-                    case "clear-night":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_clear_night));
-                        break;
-                    case "rain":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_rain));
-                        break;
-                    case "snow":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_snow));
-                        break;
-                    case "sleet":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_sleet));
-                        break;
-                    case "wind":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_wind));
-                        break;
-                    case "fog":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_fog));
-                        break;
-                    case "cloudy":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_cloudy));
-                        break;
-                    case "partly-cloudy-day":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_partly_cloudy_day));
-                        break;
-                    case "partly-cloudy-night":
-                        viewHolder.icon.setImageDrawable(getResources()
-                                .getDrawable(R.drawable.ic_darksky_partly_cloudy_night));
-                        break;
+                if (temp != null && icon != null) {
+                    viewHolder.temperature.setText(String.format("%.0f\u2109", temp));
+                    switch (icon) {
+                        case "clear-day":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_clear_day));
+                            break;
+                        case "clear-night":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_clear_night));
+                            break;
+                        case "rain":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_rain));
+                            break;
+                        case "snow":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_snow));
+                            break;
+                        case "sleet":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_sleet));
+                            break;
+                        case "wind":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_wind));
+                            break;
+                        case "fog":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_fog));
+                            break;
+                        case "cloudy":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_cloudy));
+                            break;
+                        case "partly-cloudy-day":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_partly_cloudy_day));
+                            break;
+                        case "partly-cloudy-night":
+                            viewHolder.icon.setImageDrawable(getResources()
+                                    .getDrawable(R.drawable.ic_darksky_partly_cloudy_night));
+                            break;
+                    }
                 }
 
             }

@@ -56,14 +56,14 @@ public class JournalEditActivity extends AppCompatActivity {
             String url = null;
             if (entry.getType() == 2) {
                 url = entry.getUrl();
-                fabCover.setVisibility(View.VISIBLE);
+                fabCover.show();
             }
             else if (entry.getType() == 4) {
                 url = entry.getThumbnailUrl();
-                fabCover.setVisibility(View.GONE);
+                fabCover.hide();
             }
             if (url != null) {
-                Glide.with(this)
+                GlideApp.with(this)
 //                        .using(imgLoader)
                         .load(Uri.parse(url))
                         .into(this.imageView);

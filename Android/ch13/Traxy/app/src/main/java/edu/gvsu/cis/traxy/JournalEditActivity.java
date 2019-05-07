@@ -55,19 +55,19 @@ public class JournalEditActivity extends AppCompatActivity {
             String url = null;
             if (entry.getType() == 2) {
                 url = entry.getUrl();
-                fabCover.setVisibility(View.VISIBLE);
+                fabCover.show();
             }
             else if (entry.getType() == 3) {
-                fabCover.setVisibility(View.GONE);
+                fabCover.hide();
                 imageView.setImageResource(R.drawable.transparent_box);
             }
             else if (entry.getType() == 4) {
                 url = entry.getThumbnailUrl();
-                fabCover.setVisibility(View.GONE);
+                fabCover.hide();
             }
             if (url != null) {
                 Glide.with(this)
-                        .using(imgLoader)
+//                        .using(imgLoader)
                         .load(storage.getReferenceFromUrl(url))
                         .into(this.imageView);
             }

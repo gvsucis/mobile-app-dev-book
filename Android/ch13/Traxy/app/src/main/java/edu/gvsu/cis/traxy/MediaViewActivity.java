@@ -40,7 +40,6 @@ public class MediaViewActivity extends AppCompatActivity {
     SimpleExoPlayerView videoView;
 
     private JournalEntry entry;
-    private FirebaseImageLoader imgLoader;
     private FirebaseStorage storage;
     private SimpleExoPlayer player;
 
@@ -50,7 +49,6 @@ public class MediaViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_media_view);
         ButterKnife.bind(this);
 
-        imgLoader = new FirebaseImageLoader();
         storage = FirebaseStorage.getInstance();
         Intent incoming = getIntent();
         if (incoming.hasExtra("JRNL_ENTRY")) {
@@ -82,9 +80,9 @@ public class MediaViewActivity extends AppCompatActivity {
         }
         if (url != null) {
             Glide.with(this)
-                    .using(imgLoader)
+//                    .using(imgLoader)
                     .load(storage.getReferenceFromUrl(url))
-                    .centerCrop()
+//                    .centerCrop()
                     .into(photoView);
         }
     }

@@ -81,10 +81,10 @@ public class MediaViewActivity extends AppCompatActivity {
             url = entry.getThumbnailUrl();
         }
         if (url != null) {
-            Glide.with(this)
-                    .using(imgLoader)
+            GlideApp.with(this)
+//                    .using(imgLoader)
                     .load(storage.getReferenceFromUrl(url))
-                    .centerCrop()
+//                    .centerCrop()
                     .into(photoView);
         }
     }
