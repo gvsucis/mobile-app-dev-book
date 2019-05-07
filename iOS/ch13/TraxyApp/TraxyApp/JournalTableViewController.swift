@@ -35,7 +35,7 @@ class JournalTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 200
         self.clearsSelectionOnViewWillAppear = true
         self.navigationItem.title = self.journal.name
@@ -239,8 +239,8 @@ class JournalTableViewController: UITableViewController {
         
         let settingsAction = UIAlertAction(title: "Settings", style: .default ) {
             action in
-            UIApplication.shared.open(NSURL(string: UIApplicationOpenSettingsURLString)!
-                as URL, options: [:], completionHandler: nil)
+            UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)!
+                as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
         }
         
@@ -251,7 +251,7 @@ class JournalTableViewController: UITableViewController {
         self.present(avc, animated: true, completion: nil)
     }
     
-    func displayImagePicker(type: UIImagePickerControllerSourceType)
+    func displayImagePicker(type: UIImagePickerController.SourceType)
     {
         let picker = UIImagePickerController()
         picker.allowsEditing = false
@@ -409,19 +409,22 @@ extension JournalTableViewController : UIImagePickerControllerDelegate, UINaviga
     }
     
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any])
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         self.dismiss(animated: true, completion: nil)
-        if let mediaType = info[UIImagePickerControllerMediaType] as? String {
+        if let mediaType = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.mediaType)] as? String {
             if mediaType == kUTTypeMovie as String {
                 print("got video")
                 self.capturedImage = self.thumbnailForVideoAtURL(url:
-                    info[UIImagePickerControllerMediaURL] as! URL)
-                self.captureVideoUrl = info[UIImagePickerControllerMediaURL] as? URL
+                    info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.mediaURL)] as! URL)
+                self.captureVideoUrl = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.mediaURL)] as? URL
                 self.captureType = .video
             } else {
                 print("got image")
-                self.capturedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+                self.capturedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
                 self.captureType = .photo
             }
         }
@@ -527,7 +530,7 @@ extension JournalTableViewController : AddJournalEntryDelegate {
         (String) -> ())
     {
         if let image = imageToSave {
-            let imageData = UIImageJPEGRepresentation(image, 0.8)
+            let imageData = image.jpegData(compressionQuality: 0.8)
             let imagePath = "\(self.userId!)/photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
@@ -539,8 +542,19 @@ extension JournalTableViewController : AddJournalEntryDelegate {
                             return
                         }
                         
-                        let downloadUrl = metadata?.downloadURL()!.absoluteString
-                        saveRefClosure(downloadUrl!)
+//                        let downloadUrl = metadata?.downloadURL()!.absoluteString
+//                        saveRefClosure(downloadUrl!)
+                        let imageRef = sr.child(imagePath)
+                        imageRef.downloadURL(completion: { (url, error) in
+                            if let error = error {
+                                // Handle any errors
+                                print("Error getting url to uploaded image: \(error)")
+                            } else {
+                                if let str = url?.absoluteString {
+                                    saveRefClosure(str)
+                                }
+                            }
+                        })
                 }
             }
         }
@@ -610,7 +624,18 @@ extension JournalTableViewController : AddJournalEntryDelegate {
                                 return
                             }
                             
-                            saveRefClosure((metadata?.downloadURL()!.absoluteString)!)
+//                            saveRefClosure((metadata?.downloadURL()!.absoluteString)!)
+                            let videoRef = sr.child(mediaPath)
+                            videoRef.downloadURL(completion: { (url, error) in
+                                if let error = error {
+                                    // Handle any errors
+                                    print("Error getting url to uploaded video: \(error)")
+                                } else {
+                                    if let str = url?.absoluteString {
+                                        saveRefClosure(str)
+                                    }
+                                }
+                            })
                     }
                 }
             }
@@ -622,3 +647,18 @@ extension JournalTableViewController : AddJournalEntryDelegate {
     
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

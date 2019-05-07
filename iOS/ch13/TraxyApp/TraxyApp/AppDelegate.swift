@@ -29,17 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        // make the status bar more readable against darker background.
-        application.statusBarStyle = UIStatusBarStyle.lightContent
         
         let navAppearance = UINavigationBar.appearance()
         navAppearance.barTintColor = THEME_COLOR2
         navAppearance.tintColor = THEME_COLOR3
         navAppearance.isTranslucent = false
-        navAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         GMSPlacesClient.provideAPIKey(GOOGLE_PLACES_API_KEY)
         GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
         FirebaseApp.configure()
