@@ -29,8 +29,12 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         let model = JournalModel()
         self.sortIntoSections(journals: model.getJournals())
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     func sortIntoSections(journals: [Journal]) {
         
@@ -182,5 +186,11 @@ extension String {
     }
     
     
+}
+
+extension UINavigationController {
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
+        return topViewController?.preferredStatusBarStyle ?? .default
+    }
 }
 

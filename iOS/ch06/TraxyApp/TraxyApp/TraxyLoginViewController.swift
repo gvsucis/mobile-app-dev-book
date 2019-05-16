@@ -13,6 +13,10 @@ class TraxyLoginViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = THEME_COLOR2
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
-
